@@ -1,6 +1,9 @@
 extends Node3D
 
+# Artistic intensity (presets use it as time-of-day compensation): scales the light and
+# thins flame/smoke, but never puts the fire out. Extinguishing is `burning`.
 @export var energy := 1.0: set = set_energy
+@export var burning := true: set = set_burning
 @export var base_light_energy := 2.2
 @export var flicker_amount := 0.18
 @export var flicker_speed := 9.0
@@ -13,6 +16,7 @@ var _light_base := Vector3.ZERO
 @onready var _light: OmniLight3D = $FireLight
 @onready var _flame: GPUParticles3D = $Flame
 @onready var _smoke: GPUParticles3D = $Smoke
+@onready var _embers: GPUParticles3D = $Embers
 
 
 func _ready() -> void:
@@ -22,6 +26,15 @@ func _ready() -> void:
 
 func set_energy(value: float) -> void:
 	energy = maxf(value, 0.0)
+
+
+func set_burning(value: bool) -> void:
+	burning = value
+	if not is_node_ready():
+		await ready
+	_light.visible = burning
+	for p: GPUParticles3D in [_flame, _smoke, _embers]:
+		p.emitting = burning
 
 
 func _process(delta: float) -> void:

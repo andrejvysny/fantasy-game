@@ -24,7 +24,7 @@ uniform sampler2D tex_dirt : source_color, filter_linear_mipmap_anisotropic, rep
 
 void vertex() {
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	world_normal = normalize((MODEL_MATRIX * vec4(NORMAL, 0.0)).xyz);
+	world_normal = normalize(MODEL_NORMAL_MATRIX * NORMAL);
 }
 
 // Two scales at a rotated offset, blended by low-frequency noise, hide the tile grid.
@@ -52,5 +52,10 @@ void fragment() {
 		layer(has_litter, tex_litter, uv, blend, ground_litter.rgb),
 		layer(has_dirt, tex_dirt, uv, blend, ground_dirt.rgb));
 	ALBEDO = col * ground_mottle(xz);
+	if (ground_debug > 0) {
+		// Unlit so shadows and bands don't read as mask structure.
+		ALBEDO = vec3(0.0);
+		EMISSION = vec3(ground_debug_value(w));
+	}
 	ROUGHNESS = roughness;
 }

@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="LightingPreset" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="LightingPreset" format=3 uid="uid://cgtt3knhk8ay2"]
 
-[ext_resource type="Script" path="res://scripts/lighting_preset.gd" id="1"]
+[ext_resource type="Script" uid="uid://b60mx7pno1tcg" path="res://scripts/lighting_preset.gd" id="1"]
 
 [sub_resource type="Gradient" id="grade"]
 offsets = PackedFloat32Array(0, 0.2, 0.55, 1)
@@ -9,32 +9,29 @@ colors = PackedColorArray(0, 0, 0, 1, 0.17, 0.19, 0.22, 1, 0.55, 0.54, 0.53, 1, 
 [resource]
 script = ExtResource("1")
 sun_rotation_deg = Vector3(-16, 120, 0)
-sun_color = Color(1.0, 0.66, 0.4, 1.0)
+sun_color = Color(1, 0.66, 0.4, 1)
 sun_energy = 1.6
 sun_volumetric_energy = 1.2
-ambient_color = Color(0.3, 0.38, 0.52, 1.0)
+ambient_color = Color(0.3, 0.38, 0.52, 1)
 ambient_energy = 0.8
 ambient_sky_contribution = 0.4
-sky_top = Color(0.2, 0.27, 0.4, 1.0)
-sky_horizon = Color(0.9, 0.56, 0.3, 1.0)
-ground_horizon = Color(0.2, 0.21, 0.22, 1.0)
-fog_color = Color(0.28, 0.33, 0.43, 1.0)
+sky_top = Color(0.2, 0.27, 0.4, 1)
+sky_horizon = Color(0.9, 0.56, 0.3, 1)
+ground_horizon = Color(0.2, 0.21, 0.22, 1)
+fog_color = Color(0.28, 0.33, 0.43, 1)
 fog_density = 0.55
 fog_depth_begin = 18.0
 fog_depth_end = 130.0
 fog_height = -2.0
 fog_height_density = 0.04
 vol_fog_density = 0.004
-vol_fog_albedo = Color(0.6, 0.66, 0.76, 1.0)
-vol_fog_emission = Color(0, 0, 0, 1.0)
+vol_fog_albedo = Color(0.6, 0.66, 0.76, 1)
 ground_fog_density = 0.12
 shadow_tint = Color(0.18, 0.26, 0.42, 0.4)
 cloud_shadow_strength = 0.2
 exposure = 1.05
-agx_contrast = 1.25
 saturation = 0.95
 fog_aerial_perspective = 0.3
 focus_fog_color = Color(0.28, 0.33, 0.43, 0.6)
 grade = SubResource("grade")
 fireflies = true
-fire_energy = 1.0

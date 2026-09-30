@@ -55,5 +55,9 @@ void fragment() {
 	vec3 base = ground_col;
 	base = mix(base, ground_dry.rgb, tip_dry * UV.y);
 	ALBEDO = base * mix(root_shade, tip_shade, UV.y) * COLOR.rgb;
+	// Two-sided policy: both faces of a blade share the front, up-bent normal. Godot flips
+	// NORMAL on back faces of cull_disabled meshes, which points half the blades at the
+	// ground and paints them as dark pickets against lit soil.
+	NORMAL = normalize((VIEW_MATRIX * vec4(world_normal, 0.0)).xyz);
 	ROUGHNESS = 1.0;
 }

@@ -18,6 +18,11 @@ const DEAD_SHARE := 0.06
 const MASK_SIZE := 256 # 1 px per metre, covers the whole terrain
 const WEAR_GROUP := "grass_clear" # nodes here get a worn camp patch; meta "wear_radius" overrides
 const WEAR_RADIUS := 3.5
+# Distance budget (metres, camera distance): trees outlive sun shadows (fade 42-60, see Sun
+# in main.tscn) and grass (60-80) so the far layer is silhouettes in depth fog, not a cutoff.
+# Spruce GLBs carry import LODs, which keep the far band cheap.
+const TREE_RANGE := 140.0
+const TREE_RANGE_MARGIN := 20.0
 
 var _terrain: Node
 var _rng := RandomNumberGenerator.new()
@@ -204,7 +209,7 @@ func _build_trees() -> void:
 		var mi := tree.get_node("Tree") as MeshInstance3D
 		mi.material_override = mat
 		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
-		_set_visibility_range(mi, 110.0, 15.0)
+		_set_visibility_range(mi, TREE_RANGE, TREE_RANGE_MARGIN)
 		tree.set_meta("variant", vi)
 		parent.add_child(tree)
 		crowns.append(Vector3(p.x, p.y, canopy_radius * s))

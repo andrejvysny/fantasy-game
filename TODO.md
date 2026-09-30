@@ -75,3 +75,31 @@ Decisions (2026-09-30): focus fog off by default (debug toggle); sun cast shadow
 - [ ] Normal-map slots for terrain need tangents or world-space projection — deferred until user textures + colour pass approved
 - [ ] Quality presets (volumetrics/shadows) — not started
 - [ ] In-motion check: grass fade edge, occlusion noise shimmer, flame wobble, mist stability
+
+## Phase 6 — valley scenery (tools/terrain -> scenes/valley.tscn)
+- [x] Terrain generated from topo/painted reference maps (tools/terrain: gen_heightmap.py, gen_splat.py, build_blend.py, build.sh)
+- [x] Painted splat layers (water, rock, sand, scree, dirt, forest floor, dry grass, grass); river banks without levees
+- [x] Godot import: export_godot.gd -> res://terrains/valley/*.res; valley_terrain.gd (GPU-displaced 64 m chunks, HeightMapShape3D, walls)
+- [x] valley_forest.gd: ~18.5k spruces, MultiMesh per chunk/variant, trunk collision via PhysicsServer3D
+- [x] valley_grass.gd + grass_card.gdshader: ~40k card patches from res://grass, palette recolour, hue/noise variation, wind
+- [ ] User play test of scenes/valley.tscn (not main scene yet)
+- [ ] No water surface (painted beds only); player can walk on sea/river beds
+- [ ] Perf pass with --perf on valley (trees + grass overdraw)
+
+## Phase 7 — version 2 review fixes (review of b27da72, 2026-09-30)
+Scope: correctness, visibility, readability. Cameras/layout/terrain shape untouched; no new assets; sun shadows stay sharp.
+- [x] R1 wear noise gated by wear support (zero mask = zero wear); GPU-checked with ground debug view (F12 / `--ground_debug=1..6`: wear, trampled, natural dry, final dry, litter, dirt). Large yellow patches = natural dry macro field, not wear
+- [x] R2 world normal via MODEL_NORMAL_MATRIX (world + terrain shaders); moss uses facet normal when flat-shaded, interpolated normal otherwise
+- [x] R3 per-tree blocker fade (tree_occluder.gd: segment vs trunk-axis test, enter/exit hysteresis, 0.25 s hold, fade out 0.2 s / in 0.35 s, `occluder_fade` instance uniform); endpoint fully removed, shadows kept; ~25-55 us/frame. Legacy spatial path kept for A/B (`--occ=spatial`, ring narrowed to 0.85r..r); `--occ=off` or F11
+- [x] R4 AA explicit: MSAA 2x default (`--msaa=0|2|4|8`), no FXAA/TAA; RENDER config line logged at start. Shadow stair-steps are atlas resolution, not filtering (filter quality 4 = no change): directional shadow atlas 8192 (~+96 MB VRAM)
+- [x] R5 hero: character.glb material is metallic 1.0 on every texel (no diffuse, black silhouette) — player.gd overrides to dielectric at runtime, textures untouched. No extra fill/rim needed so far
+- [x] R6 painted_light keeps Godot's shadow distance fade (threshold released over `sun_shadow_fade`, pushed by atmosphere.gd); sun fade_start 0.7 (42-60 m); trees 140 m + 20 m margin (no measurable GPU cost at tactical)
+- [x] R8 grass: fragment NORMAL shared by both faces (Godot flipped back-face normals downward = dark pickets)
+- [x] Debug isolation: F4 lut, F5 saturation (grade split; `--off=grade` = both), F9 mist, F10 backlight, F11 occlusion, F12 ground debug; DEBUG line printed at start
+- [x] Mist exclusion by ellipsoid reach (placement changed, still seeded); campfire `burning` (extinguish) vs `energy` (intensity only); warning if >1 DirectionalLight3D (fill owner)
+- [x] Player spawns on the ground (was 2 m drop)
+- [x] Capture tooling: tools/capture (views.tsv, capture.sh + manifest, walk.sh mp4, contact_sheet.py)
+- [ ] Perf: 6.60 ms v2 figure not reproducible today; clean HEAD 7.8-9.5 ms vs working tree 9.2-9.4 ms (vulkan 1080p tactical, noisy ±1 ms)
+- [ ] Hero reads slate blue in midday sun (albedo is what it is); decide if cloth specular/tint wanted
+- [ ] Preset-transition capture at campfire (needs scripted preset switch)
+- [ ] R7 ground grouping / dry contrast; smoke palette; foliage mask metadata; fire shadow; quality presets — deferred

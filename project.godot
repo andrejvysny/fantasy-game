@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Forest Walk"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/valley.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
 [input]
@@ -82,6 +82,10 @@ preset_evening={
 
 [rendering]
 
+anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/screen_space_aa=0
+anti_aliasing/quality/use_taa=false
+lights_and_shadows/directional_shadow/size=8192
 environment/ssao/quality=1
 environment/volumetric_fog/volume_size=48
 environment/volumetric_fog/volume_depth=48
@@ -139,4 +143,16 @@ ground_dirt={
 focus_fog_color={
 "type": "color",
 "value": Color(0.93, 0.95, 0.97, 0.9)
+}
+sun_shadow_fade={
+"type": "vec2",
+"value": Vector2(40, 48)
+}
+backlight_scale={
+"type": "float",
+"value": 1.0
+}
+ground_debug={
+"type": "int",
+"value": 0
 }

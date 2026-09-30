@@ -1,6 +1,8 @@
 extends Node
 
-const DEBUG_KEYS := ["focus", "fog", "vol", "grade", "clouds", "ssao", "glow"]
+# F1-F11 in this order; F12 cycles the ground debug view.
+const DEBUG_KEYS := ["focus", "fog", "vol", "lut", "sat", "clouds", "ssao", "glow", "mist", "back", "occ"]
+const GROUND_DEBUG_VIEWS := 7 # 0 off, 1..6 see ground.gdshaderinc
 const PRESET_ACTIONS := ["preset_dawn", "preset_midday", "preset_evening"]
 
 @export var presets: Array[LightingPreset] = []
@@ -14,6 +16,7 @@ const PRESET_ACTIONS := ["preset_dawn", "preset_midday", "preset_evening"]
 @export var player_path: NodePath
 @export var focus_fog_path: NodePath
 @export var campfire_path: NodePath
+@export var occluder_path: NodePath
 @export var cloud_wind := Vector2(0.004, 0.0015) # uv per second
 
 var _env: Environment
@@ -25,6 +28,8 @@ var _fireflies: GPUParticles3D
 var _player: Node3D
 var _focus_fog: Node3D
 var _campfire: Node
+var _mist: Node3D
+var _occluder: Node
 var _motes: Node3D
 var _grade_tex: GradientTexture1D
 var _cur := LightingPreset.new()
@@ -32,8 +37,13 @@ var _from := LightingPreset.new()
 var _target: LightingPreset
 var _tween: Tween
 var _cloud_offset := Vector2.ZERO
-# true = effect enabled; toggled with F1-F7 or --off=/--on= for A/B judging.
-var _debug := {"focus": false, "fog": true, "vol": true, "grade": true, "clouds": true, "ssao": false, "glow": true}
+# true = effect enabled; toggled with F1-F11 or --off=/--on= for A/B judging.
+# lut/sat split the colour adjustment; mist = local FogVolumes only (vol = all volumetrics).
+var _debug := {
+	"focus": false, "fog": true, "vol": true, "lut": true, "sat": true, "clouds": true,
+	"ssao": false, "glow": true, "mist": true, "back": true, "occ": true,
+}
+var _ground_debug := 0
 
 
 func _ready() -> void:
@@ -41,12 +51,16 @@ func _ready() -> void:
 	_sky = _env.sky.sky_material as ProceduralSkyMaterial
 	_sun = get_node(sun_path)
 	# FogVolume or the Mist node: both expose the shared FogMaterial as `material`.
-	_fog_mat = get_node(ground_fog_path).get("material") as FogMaterial
+	_mist = get_node(ground_fog_path) as Node3D
+	_fog_mat = _mist.get("material") as FogMaterial
 	_dust = get_node(dust_path)
 	_fireflies = get_node(fireflies_path)
 	_player = get_node_or_null(player_path)
 	_focus_fog = get_node_or_null(focus_fog_path)
 	_campfire = get_node_or_null(campfire_path)
+	_occluder = get_node_or_null(occluder_path)
+	if _occluder != null:
+		_debug.occ = _occluder.get("enabled") # keeps its --occ= choice unless --off=occ
 	_motes = _dust.get_parent() as Node3D
 	var idx := clampi(start_index, 0, presets.size() - 1)
 	for arg in OS.get_cmdline_user_args():
@@ -56,6 +70,8 @@ func _ready() -> void:
 			_set_flags(arg.trim_prefix("--off="), false)
 		elif arg.begins_with("--on="):
 			_set_flags(arg.trim_prefix("--on="), true)
+		elif arg.begins_with("--ground_debug="):
+			_ground_debug = clampi(int(arg.trim_prefix("--ground_debug=")), 0, GROUND_DEBUG_VIEWS - 1)
 	_cur.grade = presets[idx].grade.duplicate()
 	_grade_tex = GradientTexture1D.new()
 	_grade_tex.width = 256
@@ -70,12 +86,30 @@ func _ready() -> void:
 	_copy_state(presets[idx], _cur)
 	_apply()
 	_set_particles(presets[idx].fireflies)
+	_push_sun_shadow_fade()
+	_warn_extra_suns()
 	_apply_debug()
+	_print_debug()
+
+
+# painted_light softens its shadow threshold where Godot fades sun shadows out.
+func _push_sun_shadow_fade() -> void:
+	var fade_end := _sun.directional_shadow_max_distance * _sun.directional_shadow_fade_start
+	RenderingServer.global_shader_parameter_set("sun_shadow_fade", Vector2(fade_end * 0.85, fade_end))
+
+
+func _warn_extra_suns() -> void:
+	var suns := get_tree().root.find_children("*", "DirectionalLight3D", true, false)
+	if suns.size() > 1:
+		push_warning("painted_light adds shadow fill per directional light; %d found" % suns.size())
 
 
 func _set_flags(csv: String, value: bool) -> void:
 	for name in csv.split(","):
-		if _debug.has(name):
+		if name == "grade": # old key: whole colour adjustment
+			_debug.lut = value
+			_debug.sat = value
+		elif _debug.has(name):
 			_debug[name] = value
 		else:
 			push_warning("unknown debug effect: " + name)
@@ -86,10 +120,17 @@ func _apply_debug() -> void:
 		_focus_fog.visible = _debug.focus
 	_env.fog_enabled = _debug.fog
 	_env.volumetric_fog_enabled = _debug.vol
-	_env.adjustment_enabled = _debug.grade
+	_env.adjustment_enabled = _debug.lut or _debug.sat
+	_env.adjustment_color_correction = _grade_tex if _debug.lut else null
+	_env.adjustment_saturation = _cur.saturation if _debug.sat else 1.0
 	_env.ssao_enabled = _debug.ssao
 	_env.glow_enabled = _debug.glow
+	_mist.visible = _debug.mist
+	if _occluder != null:
+		_occluder.call("set_enabled", _debug.occ)
 	RenderingServer.global_shader_parameter_set("cloud_shadow_strength", _cloud_strength())
+	RenderingServer.global_shader_parameter_set("backlight_scale", 1.0 if _debug.back else 0.0)
+	RenderingServer.global_shader_parameter_set("ground_debug", _ground_debug)
 
 
 func _cloud_strength() -> float:
@@ -100,14 +141,22 @@ func _debug_key(event: InputEvent) -> void:
 	var k := event as InputEventKey
 	if k == null or not k.pressed or k.echo:
 		return
-	var i := k.physical_keycode - KEY_F1
-	if i < 0 or i >= DEBUG_KEYS.size():
-		return
-	_debug[DEBUG_KEYS[i]] = not _debug[DEBUG_KEYS[i]]
+	if k.physical_keycode == KEY_F12:
+		_ground_debug = (_ground_debug + 1) % GROUND_DEBUG_VIEWS
+	else:
+		var i := k.physical_keycode - KEY_F1
+		if i < 0 or i >= DEBUG_KEYS.size():
+			return
+		_debug[DEBUG_KEYS[i]] = not _debug[DEBUG_KEYS[i]]
 	_apply_debug()
+	_print_debug()
+
+
+func _print_debug() -> void:
 	var parts: PackedStringArray = []
 	for key in DEBUG_KEYS:
 		parts.append("%s=%s" % [key, "on" if _debug[key] else "off"])
+	parts.append("ground_debug=%d" % _ground_debug)
 	print("DEBUG " + " ".join(parts))
 
 
@@ -204,7 +253,7 @@ func _apply() -> void:
 	_env.fog_aerial_perspective = c.fog_aerial_perspective
 	_env.tonemap_exposure = c.exposure
 	_env.tonemap_agx_contrast = c.agx_contrast
-	_env.adjustment_saturation = c.saturation
+	_env.adjustment_saturation = c.saturation if _debug.sat else 1.0
 	_sky.sky_top_color = c.sky_top
 	_sky.sky_horizon_color = c.sky_horizon
 	_sky.ground_horizon_color = c.ground_horizon

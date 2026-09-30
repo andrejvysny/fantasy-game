@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" path="res://campfire.glb" id="12"]
 [ext_resource type="PackedScene" path="res://scenes/campfire_fx.tscn" id="13"]
 [ext_resource type="Script" path="res://scripts/mist.gd" id="14"]
+[ext_resource type="Script" path="res://scripts/tree_occluder.gd" id="15"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
@@ -147,6 +148,7 @@ directional_shadow_mode = 1
 directional_shadow_split_1 = 0.3
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 60.0
+directional_shadow_fade_start = 0.7
 
 [node name="Mist" type="Node3D" parent="."]
 script = ExtResource("14")
@@ -182,6 +184,12 @@ shape = SubResource("campfire_shape")
 [node name="CameraRig" parent="." instance=ExtResource("5")]
 target_path = NodePath("../Player")
 
+[node name="TreeOccluder" type="Node" parent="."]
+script = ExtResource("15")
+forest_path = NodePath("../Forest")
+camera_path = NodePath("../CameraRig/Camera")
+player_path = NodePath("../Player")
+
 [node name="Motes" type="Node3D" parent="."]
 
 [node name="Dust" type="GPUParticles3D" parent="Motes"]
@@ -215,3 +223,4 @@ fireflies_path = NodePath("../Motes/Fireflies")
 player_path = NodePath("../Player")
 focus_fog_path = NodePath("../CameraRig/Camera/FocusFog")
 campfire_path = NodePath("../CampfireFX")
+occluder_path = NodePath("../TreeOccluder")

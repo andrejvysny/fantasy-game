@@ -7,6 +7,10 @@ global uniform float cloud_shadow_strength;
 global uniform vec4 shadow_tint;
 global uniform sampler2D brush_noise;
 global uniform sampler2D cloud_noise;
+// Sun shadow fade band in view depth (metres): Godot's own fade (fade_start..max_distance)
+// ramps ATTENUATION up gradually; thresholding it would turn that ramp into a moving hard line.
+global uniform vec2 sun_shadow_fade;
+global uniform float backlight_scale; // debug A/B for foliage backlight
 
 uniform float wrap : hint_range(0.0, 1.0) = 0.3;
 uniform float band_low = 0.3;
@@ -42,11 +46,15 @@ float painted_bands(float x, float softness) {
 // Sun: cast shadows thresholded (sharp edge, one flat colour inside), cloud shadows
 // soft-edged, cool shadow fill added once. Local lights keep Godot's smooth distance
 // attenuation and add no fill, so extra lights never brighten shadowed ground.
+// Every directional light adds the fill; the scene keeps exactly one sun (atmosphere.gd
+// warns otherwise). Give fill a single owner before adding a moon or auxiliary directional.
 void light() {
 	float ndl = dot(NORMAL, LIGHT);
 	float x = clamp((ndl + wrap) / (1.0 + wrap), 0.0, 1.0) + brush_sample() * brush_strength;
 	if (LIGHT_IS_DIRECTIONAL) {
-		float shadow = smoothstep(0.45, 0.55, ATTENUATION);
+		float depth = dot(world_pos - INV_VIEW_MATRIX[3].xyz, -INV_VIEW_MATRIX[2].xyz);
+		float fading = smoothstep(sun_shadow_fade.x, sun_shadow_fade.y, depth);
+		float shadow = mix(smoothstep(0.45, 0.55, ATTENUATION), ATTENUATION, fading);
 		float band = painted_bands(x, band_softness) * shadow;
 		float c = texture(cloud_noise, fract(world_pos.xz * 0.004 + cloud_offset)).r;
 		float cloud = 1.0 - cloud_shadow_strength * smoothstep(0.5, 0.6, c);
@@ -57,7 +65,7 @@ void light() {
 #ifdef PAINTED_BACKLIGHT
 		// Thin foliage facing away from the sun glows where the viewer looks toward it.
 		float back = pow(clamp(dot(VIEW, -LIGHT), 0.0, 1.0), 3.0) * (1.0 - clamp(ndl, 0.0, 1.0));
-		DIFFUSE_LIGHT += LIGHT_COLOR * lit_warmth.rgb * (translucency * back * shadow * cloud / PI);
+		DIFFUSE_LIGHT += LIGHT_COLOR * lit_warmth.rgb * (translucency * backlight_scale * back * shadow * cloud / PI);
 #endif
 	} else {
 		float band = painted_bands(x, local_band_softness);

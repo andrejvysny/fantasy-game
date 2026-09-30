@@ -1,0 +1,19 @@
+name	preset	args
+dawn_01_tactical	0	--pos=1.5,2 --yaw=0
+dawn_02_zoomed_out	0	--pos=1.5,2 --yaw=0 --cam=42,57
+dawn_03_closeup_campfire	0	--pos=0,1.5 --yaw=0 --cam=4,57
+dawn_04_low_angle_sun	0	--pos=1.5,2 --yaw=120 --cam=20,20
+evening_01_tactical	2	--pos=1.5,2 --yaw=0
+evening_02_zoomed_out	2	--pos=1.5,2 --yaw=0 --cam=42,57
+evening_03_closeup_campfire	2	--pos=0,1.5 --yaw=0 --cam=4,57
+evening_04_closeup_west	2	--pos=4,-5 --yaw=90 --cam=4,57
+midday_01_tactical	1	--pos=1.5,2 --yaw=0
+midday_02_zoomed_out	1	--pos=1.5,2 --yaw=0 --cam=42,57
+midday_03_closeup_campfire	1	--pos=0,1.5 --yaw=0 --cam=4,57
+midday_04_top_down	1	--pos=1.5,2 --yaw=0 --cam=30,80
+midday_05_low_angle	1	--pos=1.5,2 --yaw=0 --cam=20,20
+midday_06_over_shoulder	1	--pos=1.5,2 --yaw=0 --cam=2.5,57
+midday_07_mid_zoom_back	1	--pos=1.5,2 --yaw=180 --cam=12,40
+midday_08_forest_edge	1	--pos=16,-12 --yaw=0
+midday_09_forest_tactical	1	--pos=-12,12 --yaw=90
+midday_10_closeup_east	1	--pos=1.5,2 --yaw=-90 --cam=4,57

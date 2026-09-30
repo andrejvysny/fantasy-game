@@ -1,0 +1,1 @@
+- Capture tooling in tools/capture (capture.sh/walk.sh); always launch res://scenes/main.tscn (valley is project main). --msaa=4 prints msaa=2 (enum). Movie frames start f00000000.

@@ -9,6 +9,9 @@ global uniform vec4 ground_dry;
 global uniform vec4 ground_moss;
 global uniform vec4 ground_litter;
 global uniform vec4 ground_dirt;
+// Debug view (atmosphere.gd F12 / --ground_debug=): 1 wear, 2 trampled, 3 natural dry,
+// 4 final dry, 5 litter, 6 dirt. Shown as unlit grey on terrain.
+global uniform int ground_debug;
 
 const float WORLD_HALF = 128.0;
 
@@ -18,6 +21,10 @@ struct GroundWeights {
 	float moss;
 	float litter;
 	float dirt;
+	// Intermediates kept for the ground debug view.
+	float wear;
+	float trampled;
+	float natural_dry;
 };
 
 vec2 ground_mask_at(vec2 xz) {
@@ -35,13 +42,18 @@ GroundWeights ground_weights(vec2 xz, float slope) {
 	float c = mask.r + n * 0.35;
 	// Macro noise decides whether a crown drops litter or keeps moss, so trees don't all stamp identical rings.
 	float c_litter = c + (macro - 0.5) * 0.7;
-	float wear_raw = mask.g + n * 0.5;
+	// Noise only roughens wear where the mask has some: zero mask must mean zero wear,
+	// or noise alone paints trampled islands far from any camp object.
+	float wear_support = smoothstep(0.0, 0.08, mask.g);
+	float wear_raw = clamp(mask.g + n * 0.5 * wear_support, 0.0, 1.0);
 	GroundWeights w;
+	w.wear = wear_raw;
 	w.litter = smoothstep(0.8, 1.0, c_litter);
 	w.moss = smoothstep(0.12, 0.28, c) * (1.0 - w.litter);
 	float open_ground = 1.0 - w.litter - w.moss;
-	float trampled = smoothstep(0.1, 0.3, wear_raw);
-	w.dry = max(smoothstep(0.7, 0.78, macro + n * 0.25), trampled) * open_ground;
+	w.trampled = smoothstep(0.1, 0.3, wear_raw);
+	w.natural_dry = smoothstep(0.7, 0.78, macro + n * 0.25);
+	w.dry = max(w.natural_dry, w.trampled) * open_ground;
 	float bare = smoothstep(0.35, 0.55, slope + n * 0.2) + (1.0 - smoothstep(0.16, 0.2, macro + n * 0.2)) * open_ground;
 	w.dirt = clamp(bare + smoothstep(0.4, 0.6, wear_raw), 0.0, 1.0);
 	float keep = 1.0 - w.dirt;
@@ -64,6 +76,11 @@ float ground_mottle(vec2 xz) {
 
 vec3 ground_blend(GroundWeights w, vec3 meadow, vec3 dry, vec3 moss, vec3 litter, vec3 dirt) {
 	return meadow * w.meadow + dry * w.dry + moss * w.moss + litter * w.litter + dirt * w.dirt;
+}
+
+float ground_debug_value(GroundWeights w) {
+	float v[6] = float[](w.wear, w.trampled, w.natural_dry, w.dry, w.litter, w.dirt);
+	return v[clamp(ground_debug, 1, 6) - 1];
 }
 
 vec3 ground_color(vec2 xz, float slope) {
