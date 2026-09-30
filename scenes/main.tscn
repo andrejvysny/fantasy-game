@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" path="res://scenes/campfire_fx.tscn" id="13"]
 [ext_resource type="Script" path="res://scripts/mist.gd" id="14"]
 [ext_resource type="Script" path="res://scripts/tree_occluder.gd" id="15"]
+[ext_resource type="Script" path="res://scripts/camp_props.gd" id="16"]
+[ext_resource type="PackedScene" path="res://wooden_lodge.glb" id="17"]
+[ext_resource type="PackedScene" path="res://tree_stump.glb" id="18"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 
@@ -157,6 +160,11 @@ material = SubResource("fog_mat")
 
 [node name="Terrain" type="Node3D" parent="."]
 script = ExtResource("2")
+
+[node name="Camp" type="Node3D" parent="."]
+script = ExtResource("16")
+lodge_scene = ExtResource("17")
+stump_scene = ExtResource("18")
 
 [node name="Forest" type="Node3D" parent="."]
 script = ExtResource("3")

@@ -10,23 +10,7 @@ var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	_fix_model_materials($Model)
-
-
-# character.glb ships metallic = 1 on every texel (metal channel ~0.99). A fully metallic
-# rough cloak has no diffuse term, so it only shows blurred sky reflections and reads as a
-# black silhouette away from the sun. The cloth is dielectric: drop the metal map, keep
-# albedo and roughness data untouched.
-func _fix_model_materials(root: Node) -> void:
-	for mi: MeshInstance3D in root.find_children("*", "MeshInstance3D", true, false):
-		for s in mi.mesh.get_surface_count():
-			var m := mi.get_active_material(s) as StandardMaterial3D
-			if m == null or m.metallic == 0.0:
-				continue
-			m = m.duplicate() as StandardMaterial3D
-			m.metallic = 0.0
-			m.metallic_texture = null
-			mi.set_surface_override_material(s, m)
+	PropMaterials.make_dielectric($Model)
 
 
 func _physics_process(delta: float) -> void:

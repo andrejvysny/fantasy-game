@@ -30,11 +30,14 @@ var _variants: Array[PackedScene] = []
 var _weights: Array[float] = []
 var _weight_sum := 0.0
 var _mask: Image
+var _clear: Array[Vector3] = [] # x, z, radius of props that keep trees/bushes/rocks away
 
 
 func _ready() -> void:
 	_terrain = get_node(terrain_path)
 	_rng.seed = world_seed
+	for node: Node3D in get_tree().get_nodes_in_group("prop_clear"):
+		_clear.append(Vector3(node.global_position.x, node.global_position.z, node.get_meta("clear_radius", 2.0)))
 	_build_trees()
 	_build_bushes()
 	_build_rocks()
@@ -50,9 +53,16 @@ func _slope(x: float, z: float) -> float:
 # Returns Vector2(x, z), or Vector2.INF if the sampled point is rejected.
 func _sample_point(clearing: float) -> Vector2:
 	var p := Vector2(_rng.randf_range(-EDGE, EDGE), _rng.randf_range(-EDGE, EDGE))
-	if p.length() < clearing or _slope(p.x, p.y) > MAX_SLOPE:
+	if p.length() < clearing or _in_prop_clear(p) or _slope(p.x, p.y) > MAX_SLOPE:
 		return Vector2.INF
 	return p
+
+
+func _in_prop_clear(p: Vector2) -> bool:
+	for c in _clear:
+		if p.distance_to(Vector2(c.x, c.y)) < c.z:
+			return true
+	return false
 
 
 func _scatter(count: int, clearing: float) -> Array[Vector2]:
@@ -138,7 +148,7 @@ func _place_trees() -> Array[Vector2]:
 				continue
 			var c := Vector2(-EDGE + (cx + 0.5) * tree_cell, -EDGE + (cz + 0.5) * tree_cell)
 			var p := c + Vector2(_rng.randf_range(-jitter, jitter), _rng.randf_range(-jitter, jitter))
-			if p.length() < 6.0 or glades.get_noise_2d(p.x, p.y) > glade_threshold:
+			if p.length() < 6.0 or _in_prop_clear(p) or glades.get_noise_2d(p.x, p.y) > glade_threshold:
 				continue
 			pts.append(p)
 	return pts
@@ -263,6 +273,8 @@ func _build_ground_mask(crowns: Array[Vector3]) -> void:
 
 # Blends a 1 - d^2 disc into one channel: summed (capped at 2) or max.
 func _stamp(center: Vector2, r: float, channel: int, additive: bool) -> void:
+	if r <= 0.0:
+		return
 	var half := MASK_SIZE / 2
 	for py in range(maxi(floori(center.y - r) + half, 0), mini(ceili(center.y + r) + half, MASK_SIZE - 1) + 1):
 		for px in range(maxi(floori(center.x - r) + half, 0), mini(ceili(center.x + r) + half, MASK_SIZE - 1) + 1):

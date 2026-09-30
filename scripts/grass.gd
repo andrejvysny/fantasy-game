@@ -100,9 +100,9 @@ func _place() -> Array:
 	var noise := FastNoiseLite.new()
 	noise.seed = world_seed
 	noise.frequency = 0.03
-	var clear: Array[Vector2] = []
+	var clear: Array[Vector3] = [] # x, z, radius
 	for node: Node3D in get_tree().get_nodes_in_group(CLEAR_GROUP):
-		clear.append(Vector2(node.global_position.x, node.global_position.z))
+		clear.append(Vector3(node.global_position.x, node.global_position.z, node.get_meta("grass_clear_radius", CLEAR_RADIUS)))
 	var out: Array[Transform3D] = []
 	var colors: Array[Color] = []
 	var jitter := cell * 0.45
@@ -126,9 +126,9 @@ func _place() -> Array:
 	return [out, colors]
 
 
-func _near_any(p: Vector2, points: Array[Vector2]) -> bool:
+func _near_any(p: Vector2, points: Array[Vector3]) -> bool:
 	for q in points:
-		if p.distance_to(q) < CLEAR_RADIUS:
+		if p.distance_to(Vector2(q.x, q.y)) < q.z:
 			return true
 	return false
 
