@@ -1,5 +1,6 @@
 extends Node
 
+const DEBUG_KEYS := ["focus", "fog", "vol", "grade", "clouds", "ssao", "glow"]
 const PRESET_ACTIONS := ["preset_dawn", "preset_midday", "preset_evening"]
 
 @export var presets: Array[LightingPreset] = []
@@ -11,6 +12,8 @@ const PRESET_ACTIONS := ["preset_dawn", "preset_midday", "preset_evening"]
 @export var dust_path: NodePath
 @export var fireflies_path: NodePath
 @export var player_path: NodePath
+@export var focus_fog_path: NodePath
+@export var campfire_path: NodePath
 @export var cloud_wind := Vector2(0.004, 0.0015) # uv per second
 
 var _env: Environment
@@ -20,6 +23,8 @@ var _fog_mat: FogMaterial
 var _dust: GPUParticles3D
 var _fireflies: GPUParticles3D
 var _player: Node3D
+var _focus_fog: Node3D
+var _campfire: Node
 var _motes: Node3D
 var _grade_tex: GradientTexture1D
 var _cur := LightingPreset.new()
@@ -27,32 +32,87 @@ var _from := LightingPreset.new()
 var _target: LightingPreset
 var _tween: Tween
 var _cloud_offset := Vector2.ZERO
+# true = effect enabled; toggled with F1-F7 or --off=/--on= for A/B judging.
+var _debug := {"focus": false, "fog": true, "vol": true, "grade": true, "clouds": true, "ssao": false, "glow": true}
 
 
 func _ready() -> void:
 	_env = (get_node(environment_path) as WorldEnvironment).environment
 	_sky = _env.sky.sky_material as ProceduralSkyMaterial
 	_sun = get_node(sun_path)
-	_fog_mat = (get_node(ground_fog_path) as FogVolume).material as FogMaterial
+	# FogVolume or the Mist node: both expose the shared FogMaterial as `material`.
+	_fog_mat = get_node(ground_fog_path).get("material") as FogMaterial
 	_dust = get_node(dust_path)
 	_fireflies = get_node(fireflies_path)
 	_player = get_node_or_null(player_path)
+	_focus_fog = get_node_or_null(focus_fog_path)
+	_campfire = get_node_or_null(campfire_path)
 	_motes = _dust.get_parent() as Node3D
 	var idx := clampi(start_index, 0, presets.size() - 1)
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--preset="):
 			idx = clampi(int(arg.trim_prefix("--preset=")), 0, presets.size() - 1)
+		elif arg.begins_with("--off="):
+			_set_flags(arg.trim_prefix("--off="), false)
+		elif arg.begins_with("--on="):
+			_set_flags(arg.trim_prefix("--on="), true)
 	_cur.grade = presets[idx].grade.duplicate()
 	_grade_tex = GradientTexture1D.new()
 	_grade_tex.width = 256
 	_grade_tex.gradient = _cur.grade
 	_env.adjustment_color_correction = _grade_tex
+	_env.ssao_radius = 0.6
+	_env.ssao_intensity = 1.2
+	_env.ssao_power = 1.5
+	_env.ssao_detail = 0.5
+	_env.ssao_light_affect = 0.0
+	_env.ssao_ao_channel_affect = 0.0
 	_copy_state(presets[idx], _cur)
 	_apply()
 	_set_particles(presets[idx].fireflies)
+	_apply_debug()
+
+
+func _set_flags(csv: String, value: bool) -> void:
+	for name in csv.split(","):
+		if _debug.has(name):
+			_debug[name] = value
+		else:
+			push_warning("unknown debug effect: " + name)
+
+
+func _apply_debug() -> void:
+	if _focus_fog != null:
+		_focus_fog.visible = _debug.focus
+	_env.fog_enabled = _debug.fog
+	_env.volumetric_fog_enabled = _debug.vol
+	_env.adjustment_enabled = _debug.grade
+	_env.ssao_enabled = _debug.ssao
+	_env.glow_enabled = _debug.glow
+	RenderingServer.global_shader_parameter_set("cloud_shadow_strength", _cloud_strength())
+
+
+func _cloud_strength() -> float:
+	return _cur.cloud_shadow_strength if _debug.clouds else 0.0
+
+
+func _debug_key(event: InputEvent) -> void:
+	var k := event as InputEventKey
+	if k == null or not k.pressed or k.echo:
+		return
+	var i := k.physical_keycode - KEY_F1
+	if i < 0 or i >= DEBUG_KEYS.size():
+		return
+	_debug[DEBUG_KEYS[i]] = not _debug[DEBUG_KEYS[i]]
+	_apply_debug()
+	var parts: PackedStringArray = []
+	for key in DEBUG_KEYS:
+		parts.append("%s=%s" % [key, "on" if _debug[key] else "off"])
+	print("DEBUG " + " ".join(parts))
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	_debug_key(event)
 	for i in mini(PRESET_ACTIONS.size(), presets.size()):
 		if event.is_action_pressed(PRESET_ACTIONS[i]):
 			blend_to(i)
@@ -133,6 +193,8 @@ func _apply() -> void:
 	_env.ambient_light_sky_contribution = c.ambient_sky_contribution
 	_env.fog_light_color = c.fog_color
 	_env.fog_density = c.fog_density
+	_env.fog_depth_begin = c.fog_depth_begin
+	_env.fog_depth_end = c.fog_depth_end
 	_env.fog_height = c.fog_height
 	_env.fog_height_density = c.fog_height_density
 	_env.volumetric_fog_density = c.vol_fog_density
@@ -150,8 +212,10 @@ func _apply() -> void:
 	_fog_mat.density = c.ground_fog_density
 	_fog_mat.albedo = c.fog_color
 	RenderingServer.global_shader_parameter_set("shadow_tint", c.shadow_tint)
-	RenderingServer.global_shader_parameter_set("cloud_shadow_strength", c.cloud_shadow_strength)
+	RenderingServer.global_shader_parameter_set("cloud_shadow_strength", _cloud_strength())
 	RenderingServer.global_shader_parameter_set("focus_fog_color", c.focus_fog_color)
+	if _campfire != null:
+		_campfire.set("energy", c.fire_energy)
 
 
 func _set_particles(fireflies: bool) -> void:

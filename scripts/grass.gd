@@ -29,7 +29,8 @@ func _ready() -> void:
 	_rng.seed = world_seed
 	var mesh := _build_clump_mesh()
 	var material := _material()
-	_make_chunked(mesh, material, _place())
+	var placed := _place()
+	_make_chunked(mesh, material, placed[0], placed[1])
 
 
 func _slope(x: float, z: float) -> float:
@@ -72,8 +73,9 @@ func _add_blade(st: SurfaceTool) -> void:
 	var facing := Vector3(sin(yaw), 0.0, cos(yaw))
 	var height := _rng.randf_range(min_height, max_height)
 	var width := 0.045
-	var v := _rng.randf_range(0.85, 1.1)
-	var color := Color(v, v * 1.05, v)
+	# Small per-blade spread; most variation comes per clump (instance colour) so patches read as groups.
+	var v := _rng.randf_range(0.95, 1.03)
+	var color := Color(v, v, v)
 	# rows: base, mid, tip as (t, half-width)
 	var rows := [Vector2(0.0, width), Vector2(0.5, width * 0.6), Vector2(1.0, 0.0)]
 	var pts: Array[Vector3] = []
@@ -93,7 +95,8 @@ func _add_blade(st: SurfaceTool) -> void:
 		_vert(st, pts[idx], facing, uvs[idx], color)
 
 
-func _place() -> Array[Transform3D]:
+# Transforms plus one colour per clump.
+func _place() -> Array:
 	var noise := FastNoiseLite.new()
 	noise.seed = world_seed
 	noise.frequency = 0.03
@@ -101,19 +104,26 @@ func _place() -> Array[Transform3D]:
 	for node: Node3D in get_tree().get_nodes_in_group(CLEAR_GROUP):
 		clear.append(Vector2(node.global_position.x, node.global_position.z))
 	var out: Array[Transform3D] = []
+	var colors: Array[Color] = []
 	var jitter := cell * 0.45
 	var n := int(ceil(2.0 * EDGE / cell))
 	for i in n:
 		for j in n:
 			var x := -EDGE + i * cell + _rng.randf_range(-jitter, jitter)
 			var z := -EDGE + j * cell + _rng.randf_range(-jitter, jitter)
-			var patch := smoothstep(-0.35, 0.35, noise.get_noise_2d(x, z)) * 0.75 + 0.25
+			# No baseline density: low-noise areas stay genuinely quiet ground.
+			var patch := smoothstep(-0.15, 0.35, noise.get_noise_2d(x, z))
 			var keep: float = max_keep * patch * (1.0 - 0.85 * _forest.canopy_at(x, z))
+			keep *= 1.0 - smoothstep(0.1, 0.5, _forest.wear_at(x, z))
 			if _rng.randf() >= keep or _slope(x, z) > MAX_SLOPE or _near_any(Vector2(x, z), clear):
 				continue
 			var basis := Basis(Vector3.UP, _rng.randf() * TAU).scaled(Vector3.ONE * _rng.randf_range(0.8, 1.25))
 			out.append(Transform3D(basis, Vector3(x, _terrain.get_height(x, z), z)))
-	return out
+			# Tint follows a slow field so neighbouring clumps share a colour; random part stays small.
+			var v := 1.0 + noise.get_noise_2d(x * 0.4 + 311.0, z * 0.4) * 0.14 + _rng.randf_range(-0.03, 0.03)
+			var warm := noise.get_noise_2d(x * 0.3 - 97.0, z * 0.3 + 53.0) * 0.08
+			colors.append(Color(v * (1.0 + warm), v, v * (1.0 - warm)))
+	return [out, colors]
 
 
 func _near_any(p: Vector2, points: Array[Vector2]) -> bool:
@@ -123,24 +133,27 @@ func _near_any(p: Vector2, points: Array[Vector2]) -> bool:
 	return false
 
 
-func _make_chunked(mesh: Mesh, material: Material, transforms: Array[Transform3D]) -> void:
+func _make_chunked(mesh: Mesh, material: Material, transforms: Array[Transform3D], colors: Array[Color]) -> void:
 	var parent := Node3D.new()
 	parent.name = "GrassChunks"
 	add_child(parent)
 	var buckets := {}
-	for t in transforms:
-		var key := Vector2i(floori((t.origin.x + 128.0) / chunk), floori((t.origin.z + 128.0) / chunk))
+	for i in transforms.size():
+		var o := transforms[i].origin
+		var key := Vector2i(floori((o.x + 128.0) / chunk), floori((o.z + 128.0) / chunk))
 		if not buckets.has(key):
-			buckets[key] = [] as Array[Transform3D]
-		buckets[key].append(t)
+			buckets[key] = [] as Array[int]
+		buckets[key].append(i)
 	for key: Vector2i in buckets:
-		var list: Array[Transform3D] = buckets[key]
+		var list: Array[int] = buckets[key]
 		var mm := MultiMesh.new()
 		mm.transform_format = MultiMesh.TRANSFORM_3D
+		mm.use_colors = true
 		mm.mesh = mesh
 		mm.instance_count = list.size()
 		for j in list.size():
-			mm.set_instance_transform(j, list[j])
+			mm.set_instance_transform(j, transforms[list[j]])
+			mm.set_instance_color(j, colors[list[j]])
 		var inst := MultiMeshInstance3D.new()
 		inst.name = "Grass_%d_%d" % [key.x, key.y]
 		inst.multimesh = mm

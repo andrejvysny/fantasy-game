@@ -23,6 +23,7 @@ near = 0.3
 far = 250.0
 
 [node name="FocusFog" type="MeshInstance3D" parent="Camera"]
+visible = false
 extra_cull_margin = 16384.0
 cast_shadow = 0
 mesh = SubResource("focus_fog_quad")

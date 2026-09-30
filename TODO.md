@@ -55,3 +55,23 @@ Painted style kept; brighter + sunnier.
 - [ ] Quality presets (High/Medium/Low volumetrics) per spec
 - [ ] Player readability: rim light / selection ring (spec, not selected yet)
 - [ ] Headless exit warning: 1 leaked dummy shader RID (harmless)
+
+## Phase 6 — rendering assessment plan (art-directed image, "painted surfaces, real air")
+Decisions (2026-09-30): focus fog off by default (debug toggle); sun cast shadows stay sharp, cloud/band edges softer; campfire FX = particles + OmniLight (no meshes); no new texture assets (slots only).
+- [x] P0 debug toggles (F1 focus fog, F2 fog, F3 volumetrics, F4 grade, F5 clouds, F6 SSAO, F7 glow) + `--off=`/`--on=` args; `--perf` avg/p50/p95/p99/max + driver/method/size
+- [x] P0 painted_light: sun-only shadow threshold, smooth local-light falloff (wider bands), cool shadow fill once from sun luminance, band_softness 0.08, cloud edge 0.5–0.6
+- [x] P0 color workflow: ground palette = sRGB colours in `materials/world_style.tres` (WorldStyle), pushed as linear globals; terrain, grass, rock moss share it. Colour-type globals reach shaders unconverted (checked Godot source)
+- [x] P1 ground: persistent `materials/terrain.tres`, explicit `has_*` texture flags, RG `ground_mask` (r canopy summed: litter only in dense stands; g wear around `grass_clear` nodes = camp dirt + trampled ring), dry = accent, quieter fine mottle + stroke term
+- [x] P1 grass: tip_dry 0.12, tip_shade 1.05, root 0.9, per-clump tint from slow noise field, no baseline density (quiet ground), wear clears grass, player fade 48–64 m, ground colour sampled per vertex
+- [x] P1 trees/materials: canopy normal blend 0.55, foliage backlight 0.35 (PAINTED_BACKLIGHT), per-tree variation 0.12, foliage/bark from vertex colour, rock moss tops, bush colour linearised
+- [x] P1 atmosphere: presets retuned (dawn cool/peach, midday rich green, evening cool + fire anchor), depth fog (per-preset begin/end), Mist node = ellipsoid FogVolume pockets in hollows (replaces map-wide GroundFog)
+- [x] P1 campfire FX scene (flame shader, embers, smoke, flicker OmniLight), `fire_energy` per preset (0.5 / 0.25 / 1.0)
+- [x] P2 occlusion: IGN coverage instead of 4x4 Bayer, ghost 0, no discard in shadow pass (IN_SHADOW_PASS), CAMERA_POSITION_WORLD
+- [x] Soft-disc textures on dust/firefly particles (were squares)
+- [x] Verify: 18-view set captured (scratchpad v2), perf vulkan 1080p tactical: gpu avg 6.60 / p95 10.49 ms; with focus fog 7.90 / 13.30 ms
+- [ ] Character is a dark silhouette in evening back views (fire in front); decide rim/fill approach with user
+- [ ] Large dry-grass patches still visible at midday zoomed out (macro noise); tune if unwanted
+- [ ] Tree visibility range (110 m) vs depth fog: check popping while walking
+- [ ] Normal-map slots for terrain need tangents or world-space projection — deferred until user textures + colour pass approved
+- [ ] Quality presets (volumetrics/shadows) — not started
+- [ ] In-motion check: grass fade edge, occlusion noise shimmer, flame wobble, mist stability

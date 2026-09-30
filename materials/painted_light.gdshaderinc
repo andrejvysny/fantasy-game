@@ -1,5 +1,6 @@
 // Painted-light model shared by every world shader: banded diffuse, brush noise,
 // tinted shadows, cloud shadows. Includers must write world_pos/world_normal in vertex().
+// Define PAINTED_BACKLIGHT before including to read the `translucency` varying in light().
 global uniform vec3 player_position;
 global uniform vec2 cloud_offset;
 global uniform float cloud_shadow_strength;
@@ -10,13 +11,18 @@ global uniform sampler2D cloud_noise;
 uniform float wrap : hint_range(0.0, 1.0) = 0.3;
 uniform float band_low = 0.3;
 uniform float band_high = 0.65;
-uniform float band_softness = 0.04;
+uniform float band_softness = 0.08;
+// Local lights (fire, lanterns) get wider band edges so their pools read as soft warm light.
+uniform float local_band_softness = 0.2;
 uniform float brush_scale = 0.12;
 uniform float brush_strength = 0.18;
 uniform vec4 lit_warmth : source_color = vec4(1.0, 0.96, 0.88, 1.0);
 
 varying vec3 world_pos;
 varying vec3 world_normal;
+#ifdef PAINTED_BACKLIGHT
+varying float translucency;
+#endif
 
 float brush_sample() {
 	vec3 w = pow(abs(world_normal), vec3(4.0));
@@ -28,19 +34,33 @@ float brush_sample() {
 	return sx * w.x + sy * w.y + sz * w.z - 0.5;
 }
 
-// Cast and cloud shadows are thresholded, not filtered: sharp edges, one flat
-// shadow colour inside. Shadow-map blur only rounds the contour.
+float painted_bands(float x, float softness) {
+	return 0.5 * smoothstep(band_low - softness, band_low + softness, x)
+		+ 0.5 * smoothstep(band_high - softness, band_high + softness, x);
+}
+
+// Sun: cast shadows thresholded (sharp edge, one flat colour inside), cloud shadows
+// soft-edged, cool shadow fill added once. Local lights keep Godot's smooth distance
+// attenuation and add no fill, so extra lights never brighten shadowed ground.
 void light() {
 	float ndl = dot(NORMAL, LIGHT);
 	float x = clamp((ndl + wrap) / (1.0 + wrap), 0.0, 1.0) + brush_sample() * brush_strength;
-	float band = 0.5 * smoothstep(band_low - band_softness, band_low + band_softness, x)
-		+ 0.5 * smoothstep(band_high - band_softness, band_high + band_softness, x);
-	band *= smoothstep(0.45, 0.55, ATTENUATION);
-	float cloud = 1.0;
 	if (LIGHT_IS_DIRECTIONAL) {
+		float shadow = smoothstep(0.45, 0.55, ATTENUATION);
+		float band = painted_bands(x, band_softness) * shadow;
 		float c = texture(cloud_noise, fract(world_pos.xz * 0.004 + cloud_offset)).r;
-		cloud = 1.0 - cloud_shadow_strength * smoothstep(0.54, 0.56, c);
+		float cloud = 1.0 - cloud_shadow_strength * smoothstep(0.5, 0.6, c);
+		// Fill takes the sun's brightness but not its hue, so shadows stay cool at dawn/evening.
+		float sun_lum = dot(LIGHT_COLOR, vec3(0.2126, 0.7152, 0.0722));
+		vec3 fill = shadow_tint.rgb * shadow_tint.a * sun_lum;
+		DIFFUSE_LIGHT += mix(fill, LIGHT_COLOR * lit_warmth.rgb * cloud, band) / PI;
+#ifdef PAINTED_BACKLIGHT
+		// Thin foliage facing away from the sun glows where the viewer looks toward it.
+		float back = pow(clamp(dot(VIEW, -LIGHT), 0.0, 1.0), 3.0) * (1.0 - clamp(ndl, 0.0, 1.0));
+		DIFFUSE_LIGHT += LIGHT_COLOR * lit_warmth.rgb * (translucency * back * shadow * cloud / PI);
+#endif
+	} else {
+		float band = painted_bands(x, local_band_softness);
+		DIFFUSE_LIGHT += LIGHT_COLOR * lit_warmth.rgb * (band * ATTENUATION / PI);
 	}
-	vec3 lit = mix(shadow_tint.rgb * shadow_tint.a, lit_warmth.rgb * cloud, band);
-	DIFFUSE_LIGHT += LIGHT_COLOR / PI * lit;
 }

@@ -1,0 +1,166 @@
+[gd_scene load_steps=26 format=3]
+
+[ext_resource type="Script" path="res://scripts/campfire_fx.gd" id="1"]
+[ext_resource type="Shader" path="res://materials/flame.gdshader" id="2"]
+
+[sub_resource type="Gradient" id="soft_disc"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="soft_disc_tex"]
+gradient = SubResource("soft_disc")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="flame_ramp"]
+offsets = PackedFloat32Array(0, 0.4, 0.8, 1)
+colors = PackedColorArray(1, 0.62, 0.18, 1, 0.95, 0.32, 0.05, 1, 0.6, 0.08, 0.02, 0.3, 0.4, 0.04, 0.01, 0)
+
+[sub_resource type="GradientTexture1D" id="flame_ramp_tex"]
+gradient = SubResource("flame_ramp")
+
+[sub_resource type="Curve" id="flame_curve"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="flame_curve_tex"]
+curve = SubResource("flame_curve")
+
+[sub_resource type="ParticleProcessMaterial" id="flame_proc"]
+emission_shape = 1
+emission_sphere_radius = 0.16
+direction = Vector3(0, 1, 0)
+spread = 12.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.9
+gravity = Vector3(0, 0.6, 0)
+scale_min = 1.3
+scale_max = 1.8
+scale_curve = SubResource("flame_curve_tex")
+color_ramp = SubResource("flame_ramp_tex")
+
+[sub_resource type="ShaderMaterial" id="flame_mat"]
+render_priority = 1
+shader = ExtResource("2")
+shader_parameter/emission_strength = 0.28
+shader_parameter/wobble = 0.07
+shader_parameter/wobble_speed = 7.0
+
+[sub_resource type="QuadMesh" id="flame_mesh"]
+material = SubResource("flame_mat")
+size = Vector2(0.42, 0.55)
+
+[sub_resource type="Gradient" id="ember_ramp"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 0.6, 0.2, 1, 1, 0.4, 0.1, 0.8, 0.8, 0.2, 0.05, 0)
+
+[sub_resource type="GradientTexture1D" id="ember_ramp_tex"]
+gradient = SubResource("ember_ramp")
+
+[sub_resource type="ParticleProcessMaterial" id="ember_proc"]
+emission_shape = 1
+emission_sphere_radius = 0.25
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 0.8
+initial_velocity_max = 1.6
+gravity = Vector3(0, 0.2, 0)
+color_ramp = SubResource("ember_ramp_tex")
+turbulence_enabled = true
+turbulence_noise_strength = 0.5
+turbulence_noise_scale = 2.0
+
+[sub_resource type="StandardMaterial3D" id="ember_mat"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.6, 0.2, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+albedo_texture = SubResource("soft_disc_tex")
+emission_enabled = true
+emission = Color(1, 0.55, 0.15, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="QuadMesh" id="ember_mesh"]
+material = SubResource("ember_mat")
+size = Vector2(0.035, 0.035)
+
+[sub_resource type="Gradient" id="smoke_ramp"]
+offsets = PackedFloat32Array(0, 0.2, 1)
+colors = PackedColorArray(0.55, 0.55, 0.58, 0, 0.55, 0.55, 0.58, 0.16, 0.6, 0.62, 0.66, 0)
+
+[sub_resource type="GradientTexture1D" id="smoke_ramp_tex"]
+gradient = SubResource("smoke_ramp")
+
+[sub_resource type="Curve" id="smoke_curve"]
+_data = [Vector2(0, 0.4), 0.0, 0.0, 0, 0, Vector2(1, 1.6), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="smoke_curve_tex"]
+curve = SubResource("smoke_curve")
+
+[sub_resource type="ParticleProcessMaterial" id="smoke_proc"]
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 0.35
+initial_velocity_max = 0.6
+gravity = Vector3(0.05, 0.1, 0.02)
+scale_curve = SubResource("smoke_curve_tex")
+color_ramp = SubResource("smoke_ramp_tex")
+
+[sub_resource type="StandardMaterial3D" id="smoke_mat"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 1)
+albedo_texture = SubResource("soft_disc_tex")
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="smoke_mesh"]
+material = SubResource("smoke_mat")
+size = Vector2(0.9, 0.9)
+
+[node name="CampfireFX" type="Node3D"]
+script = ExtResource("1")
+
+[node name="FireLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+light_color = Color(1, 0.58, 0.26, 1)
+light_specular = 0.0
+light_volumetric_fog_energy = 0.6
+omni_range = 7.0
+omni_attenuation = 1.4
+
+[node name="Flame" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+cast_shadow = 0
+amount = 18
+lifetime = 0.75
+local_coords = true
+visibility_aabb = AABB(-1, -0.5, -1, 2, 2, 2)
+process_material = SubResource("flame_proc")
+draw_pass_1 = SubResource("flame_mesh")
+
+[node name="Embers" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+amount = 24
+lifetime = 1.8
+visibility_aabb = AABB(-2, -0.5, -2, 4, 5, 4)
+process_material = SubResource("ember_proc")
+draw_pass_1 = SubResource("ember_mesh")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+cast_shadow = 0
+amount = 10
+lifetime = 4.5
+visibility_aabb = AABB(-2, -0.5, -2, 4, 6, 4)
+process_material = SubResource("smoke_proc")
+draw_pass_1 = SubResource("smoke_mesh")

@@ -1,14 +1,16 @@
-// Procedural painted ground palette, shared by terrain.gdshader and grass.gdshader
-// so blades pick up the soil colour they grow from. Needs painted_light.gdshaderinc
-// included first (brush_noise, cloud_noise globals).
-global uniform sampler2D canopy_mask;
+// Painted ground palette, shared by terrain.gdshader and grass.gdshader so blades pick
+// up the soil colour they grow from. Needs painted_light.gdshaderinc included first
+// (brush_noise, cloud_noise globals).
+// Palette globals are linear: WorldStyle authors them in sRGB and converts before pushing
+// (colour-type globals reach shaders unconverted).
+global uniform sampler2D ground_mask; // r = canopy cover (0..2, overlapping crowns sum), g = wear
+global uniform vec4 ground_meadow;
+global uniform vec4 ground_dry;
+global uniform vec4 ground_moss;
+global uniform vec4 ground_litter;
+global uniform vec4 ground_dirt;
 
 const float WORLD_HALF = 128.0;
-const vec3 GROUND_MEADOW = vec3(0.30, 0.45, 0.14);
-const vec3 GROUND_DRY = vec3(0.52, 0.49, 0.20);
-const vec3 GROUND_MOSS = vec3(0.22, 0.36, 0.14);
-const vec3 GROUND_LITTER = vec3(0.33, 0.23, 0.13);
-const vec3 GROUND_DIRT = vec3(0.43, 0.30, 0.17);
 
 struct GroundWeights {
 	float meadow;
@@ -18,23 +20,30 @@ struct GroundWeights {
 	float dirt;
 };
 
-float canopy_at(vec2 xz) {
+vec2 ground_mask_at(vec2 xz) {
 	vec2 uv = clamp((xz + WORLD_HALF) / (2.0 * WORLD_HALF), vec2(0.0), vec2(1.0));
-	return texture(canopy_mask, uv).r;
+	return texture(ground_mask, uv).rg;
 }
 
 // Weights sum to 1. Noise breaks every transition so layer edges read as painted, not blurred.
+// Large-scale structure: canopy -> moss/litter, wear -> dirt with a trampled dry ring,
+// open ground -> meadow with dry grass only as occasional accents.
 GroundWeights ground_weights(vec2 xz, float slope) {
 	float n = texture(brush_noise, fract(xz * 0.08)).r - 0.5;
 	float macro = texture(cloud_noise, fract(xz * 0.011 + vec2(0.37, 0.71))).r;
-	float c = canopy_at(xz) + n * 0.35;
+	vec2 mask = ground_mask_at(xz);
+	float c = mask.r + n * 0.35;
+	// Macro noise decides whether a crown drops litter or keeps moss, so trees don't all stamp identical rings.
+	float c_litter = c + (macro - 0.5) * 0.7;
+	float wear_raw = mask.g + n * 0.5;
 	GroundWeights w;
-	w.litter = smoothstep(0.4, 0.55, c);
+	w.litter = smoothstep(0.8, 1.0, c_litter);
 	w.moss = smoothstep(0.12, 0.28, c) * (1.0 - w.litter);
 	float open_ground = 1.0 - w.litter - w.moss;
-	w.dry = smoothstep(0.5, 0.6, macro + n * 0.25) * open_ground;
-	float bare = smoothstep(0.3, 0.5, slope + n * 0.2) + (1.0 - smoothstep(0.2, 0.25, macro + n * 0.2)) * open_ground;
-	w.dirt = clamp(bare, 0.0, 1.0);
+	float trampled = smoothstep(0.1, 0.3, wear_raw);
+	w.dry = max(smoothstep(0.7, 0.78, macro + n * 0.25), trampled) * open_ground;
+	float bare = smoothstep(0.35, 0.55, slope + n * 0.2) + (1.0 - smoothstep(0.16, 0.2, macro + n * 0.2)) * open_ground;
+	w.dirt = clamp(bare + smoothstep(0.4, 0.6, wear_raw), 0.0, 1.0);
 	float keep = 1.0 - w.dirt;
 	w.meadow = (open_ground - w.dry) * keep;
 	w.dry *= keep;
@@ -43,16 +52,22 @@ GroundWeights ground_weights(vec2 xz, float slope) {
 	return w;
 }
 
-// Two-scale brush mottling, roughly +-12% value.
+// Medium-scale strokes dominate; fine speckle stays quiet at gameplay distance.
 float ground_mottle(vec2 xz) {
-	float m1 = texture(brush_noise, fract(xz * 0.35)).r - 0.5;
-	float m2 = texture(brush_noise, fract(xz * 0.05 + 0.5)).r - 0.5;
-	return 1.0 + m1 * 0.16 + m2 * 0.14;
+	const mat2 ROT = mat2(vec2(0.8, 0.6), vec2(-0.6, 0.8));
+	float fine = texture(brush_noise, fract(xz * 0.35)).r - 0.5;
+	float broad = texture(brush_noise, fract(xz * 0.05 + 0.5)).r - 0.5;
+	vec2 s = ROT * xz;
+	float stroke = texture(brush_noise, fract(vec2(s.x * 0.06, s.y * 0.22))).r - 0.5;
+	return 1.0 + fine * 0.06 + broad * 0.14 + stroke * 0.12;
+}
+
+vec3 ground_blend(GroundWeights w, vec3 meadow, vec3 dry, vec3 moss, vec3 litter, vec3 dirt) {
+	return meadow * w.meadow + dry * w.dry + moss * w.moss + litter * w.litter + dirt * w.dirt;
 }
 
 vec3 ground_color(vec2 xz, float slope) {
 	GroundWeights w = ground_weights(xz, slope);
-	vec3 col = GROUND_MEADOW * w.meadow + GROUND_DRY * w.dry + GROUND_MOSS * w.moss
-		+ GROUND_LITTER * w.litter + GROUND_DIRT * w.dirt;
+	vec3 col = ground_blend(w, ground_meadow.rgb, ground_dry.rgb, ground_moss.rgb, ground_litter.rgb, ground_dirt.rgb);
 	return col * ground_mottle(xz);
 }

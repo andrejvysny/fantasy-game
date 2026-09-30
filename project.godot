@@ -112,9 +112,29 @@ cloud_noise={
 "type": "sampler2D",
 "value": "res://materials/cloud_noise.tres"
 }
-canopy_mask={
+ground_mask={
 "type": "sampler2D",
 "value": ""
+}
+ground_meadow={
+"type": "color",
+"value": Color(0.156, 0.258, 0.051, 1)
+}
+ground_dry={
+"type": "color",
+"value": Color(0.352, 0.296, 0.087, 1)
+}
+ground_moss={
+"type": "color",
+"value": Color(0.074, 0.141, 0.033, 1)
+}
+ground_litter={
+"type": "color",
+"value": Color(0.147, 0.072, 0.03, 1)
+}
+ground_dirt={
+"type": "color",
+"value": Color(0.238, 0.13, 0.05, 1)
 }
 focus_fog_color={
 "type": "color",

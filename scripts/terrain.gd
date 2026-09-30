@@ -3,6 +3,8 @@ extends Node3D
 @export var world_seed: int = 1337
 @export var size: int = 256
 @export var amplitude: float = 2.0
+## Persistent so texture assignments and tuning survive reloads.
+@export var material: ShaderMaterial = preload("res://materials/terrain.tres")
 
 const CHUNK_QUADS := 32
 
@@ -37,9 +39,6 @@ func get_height(x: float, z: float) -> float:
 
 
 func _build_mesh() -> void:
-	var mat := ShaderMaterial.new()
-	mat.shader = preload("res://materials/terrain.gdshader")
-	mat.set_shader_parameter("brush_strength", 0.08)
 	var root := Node3D.new()
 	root.name = "TerrainMesh"
 	add_child(root)
@@ -49,7 +48,7 @@ func _build_mesh() -> void:
 			var mi := MeshInstance3D.new()
 			mi.name = "TerrainChunk_%d_%d" % [cx, cz]
 			mi.mesh = _build_chunk(cx, cz)
-			mi.material_override = mat
+			mi.material_override = material
 			root.add_child(mi)
 
 

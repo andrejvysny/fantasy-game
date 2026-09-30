@@ -16,13 +16,15 @@ const TREE_DIR := "res://spruce_trees/models/"
 const TREE_SHADER := preload("res://materials/world_double_sided.gdshader")
 const DEAD_SHARE := 0.06
 const MASK_SIZE := 256 # 1 px per metre, covers the whole terrain
+const WEAR_GROUP := "grass_clear" # nodes here get a worn camp patch; meta "wear_radius" overrides
+const WEAR_RADIUS := 3.5
 
 var _terrain: Node
 var _rng := RandomNumberGenerator.new()
 var _variants: Array[PackedScene] = []
 var _weights: Array[float] = []
 var _weight_sum := 0.0
-var _canopy: Image
+var _mask: Image
 
 
 func _ready() -> void:
@@ -111,7 +113,8 @@ func _material(color: Color, vertex_colors: bool, flat: bool = false, dither: bo
 
 func _vary(base: Color, amount: float) -> Color:
 	var v := _rng.randf_range(-amount, amount)
-	return Color(base.r + v, base.g + v * 1.5, base.b + v)
+	# Instance colours reach the shader unconverted, so author in sRGB and linearise here.
+	return Color(base.r + v, base.g + v * 1.5, base.b + v).srgb_to_linear()
 
 
 # Jittered grid instead of rejection sampling: O(n) for ~1000 trees, and keeps
@@ -178,6 +181,9 @@ func _tree_material() -> ShaderMaterial:
 	m.set_shader_parameter("dither_occlusion", true)
 	m.set_shader_parameter("brush_strength", 0.12)
 	m.set_shader_parameter("saturation", 0.85)
+	m.set_shader_parameter("canopy_normal_blend", 0.55)
+	m.set_shader_parameter("foliage_translucency", 0.35)
+	m.set_shader_parameter("tree_variation", 0.12)
 	return m
 
 
@@ -202,7 +208,7 @@ func _build_trees() -> void:
 		tree.set_meta("variant", vi)
 		parent.add_child(tree)
 		crowns.append(Vector3(p.x, p.y, canopy_radius * s))
-	_build_canopy_mask(crowns)
+	_build_ground_mask(crowns)
 
 
 func _build_bushes() -> void:
@@ -217,7 +223,7 @@ func _build_bushes() -> void:
 		var s := _rng.randf_range(0.6, 1.3)
 		var b := Basis(Vector3.UP, _rng.randf_range(0.0, TAU)).scaled(Vector3.ONE * s)
 		xs.append(Transform3D(b, Vector3(p.x, _terrain.get_height(p.x, p.y) + 0.2, p.y)))
-		cs.append(_vary(Color("#3d4f2e"), 0.04))
+		cs.append(_vary(Color("#557038"), 0.04))
 	_make_chunked("Bushes", mesh, _material(Color.WHITE, true, true), xs, cs, false, 130.0)
 
 
@@ -232,29 +238,46 @@ func _build_rocks() -> void:
 		var b := Basis.from_euler(Vector3(_rng.randf_range(0.0, TAU), _rng.randf_range(0.0, TAU), _rng.randf_range(0.0, TAU)))
 		b = b.scaled(Vector3(_rng.randf_range(0.5, 1.5), _rng.randf_range(0.5, 1.5), _rng.randf_range(0.5, 1.5)))
 		xs.append(Transform3D(b, Vector3(p.x, _terrain.get_height(p.x, p.y) + 0.1, p.y)))
-	_make_chunked("Rocks", mesh, _material(Color("#6a6562"), false, true), xs, [], true, 130.0)
+	var mat := _material(Color("#6a6865"), false, true)
+	mat.set_shader_parameter("moss_top", 0.8)
+	_make_chunked("Rocks", mesh, mat, xs, [], true, 130.0)
 
 
 
-# Canopy coverage 0..1 per metre; the ground shader uses it for needle litter and
-# the grass scatter thins out under trees.
-func _build_canopy_mask(crowns: Array[Vector3]) -> void:
-	var data := PackedFloat32Array()
-	data.resize(MASK_SIZE * MASK_SIZE)
-	var half := MASK_SIZE / 2
+# Ground mask, 1 px per metre: r = canopy coverage, summed over crowns up to 2 so dense
+# stands (litter) differ from lone trees (moss); g = wear around camp objects (bare soil).
+func _build_ground_mask(crowns: Array[Vector3]) -> void:
+	_mask = Image.create_empty(MASK_SIZE, MASK_SIZE, false, Image.FORMAT_RGF)
 	for c in crowns:
-		var r := c.z
-		for py in range(maxi(floori(c.y - r) + half, 0), mini(ceili(c.y + r) + half, MASK_SIZE - 1) + 1):
-			for px in range(maxi(floori(c.x - r) + half, 0), mini(ceili(c.x + r) + half, MASK_SIZE - 1) + 1):
-				var d := Vector2(px - half + 0.5 - c.x, py - half + 0.5 - c.y).length() / r
-				if d < 1.0:
-					var i := py * MASK_SIZE + px
-					data[i] = maxf(data[i], 1.0 - d * d)
-	_canopy = Image.create_from_data(MASK_SIZE, MASK_SIZE, false, Image.FORMAT_RF, data.to_byte_array())
-	RenderingServer.global_shader_parameter_set("canopy_mask", ImageTexture.create_from_image(_canopy))
+		_stamp(Vector2(c.x, c.y), c.z, 0, true)
+	for node: Node3D in get_tree().get_nodes_in_group(WEAR_GROUP):
+		var p := node.global_position
+		_stamp(Vector2(p.x, p.z), node.get_meta("wear_radius", WEAR_RADIUS), 1, false)
+	RenderingServer.global_shader_parameter_set("ground_mask", ImageTexture.create_from_image(_mask))
+
+
+# Blends a 1 - d^2 disc into one channel: summed (capped at 2) or max.
+func _stamp(center: Vector2, r: float, channel: int, additive: bool) -> void:
+	var half := MASK_SIZE / 2
+	for py in range(maxi(floori(center.y - r) + half, 0), mini(ceili(center.y + r) + half, MASK_SIZE - 1) + 1):
+		for px in range(maxi(floori(center.x - r) + half, 0), mini(ceili(center.x + r) + half, MASK_SIZE - 1) + 1):
+			var d := Vector2(px - half + 0.5 - center.x, py - half + 0.5 - center.y).length() / r
+			if d < 1.0:
+				var col := _mask.get_pixel(px, py)
+				var k := 1.0 - d * d
+				col[channel] = minf(col[channel] + k, 2.0) if additive else maxf(col[channel], k)
+				_mask.set_pixel(px, py, col)
+
+
+func _mask_at(x: float, z: float) -> Color:
+	var px := clampi(floori(x) + MASK_SIZE / 2, 0, MASK_SIZE - 1)
+	var pz := clampi(floori(z) + MASK_SIZE / 2, 0, MASK_SIZE - 1)
+	return _mask.get_pixel(px, pz)
 
 
 func canopy_at(x: float, z: float) -> float:
-	var px := clampi(floori(x) + MASK_SIZE / 2, 0, MASK_SIZE - 1)
-	var pz := clampi(floori(z) + MASK_SIZE / 2, 0, MASK_SIZE - 1)
-	return _canopy.get_pixel(px, pz).r
+	return minf(_mask_at(x, z).r, 1.0)
+
+
+func wear_at(x: float, z: float) -> float:
+	return _mask_at(x, z).g

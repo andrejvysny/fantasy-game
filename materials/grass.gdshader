@@ -10,19 +10,24 @@ uniform float wind_scale = 0.15;
 uniform float gust_scale = 0.02;
 uniform float fade_start = 60.0;
 uniform float fade_end = 80.0;
-uniform float root_shade = 0.8;
-uniform float tip_shade = 1.2;
-uniform float tip_dry = 0.35;
+uniform float root_shade = 0.9;
+uniform float tip_shade = 1.05;
+uniform float tip_dry = 0.12;
 uniform float bend_radius = 1.0;
 uniform float bend_strength = 0.5;
 uniform float up_normal_blend = 0.7;
-// Matches focus_fog.gdshader fog_end: blades past the haze are not worth rasterising.
-uniform float player_fade_end = 42.0;
+// Blades far from the player shrink away; grass shares the ground colour, so the edge
+// reads as a meadow thinning into the ground rather than a boundary.
+uniform float player_fade_end = 64.0;
+uniform float player_fade_width = 16.0;
 
 varying vec3 root_pos;
+// Per-clump constant, so sampled once per vertex instead of per fragment.
+varying vec3 ground_col;
 
 void vertex() {
 	root_pos = MODEL_MATRIX[3].xyz;
+	ground_col = ground_color(root_pos.xz, 0.0);
 	float h = UV.y;
 	float w = h * h;
 
@@ -38,7 +43,7 @@ void vertex() {
 	// Shrink toward the root instead of alpha-fading so distant blades vanish without blending.
 	float dist = distance(root_pos, INV_VIEW_MATRIX[3].xyz);
 	float shrink = 1.0 - smoothstep(fade_start, fade_end, dist);
-	shrink *= 1.0 - smoothstep(player_fade_end - 8.0, player_fade_end, distance(root_pos.xz, player_position.xz));
+	shrink *= 1.0 - smoothstep(player_fade_end - player_fade_width, player_fade_end, distance(root_pos.xz, player_position.xz));
 	VERTEX = root_pos + (VERTEX - root_pos) * shrink;
 
 	NORMAL = normalize(mix(NORMAL, vec3(0.0, 1.0, 0.0), up_normal_blend));
@@ -47,8 +52,8 @@ void vertex() {
 }
 
 void fragment() {
-	vec3 base = ground_color(root_pos.xz, 0.0);
-	base = mix(base, GROUND_DRY, tip_dry * UV.y);
+	vec3 base = ground_col;
+	base = mix(base, ground_dry.rgb, tip_dry * UV.y);
 	ALBEDO = base * mix(root_shade, tip_shade, UV.y) * COLOR.rgb;
 	ROUGHNESS = 1.0;
 }

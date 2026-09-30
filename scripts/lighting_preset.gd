@@ -11,7 +11,9 @@ class_name LightingPreset extends Resource
 @export var sky_horizon: Color
 @export var ground_horizon: Color
 @export var fog_color: Color
-@export var fog_density: float
+@export var fog_density: float # depth fog: maximum opacity at fog_depth_end
+@export var fog_depth_begin := 30.0
+@export var fog_depth_end := 160.0
 @export var fog_height: float
 @export var fog_height_density: float
 @export var vol_fog_density: float
@@ -28,3 +30,4 @@ class_name LightingPreset extends Resource
 @export var focus_fog_color := Color(0.93, 0.95, 0.97, 0.9)
 @export var grade: Gradient
 @export var fireflies: bool
+@export var fire_energy := 1.0
