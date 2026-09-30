@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/camera_rig.gd" id="1"]
+[ext_resource type="Shader" path="res://materials/focus_fog.gdshader" id="2"]
+
+[sub_resource type="ShaderMaterial" id="focus_fog_mat"]
+render_priority = 100
+shader = ExtResource("2")
+
+[sub_resource type="QuadMesh" id="focus_fog_quad"]
+material = SubResource("focus_fog_mat")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="CameraRig" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Camera" type="Camera3D" parent="."]
+keep_aspect = 0
+current = true
+fov = 32.0
+near = 0.3
+far = 250.0
+
+[node name="FocusFog" type="MeshInstance3D" parent="Camera"]
+extra_cull_margin = 16384.0
+cast_shadow = 0
+mesh = SubResource("focus_fog_quad")

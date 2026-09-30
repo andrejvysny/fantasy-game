@@ -1,0 +1,4 @@
+shader_type spatial;
+render_mode diffuse_lambert, specular_disabled, cull_disabled;
+
+#include "res://materials/world.gdshaderinc"
