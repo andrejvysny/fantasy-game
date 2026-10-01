@@ -19,8 +19,10 @@ extends Node
 
 var _cam: Node3D
 var _player: Node3D
-var _mat: ShaderMaterial
-var _meshes: Array[MeshInstance3D] = []
+var _mat: Variant # ShaderMaterial, or an Array of them (valley_forest.gd: one per tree material)
+var _forest: Node
+var _meshes: Array[MeshInstance3D] = [] # empty when the forest provides occluder_trees()
+var _count := 0
 var _bases := PackedVector3Array()
 var _tops := PackedFloat32Array()
 var _radii := PackedFloat32Array()
@@ -53,7 +55,31 @@ func _ready() -> void:
 
 
 func _build() -> void:
-	var trees := get_node(forest_path).get_node_or_null("Trees")
+	_forest = get_node(forest_path)
+	if _forest.has_method("occluder_trees"):
+		var d: Dictionary = _forest.occluder_trees()
+		_bases = d["bases"]
+		_tops = d["tops"]
+		_radii = d["radii"]
+		for k in _radii.size():
+			_radii[k] *= crown_scale
+			_max_radius = maxf(_max_radius, _radii[k])
+		for i in _bases.size():
+			_grid_add(i, _bases[i])
+		_mat = _forest.occluder_material()
+	else:
+		_build_from_meshes()
+	_count = _bases.size()
+	_fade.resize(_count)
+	_last_flip.resize(_count)
+	_last_flip.fill(-1000.0)
+	_blocking.resize(_count)
+	_stamp.resize(_count)
+	_apply_material()
+
+
+func _build_from_meshes() -> void:
+	var trees := _forest.get_node_or_null("Trees")
 	if trees == null:
 		return
 	for t in trees.get_children():
@@ -68,18 +94,23 @@ func _build() -> void:
 		var r := 0.5 * maxf(aabb.size.x, aabb.size.z) * crown_scale
 		_radii.append(r)
 		_max_radius = maxf(_max_radius, r)
-		var key := Vector2i(floori(t.global_position.x / cell), floori(t.global_position.z / cell))
-		if not _grid.has(key):
-			_grid[key] = PackedInt32Array()
-		_grid[key].append(i)
-	_fade.resize(_meshes.size())
-	_last_flip.resize(_meshes.size())
-	_last_flip.fill(-1000.0)
-	_blocking.resize(_meshes.size())
-	_stamp.resize(_meshes.size())
+		_grid_add(i, t.global_position)
 	if not _meshes.is_empty():
 		_mat = _meshes[0].material_override as ShaderMaterial
-	_apply_material()
+
+
+func _grid_add(i: int, pos: Vector3) -> void:
+	var key := Vector2i(floori(pos.x / cell), floori(pos.z / cell))
+	if not _grid.has(key):
+		_grid[key] = PackedInt32Array()
+	_grid[key].append(i)
+
+
+func _set_fade(i: int, f: float) -> void:
+	if _meshes.is_empty():
+		_forest.set_tree_fade(i, f)
+	else:
+		_meshes[i].set_instance_shader_parameter("occluder_fade", f)
 
 
 func set_enabled(v: bool) -> void:
@@ -95,21 +126,23 @@ func set_spatial_mode(v: bool) -> void:
 
 
 func _apply_material() -> void:
-	if _mat:
-		_mat.set_shader_parameter("dither_occlusion", enabled)
-		_mat.set_shader_parameter("occlusion_mode", 1 if spatial_mode else 0)
+	var mats: Array = _mat if _mat is Array else [_mat]
+	for m: ShaderMaterial in mats:
+		if m:
+			m.set_shader_parameter("dither_occlusion", enabled)
+			m.set_shader_parameter("occlusion_mode", 1 if spatial_mode else 0)
 
 
 func _reset() -> void:
 	for i in _active:
 		_blocking[i] = 0
 		_fade[i] = 0.0
-		_meshes[i].set_instance_shader_parameter("occluder_fade", 0.0)
+		_set_fade(i, 0.0)
 	_active.clear()
 
 
 func _process(delta: float) -> void:
-	if not enabled or spatial_mode or _meshes.is_empty():
+	if not enabled or spatial_mode or _count == 0:
 		return
 	var t0 := Time.get_ticks_usec()
 	_frame += 1
@@ -142,6 +175,10 @@ func _update(i: int, cam: Vector3, target: Vector3, now: float, delta: float) ->
 	var base := _bases[i]
 	var res := _closest(cam, target, base, Vector3(base.x, _tops[i], base.z))
 	var want: bool = res.x < r and res.y < 0.999
+	if not want:
+		# Camera or player under/inside a crown: remove the tree instead of leaving a dithered
+		# lens-filling crown or a player hidden under a skirt whose trunk is beside the sightline.
+		want = _inside(cam, base, _tops[i], r) or _inside(target, base, _tops[i], r)
 	if want != was and now - _last_flip[i] >= min_hold:
 		_blocking[i] = 1 if want else 0
 		_last_flip[i] = now
@@ -150,11 +187,15 @@ func _update(i: int, cam: Vector3, target: Vector3, now: float, delta: float) ->
 	var nf := move_toward(f, 1.0 if was else 0.0, delta / (fade_out_time if was else fade_in_time))
 	if nf != f:
 		_fade[i] = nf
-		_meshes[i].set_instance_shader_parameter("occluder_fade", nf)
+		_set_fade(i, nf)
 	if was or nf > 0.0:
 		_active[i] = true
 	else:
 		_active.erase(i)
+
+
+func _inside(p: Vector3, base: Vector3, top: float, r: float) -> bool:
+	return p.y < top and Vector2(p.x - base.x, p.z - base.z).length() < r
 
 
 # Closest points between segments p1->q1 and p2->q2; returns (distance, s on first segment).

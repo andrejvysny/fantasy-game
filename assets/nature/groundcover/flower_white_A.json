@@ -1,0 +1,187 @@
+{
+  "asset_id": "flower_white_A",
+  "version": 1,
+  "family": "flower_white",
+  "group": "groundcover",
+  "habitats": [
+    "meadow",
+    "trail_margin"
+  ],
+  "bbox_min": [
+    -0.112,
+    0.0,
+    -0.086
+  ],
+  "bbox_max": [
+    0.058,
+    0.38,
+    0.084
+  ],
+  "pivot": "ground_contact",
+  "embed_depth": 0.0,
+  "scale_range": [
+    0.8,
+    1.2
+  ],
+  "max_tilt_deg": 10.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_foliage"
+  ],
+  "tris": 195,
+  "verts": 189,
+  "budget_tris": [
+    60,
+    220
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 161,
+  "lod": "none",
+  "collision": {
+    "class": "none"
+  },
+  "wind": "flower",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 5601,
+    "params": {
+      "seed": 5601,
+      "stems": [
+        {
+          "height_m": 0.365,
+          "az_deg": 200.0,
+          "reach_m": [
+            0.006,
+            0.014
+          ],
+          "face_az_deg": 270.0,
+          "tilt_deg": 24.0
+        },
+        {
+          "height_m": 0.322,
+          "az_deg": 0.0,
+          "reach_m": [
+            0.032,
+            0.042
+          ],
+          "face_az_deg": 20.0,
+          "tilt_deg": 28.0
+        },
+        {
+          "height_m": 0.292,
+          "az_deg": 55.0,
+          "reach_m": [
+            0.018,
+            0.026
+          ],
+          "face_az_deg": 150.0,
+          "tilt_deg": 26.0
+        },
+        {
+          "height_m": 0.252,
+          "az_deg": 115.0,
+          "reach_m": [
+            0.04,
+            0.054
+          ],
+          "face_az_deg": 85.0,
+          "tilt_deg": 30.0
+        }
+      ],
+      "az_jitter_deg": 10.0,
+      "base_spread_m": 0.016,
+      "stem_radius_m": [
+        0.0058,
+        0.0036
+      ],
+      "stem_segments": 3,
+      "bow_m": 0.02,
+      "petals": [
+        5,
+        6,
+        5,
+        6
+      ],
+      "head_radius_m": [
+        0.038,
+        0.048
+      ],
+      "eye_radius_frac": 0.3,
+      "eye_height_m": 0.006,
+      "petal_half": 0.74,
+      "petal_side_r": 0.75,
+      "leaf_clusters": [
+        {
+          "n": 3,
+          "centre_deg": 85.0,
+          "span_deg": 70.0
+        },
+        {
+          "n": 2,
+          "centre_deg": 250.0,
+          "span_deg": 50.0
+        }
+      ],
+      "leaf_length_m": [
+        0.15,
+        0.22
+      ],
+      "leaf_width_m": [
+        0.028,
+        0.04
+      ],
+      "leaf_lean_deg": [
+        10.0,
+        28.0
+      ],
+      "leaf_bend_deg": [
+        15.0,
+        30.0
+      ],
+      "stem_leaf_t": [
+        0.42,
+        0.52
+      ],
+      "stem_leaf_length_m": [
+        0.06,
+        0.075
+      ],
+      "stem_leaf_width_m": [
+        0.014,
+        0.018
+      ],
+      "stem_leaf_lean_deg": [
+        50.0,
+        66.0
+      ],
+      "stem_leaf_bend_deg": [
+        10.0,
+        22.0
+      ],
+      "value_jitter": 0.03,
+      "stem_up_blend": 0.6,
+      "petal_up_blend": 0.45
+    },
+    "measured": {
+      "size_m": [
+        0.17,
+        0.171,
+        0.38
+      ],
+      "min_z_m": 0.0,
+      "base_footprint_m": [
+        0.028,
+        0.029
+      ]
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "White flower clump: 4 stems (3 grouped in a sector, 1 upright) with 5-6 petal heads at unequal heights, basal leaf clusters and two stem leaves."
+}

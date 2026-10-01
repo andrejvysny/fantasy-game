@@ -1,0 +1,268 @@
+{
+  "asset_id": "shrub_A",
+  "version": 1,
+  "family": "shrub",
+  "group": "understory",
+  "habitats": [
+    "forest_edge",
+    "rock_foot",
+    "meadow_edge"
+  ],
+  "bbox_min": [
+    -0.714,
+    -0.04,
+    -0.512
+  ],
+  "bbox_max": [
+    0.714,
+    0.891,
+    0.512
+  ],
+  "pivot": "embed_origin",
+  "embed_depth": 0.04,
+  "scale_range": [
+    0.7,
+    1.35
+  ],
+  "max_tilt_deg": 8,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid",
+    "M_foliage"
+  ],
+  "tris": 867,
+  "verts": 471,
+  "budget_tris": [
+    250,
+    1000
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 49,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "none"
+  },
+  "wind": "shrub",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 4107,
+    "params": {
+      "seed": 4107,
+      "embed": 0.04,
+      "jitter": 0.16,
+      "vertex_noise": 0.16,
+      "tufts": {
+        "2": 0,
+        "3": 4
+      },
+      "tuft_gain": 0.07,
+      "boxiness": 0.98,
+      "lower_squash": 0.78,
+      "normal_up_bias": 0.18,
+      "highlight_mix": 0.4,
+      "lobes": [
+        {
+          "c": [
+            0.18,
+            -0.02,
+            0.3
+          ],
+          "r": [
+            0.4,
+            0.42,
+            0.46
+          ],
+          "yaw": 55,
+          "tilt": 8,
+          "sub": 3,
+          "sq": 0.85,
+          "col": "shrub",
+          "k": 0.96,
+          "wob": 0.75
+        },
+        {
+          "c": [
+            -0.26,
+            0.08,
+            0.63
+          ],
+          "r": [
+            0.26,
+            0.28,
+            0.28
+          ],
+          "yaw": 60,
+          "tilt": -10,
+          "sub": 2,
+          "sq": 0.78,
+          "col": "shrub_light",
+          "k": 1.1,
+          "wob": 0.7
+        },
+        {
+          "c": [
+            -0.36,
+            0.16,
+            0.27
+          ],
+          "r": [
+            0.29,
+            0.26,
+            0.24
+          ],
+          "yaw": -35,
+          "tilt": 12,
+          "sub": 2,
+          "sq": 0.7,
+          "col": "shrub_deep",
+          "k": 0.8,
+          "wob": 1
+        },
+        {
+          "c": [
+            0.46,
+            0.14,
+            0.26
+          ],
+          "r": [
+            0.27,
+            0.25,
+            0.23
+          ],
+          "yaw": 50,
+          "tilt": -10,
+          "sub": 2,
+          "sq": 0.7,
+          "col": "shrub",
+          "k": 1.05,
+          "wob": 1
+        },
+        {
+          "c": [
+            0.26,
+            -0.32,
+            0.27
+          ],
+          "r": [
+            0.29,
+            0.24,
+            0.23
+          ],
+          "yaw": -25,
+          "tilt": 15,
+          "sub": 2,
+          "sq": 0.7,
+          "col": "shrub_light",
+          "k": 1,
+          "wob": 1
+        },
+        {
+          "c": [
+            -0.18,
+            -0.3,
+            0.28
+          ],
+          "r": [
+            0.28,
+            0.25,
+            0.23
+          ],
+          "yaw": -18,
+          "tilt": -8,
+          "sub": 2,
+          "sq": 0.7,
+          "col": "shrub_deep",
+          "k": 0.9,
+          "wob": 1
+        },
+        {
+          "c": [
+            0.02,
+            -0.22,
+            0.5
+          ],
+          "r": [
+            0.22,
+            0.2,
+            0.19
+          ],
+          "yaw": 10,
+          "tilt": 5,
+          "sub": 2,
+          "sq": 0.78,
+          "col": "shrub",
+          "k": 1.12,
+          "wob": 0.9
+        }
+      ],
+      "stems": [
+        {
+          "base": [
+            -0.18,
+            0.12,
+            0.0
+          ],
+          "top": [
+            -0.32,
+            0.16,
+            0.25
+          ],
+          "r0": 0.045,
+          "r1": 0.03
+        },
+        {
+          "base": [
+            -0.12,
+            -0.24,
+            0.0
+          ],
+          "top": [
+            -0.17,
+            -0.29,
+            0.26
+          ],
+          "r0": 0.045,
+          "r1": 0.03
+        },
+        {
+          "base": [
+            0.2,
+            -0.24,
+            0.0
+          ],
+          "top": [
+            0.25,
+            -0.3,
+            0.25
+          ],
+          "r0": 0.042,
+          "r1": 0.03
+        },
+        {
+          "base": [
+            0.4,
+            0.1,
+            0.0
+          ],
+          "top": [
+            0.45,
+            0.13,
+            0.24
+          ],
+          "r0": 0.042,
+          "r1": 0.028
+        }
+      ],
+      "stem_sides": 5
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Round variant: 7 asymmetric lobes (dominant, crest, front shoulder, 4 lifted skirt lobes). Custom radial normals per lobe (+18% up). Only the dominant lobe touches the ground (narrow contact); the skirt lobes are lifted ~0.10 m and rest on 4 slanted bark stubs. Grounded undersides and stub bases reach 4 cm below y=0 (embed_depth)."
+}

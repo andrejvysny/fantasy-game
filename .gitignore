@@ -1,3 +1,7 @@
 .godot/
 .DS_Store
 screenshots/*.zip
+__pycache__/
+*.blend1
+tools/environment/out/
+world/generated/fields/_stub_*

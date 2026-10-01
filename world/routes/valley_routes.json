@@ -1,0 +1,17 @@
+{
+  "_doc": "Non-gameplay visual routes (plan 3.3): worn ground that gives direction, no movement restriction. Points are world x,z (m). core_width = compacted walking centre (param, plan 1.4-2.4 m), varied along the route by width_jitter; shoulder = trampled, thinner vegetation each side; clearance_height = crowns/shrubs must not intrude below this height inside core+shoulder (tested with asset footprints, not origins). Margins are broken by noise; 'stones_on_turns' exposes gravel/stones where the route bends; 'roots' allows bare roots where it crosses mature forest.",
+  "routes": [
+    {
+      "id": "spawn_departure",
+      "zone": "spawn_meadow",
+      "points": [[-22, -145], [-31, -147.5], [-40, -150.5], [-49, -154.5], [-57, -159], [-64, -164], [-70, -170.5], [-72.5, -177], [-70.5, -184], [-66, -190.5], [-60.5, -196], [-56, -200.5]],
+      "core_width": 1.8,
+      "width_jitter": 0.35,
+      "shoulder": 1.6,
+      "clearance_height": 2.6,
+      "stones_on_turns": true,
+      "roots": true,
+      "note": "spawn meadow -> short wooded passage (-50..-66) -> rock-ledged bend (-72,-177) -> down to the river bank pocket (-56,-201). ~95 m."
+    }
+  ]
+}

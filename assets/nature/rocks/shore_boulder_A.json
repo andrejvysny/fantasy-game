@@ -1,0 +1,142 @@
+{
+  "asset_id": "shore_boulder_A",
+  "version": 1,
+  "family": "shore_boulder",
+  "group": "rocks",
+  "habitats": [
+    "sheltered_bank",
+    "exposed_shore"
+  ],
+  "bbox_min": [
+    -1.012,
+    -0.3,
+    -0.863
+  ],
+  "bbox_max": [
+    0.982,
+    0.794,
+    0.804
+  ],
+  "pivot": "embed_origin",
+  "embed_depth": 0.3,
+  "scale_range": [
+    0.5,
+    1.4
+  ],
+  "max_tilt_deg": 10.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid"
+  ],
+  "tris": 812,
+  "verts": 408,
+  "budget_tris": [
+    250,
+    1000
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "convex"
+  },
+  "wind": "none",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 6607,
+    "method": "convex dome from crown/shoulder/flank/foot planes, 2-segment rounding bevels, level wet-line bisects, angle-smoothed normals",
+    "params": {
+      "tilt": 4.0,
+      "azimuth": 70.0,
+      "yaw": -6.0,
+      "height": 0.8,
+      "embed": 0.3,
+      "front": null,
+      "top": 0.8,
+      "ring_z": [
+        0.38,
+        0.62
+      ],
+      "wet_z": 0.2,
+      "blend": 0.04,
+      "wet_mix": 0.45,
+      "blend_mix": 0.22,
+      "bevel_up": 0.13,
+      "bevel_lo": 0.06,
+      "bevel_crown": 0.2,
+      "segments_up": 2,
+      "segments_crown": 3,
+      "smooth": 38.0,
+      "edge_len": 0.5,
+      "distort": 0.01,
+      "distort_freq": 0.7,
+      "spokes": [
+        [
+          -12,
+          0.66,
+          0.38,
+          0.8,
+          1.4
+        ],
+        [
+          34,
+          0.74,
+          0.44,
+          0.85,
+          1.3
+        ],
+        [
+          82,
+          0.88,
+          0.5,
+          0.78,
+          1.35
+        ],
+        [
+          132,
+          0.78,
+          0.42,
+          0.82,
+          1.45
+        ],
+        [
+          178,
+          0.62,
+          0.36,
+          0.8,
+          1.3
+        ],
+        [
+          -140,
+          0.74,
+          0.46,
+          0.85,
+          1.35
+        ],
+        [
+          -98,
+          0.84,
+          0.52,
+          0.75,
+          1.3
+        ],
+        [
+          -54,
+          0.7,
+          0.4,
+          0.82,
+          1.4
+        ]
+      ]
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Water-worn member: low broad dome (flanks lean 25-40 deg, a steeper foot below 0.3 m so it reads partly submerged), bedding crown plane with rounded rims (2-segment bevels), smoothed normals; a level wet-line (rock_wet, 0.2 m above the waterline, 4 cm blend) made by horizontal bisects. 0.3 m buried."
+}

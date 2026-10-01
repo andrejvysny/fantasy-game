@@ -9,3 +9,6 @@ uv run gen_splat.py
 "$BLENDER" -b -P build_blend.py -- "$@"
 rm -f out/terrain.blend1
 "${GODOT:-godot}" --headless --path ../.. --script "$PWD/export_godot.gd"
+uv run gen_water.py
+"${GODOT:-godot}" --headless --path ../.. --script "$PWD/export_water.gd"
+uv run export_falls.py

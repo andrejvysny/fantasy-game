@@ -1,0 +1,295 @@
+{
+  "asset_id": "rubble_cluster_A",
+  "version": 1,
+  "family": "rubble_cluster",
+  "group": "rocks",
+  "habitats": [
+    "rocky_slope",
+    "rock_foot"
+  ],
+  "bbox_min": [
+    -0.759,
+    -0.1,
+    -0.728
+  ],
+  "bbox_max": [
+    0.821,
+    0.341,
+    1.731
+  ],
+  "pivot": "embed_origin",
+  "embed_depth": 0.1,
+  "scale_range": [
+    0.7,
+    1.4
+  ],
+  "max_tilt_deg": 10.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid"
+  ],
+  "tris": 574,
+  "verts": 307,
+  "budget_tris": [
+    300,
+    1000
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "none"
+  },
+  "wind": "none",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 7711,
+    "method": "ten convex stones (non-parallel joint pairs, tilted tops) on one fracture frame, settled against each other by bisection, flat embed cut per stone, chamfer, refine",
+    "params": {
+      "tilt": 11.0,
+      "azimuth": 35.0,
+      "yaw": 5.0,
+      "embed": 0.1,
+      "bevel": 0.012,
+      "chamfer_len": 0.14,
+      "edge_len": 0.2,
+      "distort": 0.01,
+      "distort_freq": 1.3,
+      "stones": [
+        {
+          "pos": [
+            -0.28,
+            0.2
+          ],
+          "size": [
+            0.42,
+            0.3,
+            0.34
+          ],
+          "top": [
+            14,
+            20
+          ],
+          "d": [
+            16,
+            -12
+          ],
+          "embed": 0.1
+        },
+        {
+          "pos": [
+            0.28,
+            0.08
+          ],
+          "size": [
+            0.42,
+            0.28,
+            0.18
+          ],
+          "top": [
+            9,
+            100
+          ],
+          "d": [
+            -14,
+            18
+          ],
+          "embed": 0.07,
+          "touch": [
+            0,
+            0.012
+          ]
+        },
+        {
+          "pos": [
+            -0.3,
+            0.52
+          ],
+          "size": [
+            0.28,
+            0.2,
+            0.15
+          ],
+          "top": [
+            20,
+            180
+          ],
+          "d": [
+            -17,
+            11
+          ],
+          "embed": 0.05,
+          "touch": [
+            0,
+            0.0
+          ]
+        },
+        {
+          "pos": [
+            0.64,
+            0.18
+          ],
+          "size": [
+            0.22,
+            0.18,
+            0.15
+          ],
+          "top": [
+            18,
+            90
+          ],
+          "d": [
+            12,
+            -20
+          ],
+          "embed": 0.05,
+          "touch": [
+            1,
+            0.018
+          ]
+        },
+        {
+          "pos": [
+            -0.7,
+            0.12
+          ],
+          "size": [
+            0.27,
+            0.21,
+            0.26
+          ],
+          "top": [
+            12,
+            60
+          ],
+          "d": [
+            -13,
+            15
+          ],
+          "embed": 0.06,
+          "lean": [
+            20,
+            0
+          ],
+          "touch": [
+            0,
+            -0.012
+          ]
+        },
+        {
+          "pos": [
+            0.0,
+            -0.17
+          ],
+          "size": [
+            0.2,
+            0.14,
+            0.1
+          ],
+          "top": [
+            22,
+            0
+          ],
+          "d": [
+            19,
+            -16
+          ],
+          "embed": 0.05,
+          "touch": [
+            1,
+            0.01
+          ]
+        },
+        {
+          "pos": [
+            -0.04,
+            -0.45
+          ],
+          "size": [
+            0.23,
+            0.16,
+            0.11
+          ],
+          "top": [
+            22,
+            0
+          ],
+          "d": [
+            -12,
+            14
+          ],
+          "embed": 0.05
+        },
+        {
+          "pos": [
+            0.15,
+            -0.8
+          ],
+          "size": [
+            0.18,
+            0.13,
+            0.09
+          ],
+          "top": [
+            18,
+            20
+          ],
+          "d": [
+            15,
+            -11
+          ],
+          "embed": 0.05
+        },
+        {
+          "pos": [
+            -0.2,
+            -1.23
+          ],
+          "size": [
+            0.14,
+            0.11,
+            0.08
+          ],
+          "top": [
+            20,
+            330
+          ],
+          "d": [
+            -18,
+            12
+          ],
+          "embed": 0.05
+        },
+        {
+          "pos": [
+            0.1,
+            -1.72
+          ],
+          "size": [
+            0.12,
+            0.1,
+            0.07
+          ],
+          "top": [
+            16,
+            10
+          ],
+          "d": [
+            13,
+            -19
+          ],
+          "embed": 0.05
+        }
+      ]
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Ten separate angular stones in one mesh: two anchors (chunky block + low slab), three stones tucked against them, one leaning 20 deg on an anchor, and a four-stone wedge tail fanning downhill (-Y, gaps 0.15 -> 0.45 m). Stones are slabs/wedges with non-parallel joint pairs and tilted tops, all on the cliff_face_A fracture frame; each has its own flat embed cut (-0.05..-0.10 m) so none floats. Non-blocking (collision none)."
+}

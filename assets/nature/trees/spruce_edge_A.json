@@ -1,0 +1,208 @@
+{
+  "asset_id": "spruce_edge_A",
+  "version": 1,
+  "family": "spruce_edge",
+  "group": "trees",
+  "habitats": [
+    "forest_edge",
+    "open_meadow",
+    "sheltered_bank"
+  ],
+  "bbox_min": [
+    -2.307,
+    -0.3,
+    -2.009
+  ],
+  "bbox_max": [
+    2.366,
+    12.0,
+    2.622
+  ],
+  "pivot": "ground_contact",
+  "embed_depth": 0.3,
+  "scale_range": [
+    0.85,
+    1.25
+  ],
+  "max_tilt_deg": 4.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid",
+    "M_foliage"
+  ],
+  "tris": 5686,
+  "verts": 3275,
+  "budget_tris": [
+    2500,
+    6000
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "trunk",
+    "radius": 0.24,
+    "height": 1.0
+  },
+  "wind": "trunk_static_crown_sway",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 3303,
+    "script": "tools/blender/tree_family.py",
+    "generator": "tools/blender/spruce_gen.py",
+    "crown_start": 0.08,
+    "crown_radius": 2.84,
+    "plan": {
+      "boughs": 124,
+      "tiers": 14,
+      "lowest_tiers": [
+        {
+          "boughs": 11,
+          "reach_m": [
+            1.67,
+            2.75
+          ]
+        },
+        {
+          "boughs": 11,
+          "reach_m": [
+            1.51,
+            2.78
+          ]
+        },
+        {
+          "boughs": 7,
+          "reach_m": [
+            1.35,
+            2.59
+          ]
+        }
+      ]
+    },
+    "params": {
+      "seed": 3303,
+      "height": 12.0,
+      "crown_width": 4.8,
+      "crown_start": 0.08,
+      "sag": 1.619,
+      "peak_frac": 0.05,
+      "base_reach": 1.0,
+      "top_taper": 0.95,
+      "reach_floor": 0.45,
+      "reach_max": 2.8,
+      "bough_wmax": 1.15,
+      "thick": 0.15,
+      "thick0": 0.12,
+      "wfac": 1.08,
+      "cup": 0.3,
+      "tip_b": 1.0,
+      "droop": [
+        0.6,
+        0.48
+      ],
+      "pitch_top": 0.12,
+      "droop_jitter": 0.15,
+      "hem_jitter": 0.3,
+      "hem_cluster_dz": 0.25,
+      "droop_cluster": 0.15,
+      "trunk_sides": 8,
+      "trunk_r0": 0.24,
+      "trunk_r1": 0.04,
+      "taper": 1.1,
+      "trunk_step": 1.0,
+      "lean": 0.35,
+      "lean_dir": 250.0,
+      "bend": 0.15,
+      "flare": 1.45,
+      "flare_lobes": 5,
+      "flare_spurs": 2,
+      "spur_reach": 1.8,
+      "flare_h": 0.6,
+      "embed": 0.3,
+      "tier_spacing": [
+        0.8,
+        0.46
+      ],
+      "tier_count": [
+        10.0,
+        5.0
+      ],
+      "tier_top": 0.6,
+      "z_jitter": 0.4,
+      "leader": 2.0,
+      "leader_w": 0.55,
+      "gaps": [
+        [
+          120.0,
+          50.0,
+          0.3,
+          0.48
+        ]
+      ],
+      "gap_edge": 20.0,
+      "gap_edge_reach": 0.6,
+      "asym": [
+        0.14,
+        250.0
+      ],
+      "cluster": [
+        0.2,
+        3
+      ],
+      "stubs": 2,
+      "stub_z": [
+        0.5,
+        1.2
+      ],
+      "stub_len": [
+        0.2,
+        0.45
+      ],
+      "stub_r": [
+        0.04,
+        0.06
+      ],
+      "lobe_min_reach": 1.5,
+      "hex_min_reach": 2.4,
+      "st6_min_reach": 1.5,
+      "st_small": 5,
+      "core_k": [
+        0.3,
+        0.1
+      ],
+      "core_scallop": 0.1,
+      "core_period": 0.8,
+      "tone": {
+        "cool": 0.6,
+        "deep_k": 0.85,
+        "mid_k": 0.85,
+        "mid_mix": 0.12,
+        "tip_mix": 1.0,
+        "tip_k": 0.85,
+        "tip_from": 0.4,
+        "tip_gain": 0.9,
+        "core_mix": 0.35,
+        "core_tip": 0.12
+      }
+    },
+    "measured": {
+      "crown_base_z": 0.96,
+      "crown_base_frac": 0.08,
+      "crown_radius": 2.84,
+      "crown_width_x": 4.67,
+      "crown_width_y": 4.63,
+      "crown_reach_full_side": 2.8,
+      "crown_reach_thin_side": 1.92,
+      "lean_deg": 2.04
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Forest-edge spruce: full lower crown from ~15% height, broad skirt of grouped boughs, shorter trunk. Mesh reaches 0.3 m below the pivot (buried on slopes). `verts` is the welded count; the flat-shaded GLB has 17058 GPU verts."
+}

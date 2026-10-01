@@ -1,0 +1,11 @@
+{
+  "res": 1024,
+  "channels": [
+    "level",
+    "coverage"
+  ],
+  "row0": "north",
+  "min_level_m": 0.0,
+  "max_level_m": 76.99455261230469,
+  "fringe_m": 8.0
+}

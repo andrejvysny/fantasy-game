@@ -44,7 +44,7 @@ void fragment() {
 	float slope = length(world_normal.xz) / max(world_normal.y, 0.1);
 	GroundWeights w = ground_weights(xz, slope);
 	vec2 uv = xz * tex_scale;
-	float blend = smoothstep(0.35, 0.65, texture(cloud_noise, fract(xz * 0.02)).r);
+	float blend = smoothstep(0.35, 0.65, texture(cloud_noise, xz * 0.02).r);
 	vec3 col = ground_blend(w,
 		layer(has_meadow, tex_meadow, uv, blend, ground_meadow.rgb),
 		layer(has_dry, tex_dry, uv, blend, ground_dry.rgb),

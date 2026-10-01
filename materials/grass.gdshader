@@ -3,11 +3,10 @@ render_mode diffuse_lambert, specular_disabled, cull_disabled, world_vertex_coor
 
 #include "res://materials/painted_light.gdshaderinc"
 #include "res://materials/ground.gdshaderinc"
+#include "res://materials/wind.gdshaderinc"
 
-uniform float wind_strength = 0.12;
-uniform float wind_speed = 1.3;
-uniform float wind_scale = 0.15;
-uniform float gust_scale = 0.02;
+uniform float wind_strength = 0.12; // response to the world wind field, metres at blade tips
+uniform float wind_speed = 1.0; // tempo multiplier on the global wind
 uniform float fade_start = 60.0;
 uniform float fade_end = 80.0;
 uniform float root_shade = 0.9;
@@ -31,9 +30,7 @@ void vertex() {
 	float h = UV.y;
 	float w = h * h;
 
-	float gust = texture(cloud_noise, fract(root_pos.xz * gust_scale + TIME * vec2(0.03, 0.012))).r;
-	float sway = sin(TIME * wind_speed + dot(root_pos.xz, vec2(1.0, 0.4)) * wind_scale) * 0.5 + 0.5;
-	VERTEX.xz += normalize(vec2(1.0, 0.4)) * wind_strength * w * (0.4 + gust) * (0.5 + sway);
+	VERTEX.xz += wind.xy * wind_strength * w * wind_gust(root_pos.xz, TIME, 0.0, wind_speed);
 
 	vec2 d = root_pos.xz - player_position.xz;
 	float k = (1.0 - smoothstep(0.0, bend_radius, length(d))) * bend_strength * w;

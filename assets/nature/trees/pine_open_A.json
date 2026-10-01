@@ -1,0 +1,376 @@
+{
+  "asset_id": "pine_open_A",
+  "version": 1,
+  "family": "pine_open",
+  "group": "trees",
+  "habitats": [
+    "rocky_slope",
+    "exposed",
+    "open_meadow"
+  ],
+  "bbox_min": [
+    -4.022,
+    -0.25,
+    -3.45
+  ],
+  "bbox_max": [
+    4.398,
+    14.877,
+    5.383
+  ],
+  "pivot": "ground_contact",
+  "embed_depth": 0.25,
+  "scale_range": [
+    0.85,
+    1.2
+  ],
+  "max_tilt_deg": 4.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid",
+    "M_foliage"
+  ],
+  "tris": 3804,
+  "verts": 2020,
+  "budget_tris": [
+    3000,
+    6000
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "trunk",
+    "radius": 0.35,
+    "height": 8.0
+  },
+  "wind": "trunk_static_crown_sway",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 5301,
+    "script": "tools/blender/pine_family.py",
+    "params": {
+      "seed": 5301,
+      "embed": 0.25,
+      "trunk": {
+        "r0": 0.34,
+        "r1": 0.15,
+        "taper": 1.1,
+        "top": 14.55,
+        "flare": 0.3,
+        "flare_h": 1.0,
+        "bend": [
+          [
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            2.6,
+            0.16,
+            -0.05
+          ],
+          [
+            5.4,
+            0.34,
+            0.1
+          ],
+          [
+            8.9,
+            -0.06,
+            0.26
+          ],
+          [
+            11.6,
+            -0.3,
+            0.12
+          ],
+          [
+            14.55,
+            -0.12,
+            -0.08
+          ]
+        ],
+        "ribs": 3,
+        "rib_reach": [
+          3.4,
+          2.7,
+          3.0
+        ],
+        "rib_h": 0.52,
+        "rib_w": 0.34,
+        "stubs": [
+          [
+            3.3,
+            0.42
+          ],
+          [
+            5.3,
+            0.3
+          ],
+          [
+            6.9,
+            0.5
+          ]
+        ]
+      },
+      "arms": [
+        {
+          "z": 8.8,
+          "az": 275,
+          "reach": 1.7,
+          "s0": 0.1,
+          "s1": 0.22,
+          "sway": 0.25,
+          "r": 0.15,
+          "elbow": [
+            0.62,
+            24,
+            16
+          ],
+          "pad": {
+            "R": 1.1,
+            "thick": 0.6,
+            "n": 4,
+            "elong": 1.3,
+            "yaw": 35,
+            "tilt": 6,
+            "tone": 0.75,
+            "tip": 0.3,
+            "sides": 10,
+            "crest": true,
+            "spread": 60,
+            "tufts": 2,
+            "tuft_spread": 60
+          },
+          "forks": [
+            {
+              "at": 0.5,
+              "turn": -100,
+              "run": 1.8,
+              "rise": 0.08,
+              "r": 0.1,
+              "pad": {
+                "R": 0.75,
+                "thick": 0.75,
+                "n": 3,
+                "elong": 1.2,
+                "yaw": -30,
+                "tilt": -6,
+                "tone": -0.15,
+                "tip": 0.4,
+                "sides": 9,
+                "crest": false,
+                "spread": 60,
+                "tufts": 1,
+                "tuft_spread": 60
+              }
+            }
+          ]
+        },
+        {
+          "z": 9.9,
+          "az": 130,
+          "reach": 2.0,
+          "s0": 0.06,
+          "s1": 0.22,
+          "sway": -0.35,
+          "r": 0.15,
+          "elbow": [
+            0.66,
+            22,
+            -20
+          ],
+          "pad": {
+            "R": 1.3,
+            "thick": 0.44,
+            "n": 4,
+            "elong": 1.85,
+            "yaw": 20,
+            "tilt": -5,
+            "tone": 0.35,
+            "tip": 0.35,
+            "sides": 11,
+            "crest": false,
+            "spread": 65,
+            "tufts": 3,
+            "tuft_spread": 85
+          },
+          "forks": [
+            {
+              "at": 0.5,
+              "turn": -110,
+              "run": 1.95,
+              "rise": -0.25,
+              "r": 0.1,
+              "pad": {
+                "R": 0.85,
+                "thick": 0.7,
+                "n": 3,
+                "elong": 1.3,
+                "yaw": 50,
+                "tilt": 8,
+                "tone": 0.45,
+                "tip": 0.45,
+                "sides": 9,
+                "crest": false,
+                "spread": 60,
+                "tufts": 2,
+                "tuft_spread": 60
+              }
+            }
+          ]
+        },
+        {
+          "z": 11.3,
+          "az": 240,
+          "reach": 2.6,
+          "s0": 0.14,
+          "s1": 0.2,
+          "sway": 0.3,
+          "r": 0.14,
+          "elbow": [
+            0.6,
+            26,
+            18
+          ],
+          "pad": {
+            "R": 1.9,
+            "thick": 0.55,
+            "n": 5,
+            "elong": 1.45,
+            "yaw": 50,
+            "tilt": 5,
+            "tone": 0.0,
+            "tip": 0.4,
+            "sides": 12,
+            "crest": true,
+            "spread": 75,
+            "tufts": 4,
+            "tuft_spread": 90
+          },
+          "forks": []
+        },
+        {
+          "z": 12.3,
+          "az": 320,
+          "reach": 3.1,
+          "s0": 0.06,
+          "s1": 0.14,
+          "sway": -0.3,
+          "r": 0.14,
+          "elbow": [
+            0.62,
+            24,
+            -16
+          ],
+          "pad": {
+            "R": 1.9,
+            "thick": 0.44,
+            "n": 5,
+            "elong": 1.85,
+            "yaw": -55,
+            "tilt": -4,
+            "tone": 1.05,
+            "tip": 0.5,
+            "sides": 12,
+            "crest": false,
+            "spread": 70,
+            "tufts": 4,
+            "tuft_spread": 90
+          },
+          "forks": []
+        }
+      ],
+      "leader": {
+        "z_b": 13.85,
+        "off": [
+          -0.15,
+          0.65
+        ],
+        "out": 95,
+        "pad": {
+          "R": 1.3,
+          "thick": 0.52,
+          "n": 4,
+          "elong": 1.65,
+          "yaw": -10,
+          "tilt": 4,
+          "tone": 0.6,
+          "tip": 0.5,
+          "sides": 11,
+          "crest": true,
+          "spread": 70,
+          "tufts": 2,
+          "tuft_spread": 80
+        }
+      },
+      "flex": {
+        "root_min": 0.1,
+        "root_max": 0.4,
+        "full_dist": 5.5
+      }
+    },
+    "measured": {
+      "height": 14.88,
+      "crown_start": 0.597,
+      "crown_base_z": 8.89,
+      "crown_radius": 5.98,
+      "crown_width_x": 8.42,
+      "crown_width_y": 8.83,
+      "width_above_12m": {
+        "x": 8.42,
+        "y": 8.24,
+        "diam": 8.75
+      },
+      "width_below_10_5m": {
+        "x": 5.57,
+        "y": 5.79,
+        "diam": 6.15
+      },
+      "pads": 7,
+      "arms": 4,
+      "pad_gap_min": 0.47,
+      "pad_gaps": [
+        0.47,
+        0.47,
+        0.56,
+        0.56,
+        0.58,
+        0.72,
+        0.58
+      ],
+      "pad_tops": [
+        14.88,
+        14.46,
+        14.19,
+        11.46,
+        10.54,
+        10.52,
+        9.73
+      ],
+      "pad_mean_srgb": [
+        "#315532",
+        "#375f34",
+        "#3a5f33",
+        "#355d36",
+        "#335a36",
+        "#3d6839",
+        "#3c6335"
+      ],
+      "foliage_mean_srgb": "#386036",
+      "foliage_up_mean_srgb": "#436c3b"
+    },
+    "crown_start": 0.597,
+    "crown_radius": 5.98
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Open-canopy pine: bare S-bent warm-bark trunk, 4 elbowed lateral arms (2 fork) + leader carrying 7 distinct faceted foliage pads (2 dominant, 3 medium, 2 small) with sky gaps; crown in the top ~40% of height, widest at the top. Mesh reaches 0.25 m below the pivot (buried on slopes)."
+}

@@ -10,6 +10,8 @@ class_name LightingPreset extends Resource
 @export var sky_top: Color
 @export var sky_horizon: Color
 @export var ground_horizon: Color
+@export var sun_halo_strength := 0.25 # valley sky: warm glow around the sun
+@export var sun_halo_power := 24.0 # lower = wider glow
 @export var fog_color: Color
 @export var fog_density: float # depth fog: maximum opacity at fog_depth_end
 @export var fog_depth_begin := 30.0
@@ -31,3 +33,5 @@ class_name LightingPreset extends Resource
 @export var grade: Gradient
 @export var fireflies: bool
 @export var fire_energy := 1.0
+@export var player_fill := 0.0 # energy of the player-only cool fill light (player.tscn Fill)
+@export var wind_strength := 1.0 # world wind field strength (global `wind`.z)

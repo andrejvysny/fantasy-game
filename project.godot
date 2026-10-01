@@ -156,3 +156,7 @@ ground_debug={
 "type": "int",
 "value": 0
 }
+wind={
+"type": "vec4",
+"value": Vector4(0.928477, 0.371391, 1, 1)
+}

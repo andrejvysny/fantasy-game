@@ -1,0 +1,8 @@
+- [Parallel agents share dirs](parallel-agents-shared-dirs.md) — assets/nature JSON + world/generated/fields change under you; never rm world/generated
+- [Instance uniform budget](instance-uniform-budget.md) — world shader instance uniform: ~4k instance cap per buffer (valley now uses world_mm variants without it); RD-only errors, headless misses them
+- [GPU timing on this Mac](gpu-timing-mac.md) — use --disable-vsync + in-process A/B; vsync'd --perf is DVFS-noisy, other agents share GPU
+- [Groundcover cost model](groundcover-cost-model.md) — killed MultiMesh instances still cost full vertex work; tiles + per-tile AABB are the levers
+- [Godot gotchas](godot-gotchas.md) — class cache --import; painted-light banding; global uniform name clashes; --write-movie needs abs path
+- [Rock cliff modules](rock-cliff-modules.md) — rock_cliff.py owns cliffs; __main__ vs rf module copy; jitter order; joint z; frame-tilt lean bias
+- [Valley rendering gotchas](valley_rendering_gotchas.md) — seams, noisy perf, sky views, debug-camera scene, fall faces vs FALLS lines, flaky view 18
+- [Scatter generator gotchas](scatter-generator-gotchas.md) — habitats edits re-seed trees (banks excepted); A/B tree proof; scratch uv deps; custom capture VIEWS path

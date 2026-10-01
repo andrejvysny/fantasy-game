@@ -1,1 +1,2 @@
 - Capture tooling in tools/capture (capture.sh/walk.sh); always launch res://scenes/main.tscn (valley is project main). --msaa=4 prints msaa=2 (enum). Movie frames start f00000000.
+- Valley trees = MultiMesh: per-tree fade via INSTANCE_CUSTOM.r (use_instance_fade), driven by tree_occluder.gd through valley_forest.occluder_trees()/set_tree_fade(). Walk clip at --pos=40,-200 / 250,30 gets player stuck on trunks; -380,-200 and -130,-128 (+--turn=left) actually move. GPU perf numbers swing 8-21 ms run to run when other agents use the GPU.

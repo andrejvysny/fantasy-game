@@ -36,8 +36,8 @@ vec2 ground_mask_at(vec2 xz) {
 // Large-scale structure: canopy -> moss/litter, wear -> dirt with a trampled dry ring,
 // open ground -> meadow with dry grass only as occasional accents.
 GroundWeights ground_weights(vec2 xz, float slope) {
-	float n = texture(brush_noise, fract(xz * 0.08)).r - 0.5;
-	float macro = texture(cloud_noise, fract(xz * 0.011 + vec2(0.37, 0.71))).r;
+	float n = texture(brush_noise, xz * 0.08).r - 0.5;
+	float macro = texture(cloud_noise, xz * 0.011 + vec2(0.37, 0.71)).r;
 	vec2 mask = ground_mask_at(xz);
 	float c = mask.r + n * 0.35;
 	// Macro noise decides whether a crown drops litter or keeps moss, so trees don't all stamp identical rings.
@@ -67,10 +67,10 @@ GroundWeights ground_weights(vec2 xz, float slope) {
 // Medium-scale strokes dominate; fine speckle stays quiet at gameplay distance.
 float ground_mottle(vec2 xz) {
 	const mat2 ROT = mat2(vec2(0.8, 0.6), vec2(-0.6, 0.8));
-	float fine = texture(brush_noise, fract(xz * 0.35)).r - 0.5;
-	float broad = texture(brush_noise, fract(xz * 0.05 + 0.5)).r - 0.5;
+	float fine = texture(brush_noise, xz * 0.35).r - 0.5;
+	float broad = texture(brush_noise, xz * 0.05 + 0.5).r - 0.5;
 	vec2 s = ROT * xz;
-	float stroke = texture(brush_noise, fract(vec2(s.x * 0.06, s.y * 0.22))).r - 0.5;
+	float stroke = texture(brush_noise, vec2(s.x * 0.06, s.y * 0.22)).r - 0.5;
 	return 1.0 + fine * 0.06 + broad * 0.14 + stroke * 0.12;
 }
 

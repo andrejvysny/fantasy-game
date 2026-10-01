@@ -9,6 +9,8 @@ extends Node3D
 @export var chunk_size := 64 # metres, one draw call each
 @export var chunk_range := 320.0 # camera far is 250 m
 
+const FIELDS_DIR := "res://world/generated/fields/"
+
 var _heights := PackedFloat32Array()
 var _res := 0
 var _half := 0.0
@@ -72,6 +74,19 @@ func _setup_material() -> void:
 	for i in 3:
 		material.set_shader_parameter("splat_%d" % i, ImageTexture.create_from_image(_splat[i]))
 	material.set_shader_parameter("map_size", float(_res))
+	# Generator fields (tools/environment/scatter.py); the terrain paints without them.
+	var ground := FIELDS_DIR + "ground.res"
+	var habitat := FIELDS_DIR + "habitat.res"
+	var has_fields := ResourceLoader.exists(ground) and ResourceLoader.exists(habitat)
+	if has_fields:
+		material.set_shader_parameter("field_ground", ImageTexture.create_from_image(load(ground)))
+		material.set_shader_parameter("field_habitat", ImageTexture.create_from_image(load(habitat)))
+	material.set_shader_parameter("use_fields", has_fields)
+	var bank := FIELDS_DIR + "bank.res"
+	var has_bank := has_fields and ResourceLoader.exists(bank)
+	if has_bank:
+		material.set_shader_parameter("field_bank", ImageTexture.create_from_image(load(bank)))
+	material.set_shader_parameter("use_bank", has_bank)
 
 
 func _build_chunks() -> void:

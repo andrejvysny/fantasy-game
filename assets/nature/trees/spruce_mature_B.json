@@ -1,0 +1,209 @@
+{
+  "asset_id": "spruce_mature_B",
+  "version": 1,
+  "family": "spruce_mature",
+  "group": "trees",
+  "habitats": [
+    "mature_forest"
+  ],
+  "bbox_min": [
+    -3.124,
+    -0.3,
+    -3.274
+  ],
+  "bbox_max": [
+    2.629,
+    20.0,
+    1.687
+  ],
+  "pivot": "ground_contact",
+  "embed_depth": 0.3,
+  "scale_range": [
+    0.85,
+    1.2
+  ],
+  "max_tilt_deg": 3.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid",
+    "M_foliage"
+  ],
+  "tris": 5934,
+  "verts": 3405,
+  "budget_tris": [
+    4000,
+    8000
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "trunk",
+    "radius": 0.36,
+    "height": 9.2
+  },
+  "wind": "trunk_static_crown_sway",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 2207,
+    "script": "tools/blender/tree_family.py",
+    "generator": "tools/blender/spruce_gen.py",
+    "crown_start": 0.46,
+    "crown_radius": 3.57,
+    "plan": {
+      "boughs": 112,
+      "tiers": 14,
+      "lowest_tiers": [
+        {
+          "boughs": 8,
+          "reach_m": [
+            1.5,
+            2.64
+          ]
+        },
+        {
+          "boughs": 7,
+          "reach_m": [
+            1.47,
+            3.33
+          ]
+        },
+        {
+          "boughs": 8,
+          "reach_m": [
+            1.41,
+            2.89
+          ]
+        }
+      ]
+    },
+    "params": {
+      "seed": 2207,
+      "height": 20.0,
+      "crown_width": 5.5,
+      "crown_start": 0.46,
+      "sag": 1.3,
+      "peak_frac": 0.1,
+      "base_reach": 0.88,
+      "top_taper": 0.92,
+      "reach_floor": 0.32,
+      "reach_max": 3.5,
+      "bough_wmax": 1.15,
+      "thick": 0.15,
+      "thick0": 0.12,
+      "wfac": 0.9,
+      "cup": 0.35,
+      "tip_b": 1.0,
+      "droop": [
+        0.58,
+        0.48
+      ],
+      "pitch_top": 0.12,
+      "droop_jitter": 0.15,
+      "trunk_sides": 9,
+      "trunk_r0": 0.36,
+      "trunk_r1": 0.05,
+      "taper": 1.2,
+      "trunk_step": 1.3,
+      "lean": 1.1,
+      "lean_dir": 160.0,
+      "bend": 0.28,
+      "flare": 1.6,
+      "flare_lobes": 5,
+      "flare_spurs": 2,
+      "spur_reach": 2.0,
+      "flare_h": 0.85,
+      "embed": 0.3,
+      "tier_spacing": [
+        0.85,
+        0.36
+      ],
+      "tier_count": [
+        8.5,
+        6.5
+      ],
+      "tier_top": 0.8,
+      "z_jitter": 0.5,
+      "leader": 2.8,
+      "leader_w": 0.7,
+      "gaps": [
+        [
+          300.0,
+          48.0,
+          0.18,
+          0.36
+        ],
+        [
+          115.0,
+          36.0,
+          0.6,
+          0.78
+        ]
+      ],
+      "gap_edge": 20.0,
+      "gap_edge_reach": 0.6,
+      "asym": [
+        0.28,
+        70.0
+      ],
+      "cluster": [
+        0.14,
+        2
+      ],
+      "stubs": 9,
+      "stub_z": [
+        2.6,
+        9.0
+      ],
+      "stub_len": [
+        0.25,
+        0.8
+      ],
+      "stub_r": [
+        0.055,
+        0.085
+      ],
+      "lobe_min_reach": 1.3,
+      "hex_min_reach": 2.3,
+      "st6_min_reach": 1.6,
+      "st_small": 5,
+      "core_k": [
+        0.36,
+        0.16
+      ],
+      "core_scallop": 0.1,
+      "core_period": 0.9,
+      "tone": {
+        "cool": 1.15,
+        "deep_k": 0.9,
+        "mid_k": 0.88,
+        "mid_mix": 0.0,
+        "tip_mix": 0.85,
+        "tip_k": 0.88,
+        "tip_from": 0.5,
+        "tip_gain": 0.8,
+        "core_mix": 0.25,
+        "core_tip": 0.0
+      }
+    },
+    "measured": {
+      "crown_base_z": 9.2,
+      "crown_base_frac": 0.46,
+      "crown_radius": 3.57,
+      "crown_width_x": 5.75,
+      "crown_width_y": 4.96,
+      "crown_reach_full_side": 2.59,
+      "crown_reach_thin_side": 1.87,
+      "lean_deg": 2.49
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Taller, narrower mature spruce: crown from ~46% height, mild lean, crown fuller on one side, many dead stubs on the open trunk. Mesh reaches 0.3 m below the pivot (buried on slopes). `verts` is the welded count; the flat-shaded GLB has 17802 GPU verts."
+}

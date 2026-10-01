@@ -1,0 +1,164 @@
+{
+  "asset_id": "flower_pink_A",
+  "version": 1,
+  "family": "flower_pink",
+  "group": "groundcover",
+  "habitats": [
+    "meadow",
+    "trail_margin",
+    "rock_foot"
+  ],
+  "bbox_min": [
+    -0.086,
+    0.0,
+    -0.147
+  ],
+  "bbox_max": [
+    0.08,
+    0.506,
+    0.164
+  ],
+  "pivot": "ground_contact",
+  "embed_depth": 0.0,
+  "scale_range": [
+    0.8,
+    1.3
+  ],
+  "max_tilt_deg": 15.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_foliage"
+  ],
+  "tris": 217,
+  "verts": 285,
+  "budget_tris": [
+    80,
+    250
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 335,
+  "lod": "none",
+  "collision": {
+    "class": "none"
+  },
+  "wind": "flower",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 5602,
+    "params": {
+      "seed": 5602,
+      "stems": [
+        {
+          "height_m": 0.49,
+          "az_deg": 200.0,
+          "lean_deg": 7.0,
+          "tufts": 6,
+          "spike_frac": 0.54,
+          "shift": 0.0
+        },
+        {
+          "height_m": 0.42,
+          "az_deg": 20.0,
+          "lean_deg": 14.0,
+          "tufts": 6,
+          "spike_frac": 0.52,
+          "shift": 0.22
+        },
+        {
+          "height_m": 0.36,
+          "az_deg": 98.0,
+          "lean_deg": 10.0,
+          "tufts": 5,
+          "spike_frac": 0.52,
+          "shift": -0.12
+        },
+        {
+          "height_m": 0.31,
+          "az_deg": 152.0,
+          "lean_deg": 15.0,
+          "tufts": 5,
+          "spike_frac": 0.5,
+          "shift": 0.1
+        }
+      ],
+      "az_jitter_deg": 8.0,
+      "base_spread_m": 0.018,
+      "knee_lean_frac": 0.5,
+      "bow_m": 0.012,
+      "stem_radius_m": [
+        0.004,
+        0.0021
+      ],
+      "tuft_petals": 3,
+      "tuft_radius_m": [
+        0.03,
+        0.014
+      ],
+      "tuft_radius_exp": 0.9,
+      "tuft_ring_frac": 0.38,
+      "tuft_tip_half_deg": 33.0,
+      "tuft_height_over_spacing": 1.1,
+      "tuft_turn_deg": 63.0,
+      "tuft_turn_jitter_deg": 10.0,
+      "petal_radius_var": 0.1,
+      "petal_tip_skew": 0.16,
+      "petal_tip_light": 0.25,
+      "petal_in_scale": 0.82,
+      "petal_radial": 1.0,
+      "bud_len_m": 0.016,
+      "bud_radius_frac": 0.5,
+      "leaf_clusters": [
+        {
+          "n": 3,
+          "centre_deg": 60.0,
+          "span_deg": 80.0
+        },
+        {
+          "n": 2,
+          "centre_deg": 255.0,
+          "span_deg": 40.0
+        }
+      ],
+      "leaf_length_m": [
+        0.14,
+        0.24
+      ],
+      "leaf_width_m": [
+        0.018,
+        0.026
+      ],
+      "leaf_lean_deg": [
+        16.0,
+        40.0
+      ],
+      "leaf_bend_deg": [
+        14.0,
+        30.0
+      ],
+      "value_jitter": 0.03,
+      "stem_up_blend": 0.6,
+      "petal_up_blend": 0.45
+    },
+    "measured": {
+      "size_m": [
+        0.165,
+        0.311,
+        0.506
+      ],
+      "min_z_m": 0.0,
+      "base_footprint_m": [
+        0.029,
+        0.037
+      ]
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Pink spike clump: 4 splayed 2-segment stems of unequal height, each with a spike of 5-6 stacked blunt 3-petal tufts (tapering, overlapping, deeper pink at the bottom) and a cone bud, 5 narrow basal leaves."
+}

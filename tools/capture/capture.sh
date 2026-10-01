@@ -1,6 +1,7 @@
 #!/bin/zsh
 # Usage: capture.sh <out_dir> [name_glob] [-- extra user args applied to every view]
-# Env: RES (1152x648), FRAME (89; quits after FRAME+1), DRIVER (optional --rendering-driver).
+# Env: RES (1152x648), FRAME (89; quits after FRAME+1), DRIVER (optional --rendering-driver),
+#      SCENE (res://scenes/main.tscn), VIEWS (views.tsv; e.g. views_valley.tsv with SCENE=res://scenes/valley.tscn).
 setopt extendedglob
 here=${0:A:h}
 root=${here:h:h}
@@ -10,6 +11,7 @@ glob='*'
 [[ ${1:-} == -- ]] && shift
 extra=("$@")
 RES=${RES:-1152x648}; FRAME=${FRAME:-89}; FPS=30
+SCENE=${SCENE:-res://scenes/main.tscn}; VIEWS=${VIEWS:-views.tsv}
 mkdir -p $out/logs
 out=${out:A}
 frame=$(printf 'f%08d.png' $FRAME)
@@ -22,15 +24,16 @@ views=()
   echo "godot: $(godot --version)"
   echo "gpu: $(system_profiler SPDisplaysDataType 2>/dev/null | grep 'Chipset Model' | head -1 | sed 's/^ *//')"
   echo "macos: $(sw_vers -productVersion)"
+  echo "scene: $SCENE  views: $VIEWS"
   echo "res: $RES  frame: $FRAME  fixed_fps: $FPS  driver: ${DRIVER:-default}"
   echo "extra_args: ${extra[*]}"
   echo
 } > $out/manifest.txt
-tail -n +2 $root/tools/capture/views.tsv | while IFS=$'\t' read -r name preset args; do
+tail -n +2 $root/tools/capture/$VIEWS | while IFS=$'\t' read -r name preset args; do
   [[ $name == ${~glob} ]] || continue
   d=$tmp/$name; mkdir -p $d
   log=$out/logs/$name.log
-  (cd $root && godot --path . res://scenes/main.tscn --resolution $RES $drv \
+  (cd $root && godot --path . $SCENE --resolution $RES $drv \
     --write-movie $d/f.png --fixed-fps $FPS --quit-after $((FRAME + 1)) \
     -- --preset=$preset ${=args} $extra) < /dev/null > $log 2>&1
   if [[ -f $d/$frame ]]; then cp $d/$frame $out/$name.png; else echo "MISSING frame for $name"; fi

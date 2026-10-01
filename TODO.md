@@ -103,3 +103,59 @@ Scope: correctness, visibility, readability. Cameras/layout/terrain shape untouc
 - [ ] Hero reads slate blue in midday sun (albedo is what it is); decide if cloth specular/tint wanted
 - [ ] Preset-transition capture at campfire (needs scripted preset switch)
 - [ ] R7 ground grouping / dry contrast; smoke palette; foliage mask metadata; fire shadow; quality presets — deferred
+
+## Phase 8 — valley environment art pass (plan: docs/valley_environment_plan.md, 2026-09-30)
+Scope: preserve macro map, camera, controls, biome, coast. Assets modelled in Blender 5.2 via Python (no AssetStudio).
+Status keys per item: impl / struct-validated / visually approved / motion-validated.
+W0 findings:
+- Checkout: fantasy-game main @ dfb2ce3 (valley = scenes/valley.tscn, custom GPU-displaced terrain). **Not Terrain3D** — no migration done; proposal only (see Open)
+- Versions: Godot 4.7.2 (Metal, M4 Pro), Blender 5.2.2. Heights float32 (heightmap.f32, RF) — no quantisation
+- Baseline: tools/capture/views_valley.tsv (16 zone views), `SCENE=res://scenes/valley.tscn VIEWS=views_valley.tsv capture.sh`
+W1 diagnosis:
+- Grass rosettes: grass/glb patches carry a flat top-down ground card with a circular tuft sprite (grass_top.png) -> one disc per patch
+- Mountain bands: `rock_strata` sin(y*1.7) on rock splat in valley_terrain.gdshader (3.7 m stripes) + authored riser steps in cliff bands (geometry)
+- Water: no water surface; "water" = painted bed (8-bit splat) lit by banded painted light -> hard diagonal tonal regions on bed slopes
+- Tree perforation: valley trees use visibility-range dither fade (200-220 m) + no sightline occluder (MultiMesh has no per-tree fade) -> low views blocked by crowns
+Tasks:
+- [x] W0 baseline capture, probe tool (tools/environment/probe.py), asset contract (assets/nature/README.md), Blender lib (tools/blender/nature_lib.py), import check (tools/environment/asset_check.gd)
+- [~] W1 terrain: strata banding removed, rock = world-space fracture cells (facet normal tilt, value per plane, faint crack, lichen on up planes), pale neutral grey. Bed colours: water agent
+- [x] W1 water: tools/terrain/gen_water.py + export_water.gd -> terrains/valley/water.res (level, coverage); scripts/valley_water.gd (117 chunks, sea skirts S+W), materials/water.gdshader (depth colour/alpha, flow normals, local foam, glint). Lakes flat (asserted), rivers sloped, soft shores. +0.6-0.8 ms GPU low lake view. `--water=0`
+  - [ ] faint line where sea is cut by 250 m far plane; shallow rivers milky at grazing angles; evening water dark navy; bed light bands faint in shallows
+- [x] W6 sky: materials/sky.gdshader (gradient, sun disc/halo, dome clouds from cloud_noise), atmosphere.gd ShaderMaterial path (main.tscn Procedural path unchanged)
+- [x] 1-px dashed seams: brush_noise/cloud_noise global samplers now repeat_enable + mipmaps, fract() removed from 24 lookups
+- [x] W3 terrain fields: valley_terrain uses world/generated/fields (route core = compacted soil + broad gravel drifts, shoulder trampled, wet sediment band, litter under real canopy); grass_dry splat at 45 % (no straw meadow); stray splat dirt kept 30 % unless path/bank
+- [x] painted-map dirt: only narrow (<= 5 m) painted trails count as wear 0.6; wide blobs = light trampling 0.3 (fields.py); litter only under real canopy (terrain shader)
+- [x] generator: meadow_rock habitat, rule-level rise_limit/max_tilt, cliff_dressing (1034 cliff_face + 759 cliff_corner on cliff mask/steep faces, shelves on treads), turn_stones band (agent stopped by user mid-report; outputs re-published by lead, 0 hard failures)
+- [x] W5 recipes: E_upper_lake_bank (mainland east bank; old 03/04 viewpoint is an island), J_east_falls_basin (fall located from levels: 39 -> 10.6 m at ~(410,62)); views 17_upper_lake_bank, 18_east_falls_gorge
+- [x] cliff modules: rocks v2 (tools/blender/rock_cliff.py) ends step down/back into the slope, broken top-back; generator rejects back/end-exposed modules. Largest end facets still 2-6 m2; runs read as chains of outcrops
+- [x] W5 banks (tools/environment/banks.py, bank_props.py): gravel / rock / sedge bank character, 831 bank props, trees byte-identical; terrain reads world/generated/fields/bank.res (gravel at water line, drier stony banks, greener wet sedge)
+- [x] W6 falls: water.gdshader flow streak sheets (soft, 4 m/s), scripts/valley_falls.gd mist + lip spray from terrains/valley/falls.json (tools/terrain/export_falls.py); +0.02-0.11 ms
+  - [ ] Canyon_Low sheet hangs over dry rock (icicle teeth); East_Scarp sheet mostly inside terrain: gen_water level extension over uncarved cliff -> needs terrain/data decision (macro terrain protected)
+- [x] W6 presets: valley-only presets/valley_{dawn,evening}.tres (shared dawn/evening restored so main.tscn keeps its approved look); exposure unchanged; evening grey mean 43 -> 66 (15), 59 -> 82 (16); warmth localised by sun halo
+- [x] W6 player fill: OmniLight 'Fill' in player.tscn, visual layer 20 only, preset player_fill (dawn 0.8, evening 0.7, midday 0)
+- [x] W6 wind: materials/wind.gdshaderinc + global `wind` (dir, strength, tempo) for world/groundcover/grass shaders; `--wind=<s>`; cull margins 0.8 m crowns / 0.2 m plants
+- [x] W3 gate (lead, showroom): all 17 kit assets approved for slice (spruce_mature_A revision fixed palm read); asset_check 24/24 pass
+- [x] Spawn first view: recipe A2_spawn_shoulder (shelves + boulders on the 31-35 deg shoulder north of spawn, drifts); views 00_start_tactical/00_start_low (default yaw 0)
+- [x] Recipe rocks: ground 'contact' (highest no-float position): exposure 0.4-0.9 (was 0.1-0.4); rock moss_top 0.85 (0.5 invisible)
+- [x] View 09 moved onto the real shoreline (0,338 facing S; old one was inland forest) + 19_south_coast_low: open sea horizon kept
+- [x] Tall grass layer scale 0.7-0.95 (swallowed the player at the coast)
+- [x] Motion: tools/capture/walk.sh takes SCENE; slice walk clip (scratchpad motion/slice_low.mp4) sampled at 1 fps: no pops/swimming seen; scripted straight walk stops at a collider in the forest pocket
+- [x] Flower layers bigger/denser (white 1.3-1.8, pink 1.15-1.6, density 1.6)
+- [x] groundcover layers for grass_short_B/C (inner ring, A density 0.6), grass_tall_A (ground.g), flower_pink_A (flowers.g): 7 layers, 74k instance slots
+- [x] Robustness: forest falls back to legacy when generated placements missing; NatureAssets skips unimported GLBs / half-written JSON; plant chunks 64 m (1690 MultiMeshes)
+- [x] W1 grass: GPU grid groundcover (scripts/valley_groundcover.gd, materials/groundcover.gdshader, layers materials/groundcover/*.tres), camera tiles, ~1.4 ms GPU 1080p; no discs. `--grass=cards` A/B, `--groundcover_debug=patch|plain|off|ab`
+- [x] W1 tree visibility: per-tree sightline + camera-inside-crown fade for MultiMesh (INSTANCE_CUSTOM.r, tree_occluder provider API), near dither 0.6-1.2 m lens-only, no distance dither (view_range 0 = far plane). impl + struct + visual (low views 05-13 player visible); motion: sampled frames only. Perf delta unmeasured (GPU noise from parallel jobs)
+- [x] Nature shader support: world.gdshaderinc foliage_source (surface identity), wind_sway (COLOR.a flex), cavity (UV2.x), part_variation (UV2.y); materials/nature/*.tres; scripts/nature_assets.gd (surface->material); scenes/showroom.tscn (--focus/--view/--group)
+- [x] W2 eight prototypes built (workflow: build -> independent review (all 4 families failed first pass) -> fix round)
+- [x] W3 authored data: world/anchors/valley_anchors.json (11 zones), world/routes/valley_routes.json (spawn_departure ~95 m), world/recipes/valley_recipes.json (A,B,C,F), valley_habitats.json (fill rules)
+- [x] W3 scatter generator tools/environment (deterministic splitmix streams per family, stable ids, zones, dry-run diff, validation, fields -> res://world/generated/fields/*.res). Byte-identical reruns, zone-only regen proven. Trees 10,152 (was 18,545 runtime) — judge in-engine
+- [ ] W3 route stones_on_turns / roots flags not implemented
+- [x] W3 runtime loaders: valley_placements.gd (VPL1 + overrides), valley_forest.gd generated|legacy (`--forest=legacy`), valley_props.gd (chunked MultiMesh, metadata collision, `--props=off`). 0 errors; perf ~= legacy
+- [x] MultiMesh shader variants world_mm / world_double_sided_mm (no instance uniform -> no global buffer overflow; buffer_size override removed)
+- [x] generator: rock tilt fit + exposure >= 0.5 / no-float rule (hard-fail), shelf/cliff front-edge grounding, turn_stones band (needs boulder_medium/rubble). Fill boulders 331, fill shelves 0 -> meadow_rock habitat + rule overrides + cliff dressing requested
+- [x] W2 gate (lead, in-engine showroom tools/capture/showroom.sh): approved rocks x3, shrub_A, fern_A, grass_short_A, flower_white_A; REJECTED spruce_mature_A (palm/umbrella from player height) -> revision in kit workflow
+- [ ] W3 kit workflow running: cliff_corner_A, boulder_medium_A, rubble_cluster_A, shore_boulder_A, spruce_mature_A(rev)/B, spruce_edge_A, spruce_young_A, pine_open_A, grass_short_B/C, grass_tall_A, flower_pink_A, shrub_B, reed_A, fallen_log_A, root_flare_A
+- [ ] W3 remaining 16 kit assets
+- [ ] W3 vertical slice at spawn meadow -> forest -> rock bend (+ upper-lake bank)
+- [ ] W5 zone rollout (spawn, upper lake, forest, W river, NE canyon/W escarpment, hill/butte, N ridge, E falls, S coast)
+- [ ] W6 sky (gradient + broad clouds), wind field, dawn/evening, perf profile, motion clip

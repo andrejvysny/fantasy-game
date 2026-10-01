@@ -1,0 +1,2298 @@
+{
+ "format": "VPL1 (magic, uint32 count, 32-byte records: f32 x y z yaw scale tilt_x tilt_z, u32 id)",
+ "revision": "tools/terrain/out/heightmap.f32 @ dfb2ce3 + habitats 6be51cf4bf",
+ "inputs": {
+  "assets/nature/debris/fallen_log_A.json": "bb9e8af27a770df155d67808ea38c2801ec15be3",
+  "assets/nature/debris/root_flare_A.json": "8231918ea6bbbd85715d4361d08ddaccbc434819",
+  "assets/nature/groundcover/flower_pink_A.json": "735150f4edc82e8c0bf42f8a73bbc802e451f544",
+  "assets/nature/groundcover/flower_white_A.json": "b0607c8fcdc66b7bbe36f73a1dfec21a78fc08a2",
+  "assets/nature/groundcover/grass_short_A.json": "97b9916d84d5a7f8620ce9da5252663d0b2bbff6",
+  "assets/nature/groundcover/grass_short_B.json": "de03890dc58d1944e3fdbacf5068b882823e1bbe",
+  "assets/nature/groundcover/grass_short_C.json": "2c3abd15c6929b2c62d1fe1c773dfc4d581e59dc",
+  "assets/nature/groundcover/grass_tall_A.json": "8891b9aa0928d2346ea4a9e7405668dad05d9a6d",
+  "assets/nature/rocks/boulder_large_A.json": "76e9ef029c2d474635f60034b29b696baaee4b12",
+  "assets/nature/rocks/boulder_medium_A.json": "43e8635c16795b09cc2f19c29a5f29cc9c3c2bcd",
+  "assets/nature/rocks/cliff_corner_A.json": "e395f82a1308fc7d7ea95c29bc83024a082b6a58",
+  "assets/nature/rocks/cliff_face_A.json": "8a59406540a0710f6aaa31e2b4b0d445e2c15171",
+  "assets/nature/rocks/rock_shelf_A.json": "69a8fe54c1f7db993b70d1e0838ef68c5d6a06a6",
+  "assets/nature/rocks/rubble_cluster_A.json": "fb670be4be9f19e486ef74e2acd2d8907370e10d",
+  "assets/nature/rocks/shore_boulder_A.json": "5ef047bc15933b1d0272b9b21592e7a87d892da7",
+  "assets/nature/trees/pine_open_A.json": "23a2569787983a7f5f34da74b24a29bd69456142",
+  "assets/nature/trees/spruce_edge_A.json": "1477ca0df297f01c7f48bd2a70c237e5ff9cd8a4",
+  "assets/nature/trees/spruce_mature_A.json": "005824844e2d49fd824fe529f927fdf8b7af7633",
+  "assets/nature/trees/spruce_mature_B.json": "ded96701ab4d8a21f185c9da634e3d6919221335",
+  "assets/nature/trees/spruce_young_A.json": "8018a5076954ddb0808cacbea32b2944eed6d9c3",
+  "assets/nature/understory/fern_A.json": "588daad68ab9fc886178f2c83ebe9c4b5ee57dc2",
+  "assets/nature/understory/reed_A.json": "605bb20800085b5f659cf87849c0c89b356da436",
+  "assets/nature/understory/shrub_A.json": "c5e84be021549feaa94850b2ca754ef34732c4d1",
+  "assets/nature/understory/shrub_B.json": "ffc18cb60c1795a50a3e0326e92d734273ec08bb",
+  "spruce_trees/models/variants.json": "ca3d1414cbac8b96557395b270b9096999575e45",
+  "tools/terrain/out/heightmap.npy": "34bda9fe1700e1cc0870193b217a82253336aea9",
+  "tools/terrain/out/splat.json": "9068c6f2657b4694df56b59755f9574055b9ed6d",
+  "tools/terrain/out/splat_0.png": "2efbf3ca55ad58af9cc10c57ed5b5effcf8613e3",
+  "tools/terrain/out/splat_1.png": "3f6526c3949f00aa941835264989102a54b4190b",
+  "tools/terrain/out/splat_2.png": "28881f476ca25c60a583cdd44c1e1e9a2efd403c",
+  "tools/terrain/out/terrain_masks.npz": "c0f7f7a435c14db609dc00dce6fdfed1d6d362fa",
+  "world/anchors/valley_anchors.json": "f157409af7f6674539776f555f7fbdea9c4c472a",
+  "world/recipes/valley_habitats.json": "f97f3e94c8fbd7506aaf0c65b97d318d9c0c302e",
+  "world/recipes/valley_recipes.json": "b7896026c30692df07879256c1ba1a6de2a0d159",
+  "world/routes/valley_routes.json": "8f619dd11bac841dd488549625e4e1178ddbdcf2"
+ },
+ "zones": {
+  "butte_scarp": {
+   "boulder_large_A": {
+    "count": 20,
+    "file": "world/generated/butte_scarp/boulder_large_A.bin",
+    "sha1": "8de7106a81bd5ab9a3e96cd29d86013566b8f613"
+   },
+   "boulder_medium_A": {
+    "count": 37,
+    "file": "world/generated/butte_scarp/boulder_medium_A.bin",
+    "sha1": "ba627fefc14e3e72ecdd15227e2e11c485bf853a"
+   },
+   "cliff_corner_A": {
+    "count": 21,
+    "file": "world/generated/butte_scarp/cliff_corner_A.bin",
+    "sha1": "6abbf6aae893db082e209bdeaf19bb8a380705da"
+   },
+   "cliff_face_A": {
+    "count": 51,
+    "file": "world/generated/butte_scarp/cliff_face_A.bin",
+    "sha1": "c505eb1f4fb0b6651e581404b1418b60028f9ab8"
+   },
+   "dead_L_std_s3": {
+    "count": 2,
+    "file": "world/generated/butte_scarp/dead_L_std_s3.bin",
+    "sha1": "c10c4e6134ff27e4962e0abd715eabc90d72cd13"
+   },
+   "fallen_log_A": {
+    "count": 3,
+    "file": "world/generated/butte_scarp/fallen_log_A.bin",
+    "sha1": "19cf66de1231837e0d015fb3d8c2e32e99567513"
+   },
+   "fern_A": {
+    "count": 43,
+    "file": "world/generated/butte_scarp/fern_A.bin",
+    "sha1": "b7738b90da9d7f147fad78ad2ca421e55c215b0f"
+   },
+   "pine_open_A": {
+    "count": 4,
+    "file": "world/generated/butte_scarp/pine_open_A.bin",
+    "sha1": "b03a838f87f368f62fba9061e5c193682b7fb1df"
+   },
+   "rock_shelf_A": {
+    "count": 5,
+    "file": "world/generated/butte_scarp/rock_shelf_A.bin",
+    "sha1": "1c6e4b7f9dcabef1b1a7008ec88ea1f88cb56496"
+   },
+   "root_flare_A": {
+    "count": 23,
+    "file": "world/generated/butte_scarp/root_flare_A.bin",
+    "sha1": "004523d7560ada30e5f740987cfff2d553a98a01"
+   },
+   "shrub_A": {
+    "count": 107,
+    "file": "world/generated/butte_scarp/shrub_A.bin",
+    "sha1": "9ab3687b75885fdc6f424c6aa5d0111e9f8b328f"
+   },
+   "shrub_B": {
+    "count": 98,
+    "file": "world/generated/butte_scarp/shrub_B.bin",
+    "sha1": "1cda236e71107a165171137922a41d6295910006"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 7,
+    "file": "world/generated/butte_scarp/spruce_L_normal_long_s27.bin",
+    "sha1": "87e05c36f368d58c397b279889028b05fb3974eb"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 45,
+    "file": "world/generated/butte_scarp/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "996df6e710a2ec3f92262164961df2d9a40b7f9a"
+   },
+   "spruce_L_normal_std_irregular_s21": {
+    "count": 1,
+    "file": "world/generated/butte_scarp/spruce_L_normal_std_irregular_s21.bin",
+    "sha1": "c804a84ee9b10f45289eba50b6af618eb076ad0d"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 6,
+    "file": "world/generated/butte_scarp/spruce_L_normal_std_s25.bin",
+    "sha1": "4a00faac7d770b69dfd5e71f394cc8f6e198dac3"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 5,
+    "file": "world/generated/butte_scarp/spruce_L_normal_tall_s21.bin",
+    "sha1": "8274d680af631c66b3c31155c128c2ce3847b51e"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 34,
+    "file": "world/generated/butte_scarp/spruce_L_wide_std_s3.bin",
+    "sha1": "64744439376e2b148a29f6a74fea3780d29ed952"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 7,
+    "file": "world/generated/butte_scarp/spruce_M_normal_long_s11.bin",
+    "sha1": "3d99be49eb5aec7eb46c7a02a9f4797b3cddaed7"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 38,
+    "file": "world/generated/butte_scarp/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "235037519b188432b3e91465a2482eee2efeb2b4"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 31,
+    "file": "world/generated/butte_scarp/spruce_M_wide_std_s35.bin",
+    "sha1": "71f68f78bedea479719201ee6ceb09f27b28c06d"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 23,
+    "file": "world/generated/butte_scarp/spruce_S_normal_std_s10.bin",
+    "sha1": "ce3320ec2c7e9e54566af71efd3b4ab2091c5769"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 30,
+    "file": "world/generated/butte_scarp/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "c90e859f79db27e9d6368b7bcab589fb7041344c"
+   },
+   "spruce_edge_A": {
+    "count": 55,
+    "file": "world/generated/butte_scarp/spruce_edge_A.bin",
+    "sha1": "36660ba482f7fe4c2a92d811c5027659c876920e"
+   },
+   "spruce_mature_A": {
+    "count": 42,
+    "file": "world/generated/butte_scarp/spruce_mature_A.bin",
+    "sha1": "039225fed19fd0e9bc12901a3d862930ed5da77e"
+   },
+   "spruce_mature_B": {
+    "count": 30,
+    "file": "world/generated/butte_scarp/spruce_mature_B.bin",
+    "sha1": "cf739988d93b2cf4489178e3a718a858ac6fd6ab"
+   },
+   "spruce_young_A": {
+    "count": 39,
+    "file": "world/generated/butte_scarp/spruce_young_A.bin",
+    "sha1": "57331b6c76a1cc20012c80c995fdf4e0551c840f"
+   }
+  },
+  "central_hill": {
+   "boulder_large_A": {
+    "count": 8,
+    "file": "world/generated/central_hill/boulder_large_A.bin",
+    "sha1": "e68c32934032ac3c08d2cc0868114f138dda27bf"
+   },
+   "boulder_medium_A": {
+    "count": 12,
+    "file": "world/generated/central_hill/boulder_medium_A.bin",
+    "sha1": "275e5a74b5da17da91eb91baa5e07cb514dec0f2"
+   },
+   "cliff_corner_A": {
+    "count": 11,
+    "file": "world/generated/central_hill/cliff_corner_A.bin",
+    "sha1": "5b5334c12fa5d4535da2e8fdf7838ef72fcec74b"
+   },
+   "cliff_face_A": {
+    "count": 34,
+    "file": "world/generated/central_hill/cliff_face_A.bin",
+    "sha1": "157d14e9fd3d89c61034e8ba60d530bc494debc3"
+   },
+   "fern_A": {
+    "count": 15,
+    "file": "world/generated/central_hill/fern_A.bin",
+    "sha1": "725c125dd2881991e54f05127825b11b07880c24"
+   },
+   "rock_shelf_A": {
+    "count": 1,
+    "file": "world/generated/central_hill/rock_shelf_A.bin",
+    "sha1": "557ed684c9339baac865ea706c762ba518391a28"
+   },
+   "root_flare_A": {
+    "count": 4,
+    "file": "world/generated/central_hill/root_flare_A.bin",
+    "sha1": "95bea17379eb3ca8a267c675648256cbe844a0ff"
+   },
+   "shrub_A": {
+    "count": 61,
+    "file": "world/generated/central_hill/shrub_A.bin",
+    "sha1": "4b1504766a9be31a5220c0f0efc26977483c28f9"
+   },
+   "shrub_B": {
+    "count": 47,
+    "file": "world/generated/central_hill/shrub_B.bin",
+    "sha1": "47efad2310fc6bf010b05f2fa269aeff9ea113df"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 19,
+    "file": "world/generated/central_hill/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "e0f6d9cdf91ec69faa508987016af2d31f6e1062"
+   },
+   "spruce_L_normal_std_irregular_s21": {
+    "count": 1,
+    "file": "world/generated/central_hill/spruce_L_normal_std_irregular_s21.bin",
+    "sha1": "bcfc6059b657bd16f4aeec9d6f3a1e8c30ef067d"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 1,
+    "file": "world/generated/central_hill/spruce_L_normal_std_s25.bin",
+    "sha1": "ee12f127af43cc0135da2a9dbec9f11dff4dd0ab"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 1,
+    "file": "world/generated/central_hill/spruce_L_normal_tall_s21.bin",
+    "sha1": "1633ef42157728dbad33962934879502955094e5"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 29,
+    "file": "world/generated/central_hill/spruce_L_wide_std_s3.bin",
+    "sha1": "1ada98064f4501dc4b9aaeafdc55c283f02dba39"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 1,
+    "file": "world/generated/central_hill/spruce_M_normal_long_s11.bin",
+    "sha1": "4d5a78464a05ebf6721e6ab14ef1534397855cbd"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 16,
+    "file": "world/generated/central_hill/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "5baa8f950b4203103dfeea31877b0caadcf7fb31"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 19,
+    "file": "world/generated/central_hill/spruce_M_wide_std_s35.bin",
+    "sha1": "c198d33739b1cf26f992bc649994890d21779047"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 17,
+    "file": "world/generated/central_hill/spruce_S_normal_std_s10.bin",
+    "sha1": "859f5d20a207ff9e9ecca26bb71f0675782cbf25"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 14,
+    "file": "world/generated/central_hill/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "ac6b19b27746544c04908a5efc58fa1705c54c90"
+   },
+   "spruce_edge_A": {
+    "count": 41,
+    "file": "world/generated/central_hill/spruce_edge_A.bin",
+    "sha1": "606e3a5a88fb5a4474e6523c186bec33275e7b60"
+   },
+   "spruce_mature_A": {
+    "count": 5,
+    "file": "world/generated/central_hill/spruce_mature_A.bin",
+    "sha1": "1f0b80a8c25c40534a3d39c48e70d61b9bbdd259"
+   },
+   "spruce_mature_B": {
+    "count": 5,
+    "file": "world/generated/central_hill/spruce_mature_B.bin",
+    "sha1": "88ff956d4c6765d0869f6b68db84614a9c7b540d"
+   },
+   "spruce_young_A": {
+    "count": 31,
+    "file": "world/generated/central_hill/spruce_young_A.bin",
+    "sha1": "044376b7d9db957220ab255d19048e90098fad18"
+   }
+  },
+  "east_falls": {
+   "boulder_large_A": {
+    "count": 14,
+    "file": "world/generated/east_falls/boulder_large_A.bin",
+    "sha1": "8b3724befc0b11ab6806fccca40e020b0277d68c"
+   },
+   "boulder_medium_A": {
+    "count": 35,
+    "file": "world/generated/east_falls/boulder_medium_A.bin",
+    "sha1": "6112acb122bb6f6ef6dcbcfb20604843389b4d02"
+   },
+   "cliff_corner_A": {
+    "count": 49,
+    "file": "world/generated/east_falls/cliff_corner_A.bin",
+    "sha1": "ec7c1ecbda82bfb61efaf0bf6c69139f287d5143"
+   },
+   "cliff_face_A": {
+    "count": 56,
+    "file": "world/generated/east_falls/cliff_face_A.bin",
+    "sha1": "d524f7b5ce68503e3256bb62f59abc92d44dde77"
+   },
+   "fern_A": {
+    "count": 11,
+    "file": "world/generated/east_falls/fern_A.bin",
+    "sha1": "3db9963778f35a6e860b1438eb296b7069a67779"
+   },
+   "pine_open_A": {
+    "count": 1,
+    "file": "world/generated/east_falls/pine_open_A.bin",
+    "sha1": "1d8338ed4f31cf05b9c269e3053e72b307eb8963"
+   },
+   "reed_A": {
+    "count": 35,
+    "file": "world/generated/east_falls/reed_A.bin",
+    "sha1": "c29e8c5384effc3bc432a53a53eb2eca21b5e18e"
+   },
+   "rock_shelf_A": {
+    "count": 1,
+    "file": "world/generated/east_falls/rock_shelf_A.bin",
+    "sha1": "d4d9ec7c6791203494a4557fd23f239b53c1a6d6"
+   },
+   "root_flare_A": {
+    "count": 3,
+    "file": "world/generated/east_falls/root_flare_A.bin",
+    "sha1": "26e6e7f7b9333432c4b33fab87a4de880f7a7693"
+   },
+   "rubble_cluster_A": {
+    "count": 4,
+    "file": "world/generated/east_falls/rubble_cluster_A.bin",
+    "sha1": "fa306f5c5eefb610958dd82d17e6836a21a86044"
+   },
+   "shore_boulder_A": {
+    "count": 15,
+    "file": "world/generated/east_falls/shore_boulder_A.bin",
+    "sha1": "e364645ed3a0547e353ba4e119ffdb1a3905cdb1"
+   },
+   "shrub_A": {
+    "count": 74,
+    "file": "world/generated/east_falls/shrub_A.bin",
+    "sha1": "379994fea92ae54fc2fa4d133060038fbad7738e"
+   },
+   "shrub_B": {
+    "count": 84,
+    "file": "world/generated/east_falls/shrub_B.bin",
+    "sha1": "47ad9eb55d6c2a0aef8f8be30d77e01250d3fa69"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 1,
+    "file": "world/generated/east_falls/spruce_L_normal_long_s27.bin",
+    "sha1": "389fe96de4b42b27fcdeaadf02ce8d4b1c45be9b"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 27,
+    "file": "world/generated/east_falls/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "54f1dfa467c6e6743ea25091a3dbbaa7f4c0add4"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 23,
+    "file": "world/generated/east_falls/spruce_L_wide_std_s3.bin",
+    "sha1": "e610b42044a1387cc2c0882841f5168e22560bfc"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 1,
+    "file": "world/generated/east_falls/spruce_M_normal_long_s11.bin",
+    "sha1": "8f4905a15a5af2e93cd524525f1cc5ee3eb0364c"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 19,
+    "file": "world/generated/east_falls/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "599e1e9797ac66821c2920ba50ee038ddcd2bf3a"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 7,
+    "file": "world/generated/east_falls/spruce_M_wide_std_s35.bin",
+    "sha1": "12dbee955b6eabe29c002e82c030889f2019ec64"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 10,
+    "file": "world/generated/east_falls/spruce_S_normal_std_s10.bin",
+    "sha1": "b65ae7f5833bf220a9fa64bbf7768423763cad77"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 12,
+    "file": "world/generated/east_falls/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "fdcd9043de752bb456488c8b32dec4132268fae2"
+   },
+   "spruce_edge_A": {
+    "count": 32,
+    "file": "world/generated/east_falls/spruce_edge_A.bin",
+    "sha1": "41aebf62830aff260157143d22c9a30469ae1d1d"
+   },
+   "spruce_mature_A": {
+    "count": 8,
+    "file": "world/generated/east_falls/spruce_mature_A.bin",
+    "sha1": "02970cee5b7579024adab60c43d8f2b5d26deb5b"
+   },
+   "spruce_mature_B": {
+    "count": 5,
+    "file": "world/generated/east_falls/spruce_mature_B.bin",
+    "sha1": "ea57455ab491cf9ecc009aa03f6adeb8bb99d506"
+   },
+   "spruce_young_A": {
+    "count": 34,
+    "file": "world/generated/east_falls/spruce_young_A.bin",
+    "sha1": "0018809b770fda8483c5090e865c5c5008d8c28b"
+   }
+  },
+  "fill": {
+   "boulder_large_A": {
+    "count": 233,
+    "file": "world/generated/fill/boulder_large_A.bin",
+    "sha1": "3228c7334d42ebb23d2bb209df9ced04bedaa996"
+   },
+   "boulder_medium_A": {
+    "count": 517,
+    "file": "world/generated/fill/boulder_medium_A.bin",
+    "sha1": "9bcc9d7931ab75a89edca416ec155f7793981f90"
+   },
+   "cliff_corner_A": {
+    "count": 205,
+    "file": "world/generated/fill/cliff_corner_A.bin",
+    "sha1": "5c712d4d0f90f42a01371b7050b3eb050478fdd5"
+   },
+   "cliff_face_A": {
+    "count": 485,
+    "file": "world/generated/fill/cliff_face_A.bin",
+    "sha1": "ab23264d4454e15f3afe947e64c90354dece7281"
+   },
+   "dead_L_std_s3": {
+    "count": 28,
+    "file": "world/generated/fill/dead_L_std_s3.bin",
+    "sha1": "269fcc4511b4c446c38542bf0fb70ed688151932"
+   },
+   "dead_M_long_s7": {
+    "count": 4,
+    "file": "world/generated/fill/dead_M_long_s7.bin",
+    "sha1": "a7d15d5b8ab044e8bc3065aebb98e990c046e488"
+   },
+   "dead_M_std_s3": {
+    "count": 1,
+    "file": "world/generated/fill/dead_M_std_s3.bin",
+    "sha1": "20c96c2570912146c18eaad8de1d8b27e0f54e86"
+   },
+   "fallen_log_A": {
+    "count": 44,
+    "file": "world/generated/fill/fallen_log_A.bin",
+    "sha1": "843c6776db56039c6f6619dcd1377f8b2449e5db"
+   },
+   "fern_A": {
+    "count": 819,
+    "file": "world/generated/fill/fern_A.bin",
+    "sha1": "908422c8cfcfa64b77c5db12716c0b82dfa64dd7"
+   },
+   "pine_open_A": {
+    "count": 79,
+    "file": "world/generated/fill/pine_open_A.bin",
+    "sha1": "aee2823430ed59761b4e190d89630ef98542d5e6"
+   },
+   "reed_A": {
+    "count": 204,
+    "file": "world/generated/fill/reed_A.bin",
+    "sha1": "da4ef9746130340a6f2115f07a9745cea75f2c2f"
+   },
+   "rock_shelf_A": {
+    "count": 22,
+    "file": "world/generated/fill/rock_shelf_A.bin",
+    "sha1": "c6c55c05f736d4e2b7240adc9ee5c8c2350bbb33"
+   },
+   "root_flare_A": {
+    "count": 375,
+    "file": "world/generated/fill/root_flare_A.bin",
+    "sha1": "0a44020bf16460bcd250229ecc2eb777a9ce9dd7"
+   },
+   "rubble_cluster_A": {
+    "count": 33,
+    "file": "world/generated/fill/rubble_cluster_A.bin",
+    "sha1": "d61b9232c9370b84c6fee5f3b1506768a6346353"
+   },
+   "shore_boulder_A": {
+    "count": 103,
+    "file": "world/generated/fill/shore_boulder_A.bin",
+    "sha1": "e752876d1ccfbf82b992751957c69c535c5d07b5"
+   },
+   "shrub_A": {
+    "count": 1156,
+    "file": "world/generated/fill/shrub_A.bin",
+    "sha1": "659919ea863a76a6466c87c25b1d5e69ff268177"
+   },
+   "shrub_B": {
+    "count": 1155,
+    "file": "world/generated/fill/shrub_B.bin",
+    "sha1": "ac41ec91505a7ea5b0c481e6d0cfdfd168e68eca"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 153,
+    "file": "world/generated/fill/spruce_L_normal_long_s27.bin",
+    "sha1": "1012234a9cba87cc71e085142f22d37d9081608d"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 584,
+    "file": "world/generated/fill/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "d65d197072bf918f0a3243393aecdc573baae564"
+   },
+   "spruce_L_normal_std_irregular_s21": {
+    "count": 7,
+    "file": "world/generated/fill/spruce_L_normal_std_irregular_s21.bin",
+    "sha1": "4c220193d7bbfe4d84cd8953272b22c06f65d072"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 140,
+    "file": "world/generated/fill/spruce_L_normal_std_s25.bin",
+    "sha1": "acf44b4abcd7d566c83309abfbc6f85f055823f1"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 154,
+    "file": "world/generated/fill/spruce_L_normal_tall_s21.bin",
+    "sha1": "8adc27da12d22fa9494bba8b66cb22252bdfa9d9"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 469,
+    "file": "world/generated/fill/spruce_L_wide_std_s3.bin",
+    "sha1": "4a978fd979cb6b0d9cf4d4ad0f1e16e4e4f6245d"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 117,
+    "file": "world/generated/fill/spruce_M_normal_long_s11.bin",
+    "sha1": "ad343759f6651e8ce473dd51fb08c1e17ad6b49b"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 507,
+    "file": "world/generated/fill/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "299d9e9c6b70d82f7549913337936586af70d3b1"
+   },
+   "spruce_M_normal_std_s9": {
+    "count": 6,
+    "file": "world/generated/fill/spruce_M_normal_std_s9.bin",
+    "sha1": "10379413a6e888269933dbc3e318e0f8e415e497"
+   },
+   "spruce_M_slim_std_layered_s36": {
+    "count": 3,
+    "file": "world/generated/fill/spruce_M_slim_std_layered_s36.bin",
+    "sha1": "16d68761773d91203c2a5be44e27aa92642a8e5f"
+   },
+   "spruce_M_slim_std_s27": {
+    "count": 5,
+    "file": "world/generated/fill/spruce_M_slim_std_s27.bin",
+    "sha1": "448e8fbb8a6095eff30f7351786759849e273904"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 415,
+    "file": "world/generated/fill/spruce_M_wide_std_s35.bin",
+    "sha1": "98c704be643d0098007afddba910c95bf9f457b3"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 326,
+    "file": "world/generated/fill/spruce_S_normal_std_s10.bin",
+    "sha1": "cb9286c2acd381da97361799469e5ed7fdd11c2f"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 435,
+    "file": "world/generated/fill/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "7155629928a6765c7bc9bb4c3970c195c0479cc5"
+   },
+   "spruce_edge_A": {
+    "count": 760,
+    "file": "world/generated/fill/spruce_edge_A.bin",
+    "sha1": "0716e4a87e7bf284ed34555d36d0ec67f9e63c8f"
+   },
+   "spruce_mature_A": {
+    "count": 521,
+    "file": "world/generated/fill/spruce_mature_A.bin",
+    "sha1": "23d14e637dfa51049c881ab36797385763a35269"
+   },
+   "spruce_mature_B": {
+    "count": 513,
+    "file": "world/generated/fill/spruce_mature_B.bin",
+    "sha1": "8a88c913d07f23e918f36df5989f4d5ce033c6b6"
+   },
+   "spruce_young_A": {
+    "count": 650,
+    "file": "world/generated/fill/spruce_young_A.bin",
+    "sha1": "97850cfc52e13cc2df61f1f2be36a62d8dc5c4a8"
+   }
+  },
+  "mature_forest": {
+   "boulder_large_A": {
+    "count": 4,
+    "file": "world/generated/mature_forest/boulder_large_A.bin",
+    "sha1": "709bd9d94e2c0189cecbf90f63d5de5783a952b8"
+   },
+   "boulder_medium_A": {
+    "count": 6,
+    "file": "world/generated/mature_forest/boulder_medium_A.bin",
+    "sha1": "2d239d90a166d70cc39ea43601699099acaa8162"
+   },
+   "cliff_face_A": {
+    "count": 3,
+    "file": "world/generated/mature_forest/cliff_face_A.bin",
+    "sha1": "5caa26e02e1bd7b43f1948a7a7756bf2ec156e8a"
+   },
+   "fern_A": {
+    "count": 5,
+    "file": "world/generated/mature_forest/fern_A.bin",
+    "sha1": "7b335bacbf047aeb9b9be11b0ceb9144959c2370"
+   },
+   "reed_A": {
+    "count": 26,
+    "file": "world/generated/mature_forest/reed_A.bin",
+    "sha1": "ad142f7bb557fdc8a5c89d94ad7eb717e1d5006e"
+   },
+   "root_flare_A": {
+    "count": 2,
+    "file": "world/generated/mature_forest/root_flare_A.bin",
+    "sha1": "1f9ceb0f9a380145c81b7c4fcce90f2d7e09d789"
+   },
+   "shore_boulder_A": {
+    "count": 5,
+    "file": "world/generated/mature_forest/shore_boulder_A.bin",
+    "sha1": "7ec2c1886b37c76907356b086b8db3955696dd06"
+   },
+   "shrub_A": {
+    "count": 23,
+    "file": "world/generated/mature_forest/shrub_A.bin",
+    "sha1": "7698e5d5c8ace0c9ce1e96047676e6008eb3b658"
+   },
+   "shrub_B": {
+    "count": 24,
+    "file": "world/generated/mature_forest/shrub_B.bin",
+    "sha1": "338d1a6db43aff238e1bddd90d6a2bb64ab09e3b"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 1,
+    "file": "world/generated/mature_forest/spruce_L_normal_long_s27.bin",
+    "sha1": "495de49164856616ad16a5c83b9e3fd66f997371"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 15,
+    "file": "world/generated/mature_forest/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "785ef763e42af587883d46f8209f0266847e56d2"
+   },
+   "spruce_L_normal_std_irregular_s21": {
+    "count": 1,
+    "file": "world/generated/mature_forest/spruce_L_normal_std_irregular_s21.bin",
+    "sha1": "61a92f5842463a11c28a0ef1bc8539fb763b0666"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 11,
+    "file": "world/generated/mature_forest/spruce_L_wide_std_s3.bin",
+    "sha1": "53de2b38b82403c04fc9249a83c6337069b4b40f"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 12,
+    "file": "world/generated/mature_forest/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "d26b5f3f46251ff61ed0fb112d653b227ceb3d6a"
+   },
+   "spruce_M_normal_std_s9": {
+    "count": 1,
+    "file": "world/generated/mature_forest/spruce_M_normal_std_s9.bin",
+    "sha1": "3243721497f516faeb4fd88d9f7154c2f12a2fc8"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 12,
+    "file": "world/generated/mature_forest/spruce_M_wide_std_s35.bin",
+    "sha1": "eece40f0ce4ce388fead0e616e3115b5b37c17c2"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 9,
+    "file": "world/generated/mature_forest/spruce_S_normal_std_s10.bin",
+    "sha1": "298945ef3352942b6a4c7f0b90e0a1c194726ecc"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 5,
+    "file": "world/generated/mature_forest/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "b2cc2fc59b2cf6ccff35122a8dae5b270b2cbad6"
+   },
+   "spruce_edge_A": {
+    "count": 19,
+    "file": "world/generated/mature_forest/spruce_edge_A.bin",
+    "sha1": "1c50eab876f76adfb5741f3175f78bc114ea1df3"
+   },
+   "spruce_mature_A": {
+    "count": 2,
+    "file": "world/generated/mature_forest/spruce_mature_A.bin",
+    "sha1": "4f14f7e5b8e12c55ef108da415e57b802d6dcfa8"
+   },
+   "spruce_mature_B": {
+    "count": 2,
+    "file": "world/generated/mature_forest/spruce_mature_B.bin",
+    "sha1": "fc6b06abbc48cd1d0f13797cb5b13c0c69deab40"
+   },
+   "spruce_young_A": {
+    "count": 11,
+    "file": "world/generated/mature_forest/spruce_young_A.bin",
+    "sha1": "e8d274caf6984bd48e09b8ae2466b06fea65e826"
+   }
+  },
+  "ne_canyon": {
+   "boulder_large_A": {
+    "count": 30,
+    "file": "world/generated/ne_canyon/boulder_large_A.bin",
+    "sha1": "5635adbb8f057e2cce731c27d592fb48159c55bd"
+   },
+   "boulder_medium_A": {
+    "count": 68,
+    "file": "world/generated/ne_canyon/boulder_medium_A.bin",
+    "sha1": "6fe6bb2cc28991b97c23fac279ba257b0fb01343"
+   },
+   "cliff_corner_A": {
+    "count": 73,
+    "file": "world/generated/ne_canyon/cliff_corner_A.bin",
+    "sha1": "ab3cd48f6c6d70fcda8aa31ce1bf45d8ab121d64"
+   },
+   "cliff_face_A": {
+    "count": 64,
+    "file": "world/generated/ne_canyon/cliff_face_A.bin",
+    "sha1": "17ff8c8ecbc953e5a11316bbc9ef1983e17c5065"
+   },
+   "fallen_log_A": {
+    "count": 4,
+    "file": "world/generated/ne_canyon/fallen_log_A.bin",
+    "sha1": "c14b7dde9e9774c65e6eb1fcd18629c1c7d29a2f"
+   },
+   "fern_A": {
+    "count": 29,
+    "file": "world/generated/ne_canyon/fern_A.bin",
+    "sha1": "8a3f61f24906224c2063bd8ec69c32ec6e98b452"
+   },
+   "pine_open_A": {
+    "count": 6,
+    "file": "world/generated/ne_canyon/pine_open_A.bin",
+    "sha1": "4fdcd48c0cb506bbd75ff208dc03dc48778e8d41"
+   },
+   "reed_A": {
+    "count": 72,
+    "file": "world/generated/ne_canyon/reed_A.bin",
+    "sha1": "a706faf13897d9660a3df2583a05813db94e9d70"
+   },
+   "rock_shelf_A": {
+    "count": 5,
+    "file": "world/generated/ne_canyon/rock_shelf_A.bin",
+    "sha1": "a09c92bf1e52bed3d643b17d54b7d773933e3381"
+   },
+   "root_flare_A": {
+    "count": 17,
+    "file": "world/generated/ne_canyon/root_flare_A.bin",
+    "sha1": "6dc948d5f3822c2ddbd1edd839af25b9716dfb63"
+   },
+   "rubble_cluster_A": {
+    "count": 9,
+    "file": "world/generated/ne_canyon/rubble_cluster_A.bin",
+    "sha1": "4f4a4e9365405a86380bd92af7c503c4248e895a"
+   },
+   "shore_boulder_A": {
+    "count": 31,
+    "file": "world/generated/ne_canyon/shore_boulder_A.bin",
+    "sha1": "4a445a34e0fdbcb32306abbe030f533c2ed3cb7c"
+   },
+   "shrub_A": {
+    "count": 161,
+    "file": "world/generated/ne_canyon/shrub_A.bin",
+    "sha1": "4fb7163bd44231289e6a5729b631e061e5fc807d"
+   },
+   "shrub_B": {
+    "count": 164,
+    "file": "world/generated/ne_canyon/shrub_B.bin",
+    "sha1": "fab5d4cbc87d55cdb738acd762f94a5f763d05e6"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 8,
+    "file": "world/generated/ne_canyon/spruce_L_normal_long_s27.bin",
+    "sha1": "229ffe844ada75e400374f95aa66e342aec5bd49"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 56,
+    "file": "world/generated/ne_canyon/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "5a3f02b61ea2f7e240f1d8bd1048a8e33b72c645"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 4,
+    "file": "world/generated/ne_canyon/spruce_L_normal_std_s25.bin",
+    "sha1": "d16b169f0b9d85a2b4dd73df33682cee6041f415"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 8,
+    "file": "world/generated/ne_canyon/spruce_L_normal_tall_s21.bin",
+    "sha1": "e02e341fc4173c57815ecb9c21a766c6838ffa7f"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 44,
+    "file": "world/generated/ne_canyon/spruce_L_wide_std_s3.bin",
+    "sha1": "954e67e9e1f71d9f7e018d958572397771a099df"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 3,
+    "file": "world/generated/ne_canyon/spruce_M_normal_long_s11.bin",
+    "sha1": "362ab26d597fa1b0df93e89e0d578e5b535831ef"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 37,
+    "file": "world/generated/ne_canyon/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "75bb846a5ea9405016c0b9c94231f9ae471d2ffc"
+   },
+   "spruce_M_normal_std_s9": {
+    "count": 2,
+    "file": "world/generated/ne_canyon/spruce_M_normal_std_s9.bin",
+    "sha1": "6c6d2fc12380a2b33179c91d816ba5ab55015eda"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 41,
+    "file": "world/generated/ne_canyon/spruce_M_wide_std_s35.bin",
+    "sha1": "cddc1bee5888a4f8235970f35dea5bede0dfdbfc"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 40,
+    "file": "world/generated/ne_canyon/spruce_S_normal_std_s10.bin",
+    "sha1": "1a28e19eca44c4a070d766e0b4f73862c37fab0e"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 35,
+    "file": "world/generated/ne_canyon/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "45dcd852c2d86e4b335bdbc897cdc4f432226d52"
+   },
+   "spruce_edge_A": {
+    "count": 70,
+    "file": "world/generated/ne_canyon/spruce_edge_A.bin",
+    "sha1": "102b6f592c3efe9cb9111fa6fcf2cf9590434761"
+   },
+   "spruce_mature_A": {
+    "count": 17,
+    "file": "world/generated/ne_canyon/spruce_mature_A.bin",
+    "sha1": "2315faca95339ae118e61418dc79ad906edf4a69"
+   },
+   "spruce_mature_B": {
+    "count": 30,
+    "file": "world/generated/ne_canyon/spruce_mature_B.bin",
+    "sha1": "7f974a31cebaf9f64d8608b019c972ba408a336f"
+   },
+   "spruce_young_A": {
+    "count": 60,
+    "file": "world/generated/ne_canyon/spruce_young_A.bin",
+    "sha1": "b0c51a5c43c1b0f89f3b99da84ce5757e2dea924"
+   }
+  },
+  "north_ridge": {
+   "boulder_large_A": {
+    "count": 24,
+    "file": "world/generated/north_ridge/boulder_large_A.bin",
+    "sha1": "9156f5dfa8e8612bf5ebf9930d141a5092498d91"
+   },
+   "boulder_medium_A": {
+    "count": 36,
+    "file": "world/generated/north_ridge/boulder_medium_A.bin",
+    "sha1": "373db293b0a55fd66b475eea48fce6c4810f2493"
+   },
+   "cliff_corner_A": {
+    "count": 26,
+    "file": "world/generated/north_ridge/cliff_corner_A.bin",
+    "sha1": "cf24936d947971c804fd6ccbb9171fc990810378"
+   },
+   "cliff_face_A": {
+    "count": 50,
+    "file": "world/generated/north_ridge/cliff_face_A.bin",
+    "sha1": "d405f1c733b9eef9f9edff3ec8d8799c71319324"
+   },
+   "dead_L_std_s3": {
+    "count": 3,
+    "file": "world/generated/north_ridge/dead_L_std_s3.bin",
+    "sha1": "898b58af012ba15e4353bb685a7ce0e616100d53"
+   },
+   "fallen_log_A": {
+    "count": 6,
+    "file": "world/generated/north_ridge/fallen_log_A.bin",
+    "sha1": "52acd3804555596b8b136b68d17e51a963b9fdec"
+   },
+   "fern_A": {
+    "count": 84,
+    "file": "world/generated/north_ridge/fern_A.bin",
+    "sha1": "0a12137babbe516e00246a94ddef1d651f36850e"
+   },
+   "pine_open_A": {
+    "count": 10,
+    "file": "world/generated/north_ridge/pine_open_A.bin",
+    "sha1": "40b0aff173452040986b84f061c4a6b57600de5e"
+   },
+   "rock_shelf_A": {
+    "count": 2,
+    "file": "world/generated/north_ridge/rock_shelf_A.bin",
+    "sha1": "af495ace4fd297076b19198ff438a4b1a1eab2a6"
+   },
+   "root_flare_A": {
+    "count": 38,
+    "file": "world/generated/north_ridge/root_flare_A.bin",
+    "sha1": "1ad10de2c8b3c9e16f0c4c3c9afd23616fa7237f"
+   },
+   "shrub_A": {
+    "count": 69,
+    "file": "world/generated/north_ridge/shrub_A.bin",
+    "sha1": "29732031e7ebddcd965741a6696ae986cd2cd458"
+   },
+   "shrub_B": {
+    "count": 86,
+    "file": "world/generated/north_ridge/shrub_B.bin",
+    "sha1": "a45bb580dc8272021277f1c7352c4b5cdf1f8bd2"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 16,
+    "file": "world/generated/north_ridge/spruce_L_normal_long_s27.bin",
+    "sha1": "714d256e6fcb128cd06cce6c02d319068ed0e94e"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 28,
+    "file": "world/generated/north_ridge/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "c9c53109a3ebf1e12cd05b00664cffebd7a2a5e2"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 12,
+    "file": "world/generated/north_ridge/spruce_L_normal_std_s25.bin",
+    "sha1": "653c5010be1358727c5e010efebc60e769783e9c"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 13,
+    "file": "world/generated/north_ridge/spruce_L_normal_tall_s21.bin",
+    "sha1": "fc28df83557919d737ab1fe70dc72f9b28ba2a38"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 27,
+    "file": "world/generated/north_ridge/spruce_L_wide_std_s3.bin",
+    "sha1": "c240594a350a1994153574b0dc0d03762e10c723"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 7,
+    "file": "world/generated/north_ridge/spruce_M_normal_long_s11.bin",
+    "sha1": "db38f3995d5cb6db26a6f601d39b62b1a85959c5"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 33,
+    "file": "world/generated/north_ridge/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "c24ab4211348db2b41c170d853a365bac645d0a1"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 21,
+    "file": "world/generated/north_ridge/spruce_M_wide_std_s35.bin",
+    "sha1": "e73cce669da1052aa0cf92d4d470787cc2f31073"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 16,
+    "file": "world/generated/north_ridge/spruce_S_normal_std_s10.bin",
+    "sha1": "d32ead5b8a33f55a28eeaac13e51e9ce446d806d"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 16,
+    "file": "world/generated/north_ridge/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "569697b57c6a1e0dc935e6c28fa9ea11108affcd"
+   },
+   "spruce_edge_A": {
+    "count": 29,
+    "file": "world/generated/north_ridge/spruce_edge_A.bin",
+    "sha1": "9abf95dcfb6fac3fca0d802d549e420ee2b52219"
+   },
+   "spruce_mature_A": {
+    "count": 57,
+    "file": "world/generated/north_ridge/spruce_mature_A.bin",
+    "sha1": "569ac52c03b266c718a1a6ed89004905a9440d9c"
+   },
+   "spruce_mature_B": {
+    "count": 60,
+    "file": "world/generated/north_ridge/spruce_mature_B.bin",
+    "sha1": "d1129d2d0d9e479d3f2fb77fbccc81d3403627f7"
+   },
+   "spruce_young_A": {
+    "count": 38,
+    "file": "world/generated/north_ridge/spruce_young_A.bin",
+    "sha1": "a09daedc6171acb8c394569fa628048d8525b04f"
+   }
+  },
+  "south_coast": {
+   "boulder_large_A": {
+    "count": 69,
+    "file": "world/generated/south_coast/boulder_large_A.bin",
+    "sha1": "c43c607c829769b3c4cb4d3076693a1918d84697"
+   },
+   "boulder_medium_A": {
+    "count": 180,
+    "file": "world/generated/south_coast/boulder_medium_A.bin",
+    "sha1": "51790f19a080f233ecff747fd971336be7efbabb"
+   },
+   "cliff_corner_A": {
+    "count": 113,
+    "file": "world/generated/south_coast/cliff_corner_A.bin",
+    "sha1": "e3052bf7664346dd9787bc05927f300c1a69b771"
+   },
+   "cliff_face_A": {
+    "count": 209,
+    "file": "world/generated/south_coast/cliff_face_A.bin",
+    "sha1": "6fb9bcd8782cba20e87201636d719304f23b5d27"
+   },
+   "dead_L_std_s3": {
+    "count": 9,
+    "file": "world/generated/south_coast/dead_L_std_s3.bin",
+    "sha1": "fbebe0489509748fdcf1f210709072ca8283bcb9"
+   },
+   "dead_M_long_s7": {
+    "count": 5,
+    "file": "world/generated/south_coast/dead_M_long_s7.bin",
+    "sha1": "88a0df15e13bd209d4cfbe9f311f9a062d6c2344"
+   },
+   "fallen_log_A": {
+    "count": 14,
+    "file": "world/generated/south_coast/fallen_log_A.bin",
+    "sha1": "de995131e23a191cfca2c18b679c354271cc4551"
+   },
+   "fern_A": {
+    "count": 185,
+    "file": "world/generated/south_coast/fern_A.bin",
+    "sha1": "61f785af01301c3c7b48107940be51d80cc79ee1"
+   },
+   "pine_open_A": {
+    "count": 33,
+    "file": "world/generated/south_coast/pine_open_A.bin",
+    "sha1": "6f0c789f69027293ef988629c29c81b4185762be"
+   },
+   "reed_A": {
+    "count": 2,
+    "file": "world/generated/south_coast/reed_A.bin",
+    "sha1": "cb469f81ee901e2e47b891542421c1a6b809a1b0"
+   },
+   "rock_shelf_A": {
+    "count": 9,
+    "file": "world/generated/south_coast/rock_shelf_A.bin",
+    "sha1": "e2cce8b36594788ba30bd95035e6ab845b317bfc"
+   },
+   "root_flare_A": {
+    "count": 78,
+    "file": "world/generated/south_coast/root_flare_A.bin",
+    "sha1": "0ec45f24fb563285117acdf21aa76d0780b64d7f"
+   },
+   "rubble_cluster_A": {
+    "count": 11,
+    "file": "world/generated/south_coast/rubble_cluster_A.bin",
+    "sha1": "8e27f651df6f6681a1f44509a54927bb9719b592"
+   },
+   "shore_boulder_A": {
+    "count": 47,
+    "file": "world/generated/south_coast/shore_boulder_A.bin",
+    "sha1": "ebb9c81a54ab5350530ddc756dc03dbf0440dbcc"
+   },
+   "shrub_A": {
+    "count": 306,
+    "file": "world/generated/south_coast/shrub_A.bin",
+    "sha1": "c9f8a094ec220b4d812ae6a50147a5c3e3d75a13"
+   },
+   "shrub_B": {
+    "count": 302,
+    "file": "world/generated/south_coast/shrub_B.bin",
+    "sha1": "0a68f9fb8492c71ddc9fc4ac131cba6d10541a3c"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 31,
+    "file": "world/generated/south_coast/spruce_L_normal_long_s27.bin",
+    "sha1": "f8cf5b357e0c40e2dd6a6ff0d78cdcf715b6dee0"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 140,
+    "file": "world/generated/south_coast/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "7dcf0cabc9f932d1b40fc0a6c267f8045bcac1e9"
+   },
+   "spruce_L_normal_std_irregular_s21": {
+    "count": 1,
+    "file": "world/generated/south_coast/spruce_L_normal_std_irregular_s21.bin",
+    "sha1": "ceb1d020d76a301a231905c641640f4a5332314e"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 36,
+    "file": "world/generated/south_coast/spruce_L_normal_std_s25.bin",
+    "sha1": "69fccf767018b0eb212edb02f7c520820497dc90"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 45,
+    "file": "world/generated/south_coast/spruce_L_normal_tall_s21.bin",
+    "sha1": "17436f40f162471ff63cbea6106b4885e4e2b728"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 95,
+    "file": "world/generated/south_coast/spruce_L_wide_std_s3.bin",
+    "sha1": "fc78fdb2ab1fe703d2d44308c6aa1c52acebf81f"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 18,
+    "file": "world/generated/south_coast/spruce_M_normal_long_s11.bin",
+    "sha1": "218955d8f1b9480a005e2df8916212f4a2429c66"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 104,
+    "file": "world/generated/south_coast/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "b1c8fbb75258036dd91291178ab83a389b49d267"
+   },
+   "spruce_M_normal_std_s9": {
+    "count": 1,
+    "file": "world/generated/south_coast/spruce_M_normal_std_s9.bin",
+    "sha1": "58c036eec4d72a03b5fe197824428c3dc28230cf"
+   },
+   "spruce_M_slim_std_layered_s36": {
+    "count": 2,
+    "file": "world/generated/south_coast/spruce_M_slim_std_layered_s36.bin",
+    "sha1": "71e90fa23217dfa5d58f8f8305f068f515e37ab3"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 76,
+    "file": "world/generated/south_coast/spruce_M_wide_std_s35.bin",
+    "sha1": "d4c02da1b29500bb24d20106533820583e609c5b"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 75,
+    "file": "world/generated/south_coast/spruce_S_normal_std_s10.bin",
+    "sha1": "c4f470f8b731cb0cbcd796764fe759fb68bfc5eb"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 82,
+    "file": "world/generated/south_coast/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "e7c6dd45c54a7d076c05f5662b34f8c5a4381c89"
+   },
+   "spruce_edge_A": {
+    "count": 146,
+    "file": "world/generated/south_coast/spruce_edge_A.bin",
+    "sha1": "fdfd9d24cb002fe8c79e5ac8896da0c1294f0ec6"
+   },
+   "spruce_mature_A": {
+    "count": 142,
+    "file": "world/generated/south_coast/spruce_mature_A.bin",
+    "sha1": "89b110fc5de411dcddcee70923f0d263da5b7f34"
+   },
+   "spruce_mature_B": {
+    "count": 117,
+    "file": "world/generated/south_coast/spruce_mature_B.bin",
+    "sha1": "4f34ac206bb36e34c27b49b9a85d0b3258da3b00"
+   },
+   "spruce_young_A": {
+    "count": 145,
+    "file": "world/generated/south_coast/spruce_young_A.bin",
+    "sha1": "ca0128d25afeaadee53ad8d3094a881b71bf8507"
+   }
+  },
+  "spawn_meadow": {
+   "boulder_large_A": {
+    "count": 7,
+    "file": "world/generated/spawn_meadow/boulder_large_A.bin",
+    "sha1": "c69211f32953753a2e49fe9bea4629e746fb908d"
+   },
+   "boulder_medium_A": {
+    "count": 13,
+    "file": "world/generated/spawn_meadow/boulder_medium_A.bin",
+    "sha1": "8522f734f95301ea373ed494443461246ad21380"
+   },
+   "cliff_corner_A": {
+    "count": 5,
+    "file": "world/generated/spawn_meadow/cliff_corner_A.bin",
+    "sha1": "5f57ea109aedaf816130caca071897222757237c"
+   },
+   "cliff_face_A": {
+    "count": 11,
+    "file": "world/generated/spawn_meadow/cliff_face_A.bin",
+    "sha1": "e30661d12295e31b558dbd1d23fcc7a8da5bb27f"
+   },
+   "dead_L_std_s3": {
+    "count": 1,
+    "file": "world/generated/spawn_meadow/dead_L_std_s3.bin",
+    "sha1": "0846bd466efe3b488dd00e3c4e0fc8590c65d22f"
+   },
+   "fallen_log_A": {
+    "count": 1,
+    "file": "world/generated/spawn_meadow/fallen_log_A.bin",
+    "sha1": "c4b08d67b1d1bbc2e656d158ef5774f7e86b8e14"
+   },
+   "fern_A": {
+    "count": 7,
+    "file": "world/generated/spawn_meadow/fern_A.bin",
+    "sha1": "8c4986914e4c8a48e5d720a373cc56973b46352e"
+   },
+   "reed_A": {
+    "count": 13,
+    "file": "world/generated/spawn_meadow/reed_A.bin",
+    "sha1": "8d937eb0c38bfeb7a987961b36f3cbf5de758e42"
+   },
+   "rock_shelf_A": {
+    "count": 4,
+    "file": "world/generated/spawn_meadow/rock_shelf_A.bin",
+    "sha1": "98fb3731181ee0fca59a8d5ed74b5f1d2f988f71"
+   },
+   "root_flare_A": {
+    "count": 1,
+    "file": "world/generated/spawn_meadow/root_flare_A.bin",
+    "sha1": "43ecb515d7074a8a701caa0ab60efb93d2e3be8d"
+   },
+   "rubble_cluster_A": {
+    "count": 3,
+    "file": "world/generated/spawn_meadow/rubble_cluster_A.bin",
+    "sha1": "c7857ca3bd1a19394a9b847187e3be177b301ccd"
+   },
+   "shore_boulder_A": {
+    "count": 8,
+    "file": "world/generated/spawn_meadow/shore_boulder_A.bin",
+    "sha1": "47ff05e3e89080077064906108fe78e91f12d1d9"
+   },
+   "shrub_A": {
+    "count": 21,
+    "file": "world/generated/spawn_meadow/shrub_A.bin",
+    "sha1": "14e991d14c326fc9833c026a055982e60635e44a"
+   },
+   "shrub_B": {
+    "count": 20,
+    "file": "world/generated/spawn_meadow/shrub_B.bin",
+    "sha1": "2b8d798840307755da31556e709a8dc4e1a8bfbe"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 7,
+    "file": "world/generated/spawn_meadow/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "4670e26bd36082181ba26305165542ad41019c60"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 6,
+    "file": "world/generated/spawn_meadow/spruce_L_wide_std_s3.bin",
+    "sha1": "a0ff0c48d28e67baa089368073892c8b1b399b6b"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 4,
+    "file": "world/generated/spawn_meadow/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "b90dda522b1c49a05a145e06431fc92e9b06e3a3"
+   },
+   "spruce_M_normal_std_s9": {
+    "count": 1,
+    "file": "world/generated/spawn_meadow/spruce_M_normal_std_s9.bin",
+    "sha1": "884f30038b7dacda9898b994bf1cc978f54dd62c"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 9,
+    "file": "world/generated/spawn_meadow/spruce_M_wide_std_s35.bin",
+    "sha1": "81e6ae2fd92ff7861ca07a4b46eea905bb8776a2"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 7,
+    "file": "world/generated/spawn_meadow/spruce_S_normal_std_s10.bin",
+    "sha1": "4c2a9b269ddd434c0df93dc447e02155e2023fe8"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 6,
+    "file": "world/generated/spawn_meadow/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "516b0c85a149bb7c448cd82910803dbd087afebd"
+   },
+   "spruce_edge_A": {
+    "count": 17,
+    "file": "world/generated/spawn_meadow/spruce_edge_A.bin",
+    "sha1": "943392dd3974dc2765097936ccd2a400560566f4"
+   },
+   "spruce_mature_A": {
+    "count": 2,
+    "file": "world/generated/spawn_meadow/spruce_mature_A.bin",
+    "sha1": "583ef68c3d86ea159466aa2d0a6d69afd1de4c30"
+   },
+   "spruce_mature_B": {
+    "count": 4,
+    "file": "world/generated/spawn_meadow/spruce_mature_B.bin",
+    "sha1": "14f067428810b78d40ce3f300c9ac6a4b3fce9c0"
+   },
+   "spruce_young_A": {
+    "count": 10,
+    "file": "world/generated/spawn_meadow/spruce_young_A.bin",
+    "sha1": "d4768158f669ca8b9fc97f0a46888a16b100b41f"
+   }
+  },
+  "upper_lake": {
+   "boulder_large_A": {
+    "count": 12,
+    "file": "world/generated/upper_lake/boulder_large_A.bin",
+    "sha1": "f2912a8cb95c9d127efeda2ee314c4508ae427ae"
+   },
+   "boulder_medium_A": {
+    "count": 23,
+    "file": "world/generated/upper_lake/boulder_medium_A.bin",
+    "sha1": "a5d6838b13b98a716b1e883454f4d297d1cdb6a1"
+   },
+   "fallen_log_A": {
+    "count": 1,
+    "file": "world/generated/upper_lake/fallen_log_A.bin",
+    "sha1": "c33e71d50295caab0e77cd5c39a287c9c632093c"
+   },
+   "fern_A": {
+    "count": 56,
+    "file": "world/generated/upper_lake/fern_A.bin",
+    "sha1": "922d91c2729285fa1da40fe2b54356ce62d58791"
+   },
+   "pine_open_A": {
+    "count": 4,
+    "file": "world/generated/upper_lake/pine_open_A.bin",
+    "sha1": "16bf395049a235330e1bebb99afd5a2e76a9a3dc"
+   },
+   "reed_A": {
+    "count": 37,
+    "file": "world/generated/upper_lake/reed_A.bin",
+    "sha1": "5b1134591d0264cd8f35a4c8af597252ddf7cfc8"
+   },
+   "root_flare_A": {
+    "count": 21,
+    "file": "world/generated/upper_lake/root_flare_A.bin",
+    "sha1": "c561035289da4a942d25cc4b19c6d81b24e66695"
+   },
+   "rubble_cluster_A": {
+    "count": 9,
+    "file": "world/generated/upper_lake/rubble_cluster_A.bin",
+    "sha1": "dae9d9598aeafe3be6432602d7f1e88ced4fdd29"
+   },
+   "shore_boulder_A": {
+    "count": 19,
+    "file": "world/generated/upper_lake/shore_boulder_A.bin",
+    "sha1": "0df63cc7f36a1edf34de416fdcae11c7ad7923be"
+   },
+   "shrub_A": {
+    "count": 47,
+    "file": "world/generated/upper_lake/shrub_A.bin",
+    "sha1": "df42dc565ebace7998274297d302038283fe9b04"
+   },
+   "shrub_B": {
+    "count": 48,
+    "file": "world/generated/upper_lake/shrub_B.bin",
+    "sha1": "95f9dae515b84e916e866beafb3b24893b7d0710"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 5,
+    "file": "world/generated/upper_lake/spruce_L_normal_long_s27.bin",
+    "sha1": "ed84a0173d554137f8689974002079f24e35840e"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 28,
+    "file": "world/generated/upper_lake/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "4eeef34da99a8f3c4cb72d30c57f29ea85523ff0"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 11,
+    "file": "world/generated/upper_lake/spruce_L_normal_std_s25.bin",
+    "sha1": "5ebd29810ca1aec781aebf16f8d46c601ade7bc9"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 11,
+    "file": "world/generated/upper_lake/spruce_L_normal_tall_s21.bin",
+    "sha1": "15c9be130da0e5925883db855be0a37854f8d0fb"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 32,
+    "file": "world/generated/upper_lake/spruce_L_wide_std_s3.bin",
+    "sha1": "c8fafaae2c9d006a11f839f6be6bc481c815fca8"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 5,
+    "file": "world/generated/upper_lake/spruce_M_normal_long_s11.bin",
+    "sha1": "3628805ab14972e9f98e5b86b3040854c8931236"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 22,
+    "file": "world/generated/upper_lake/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "7259eafdbcfd2f08912aa48ea236c566e8af797d"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 27,
+    "file": "world/generated/upper_lake/spruce_M_wide_std_s35.bin",
+    "sha1": "e0ac9f5f48fe9182b1c8c4bc3f5feba8276b7e5f"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 20,
+    "file": "world/generated/upper_lake/spruce_S_normal_std_s10.bin",
+    "sha1": "823bffdc67b0bc2ebfc91c755b2c87738db1a203"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 35,
+    "file": "world/generated/upper_lake/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "9ed37fcd137aaac29ede7bfb7f3a24671c6627d0"
+   },
+   "spruce_edge_A": {
+    "count": 42,
+    "file": "world/generated/upper_lake/spruce_edge_A.bin",
+    "sha1": "756a863eb963ee44ebe68778ba9dd0c8f4c13be3"
+   },
+   "spruce_mature_A": {
+    "count": 30,
+    "file": "world/generated/upper_lake/spruce_mature_A.bin",
+    "sha1": "04d122d6a5cd04d5476049da2a05ce213f72e9f8"
+   },
+   "spruce_mature_B": {
+    "count": 35,
+    "file": "world/generated/upper_lake/spruce_mature_B.bin",
+    "sha1": "a6f0c88da0a23befa8d0ea7c142f01d67ad223a4"
+   },
+   "spruce_young_A": {
+    "count": 32,
+    "file": "world/generated/upper_lake/spruce_young_A.bin",
+    "sha1": "95ec36255e9610cbbd7e273c6e25a4731420cb17"
+   }
+  },
+  "west_escarpment": {
+   "boulder_large_A": {
+    "count": 35,
+    "file": "world/generated/west_escarpment/boulder_large_A.bin",
+    "sha1": "4d8e26fe21aaa39367d66eeb886aa38b6d06e014"
+   },
+   "boulder_medium_A": {
+    "count": 77,
+    "file": "world/generated/west_escarpment/boulder_medium_A.bin",
+    "sha1": "d8ec16bd6ffe096b38494184ae03c781858b07c8"
+   },
+   "cliff_corner_A": {
+    "count": 36,
+    "file": "world/generated/west_escarpment/cliff_corner_A.bin",
+    "sha1": "57dad930f66fe6ef33b05532344e6ae9203d237b"
+   },
+   "cliff_face_A": {
+    "count": 71,
+    "file": "world/generated/west_escarpment/cliff_face_A.bin",
+    "sha1": "6e846e49bbca5551de045a9dab7ebfa2a198b030"
+   },
+   "fallen_log_A": {
+    "count": 5,
+    "file": "world/generated/west_escarpment/fallen_log_A.bin",
+    "sha1": "be77ba3fcd2d136122151ada66b5cb477767e809"
+   },
+   "fern_A": {
+    "count": 63,
+    "file": "world/generated/west_escarpment/fern_A.bin",
+    "sha1": "d47fc980d3f821dd54fd8d0925dfd01a15228173"
+   },
+   "pine_open_A": {
+    "count": 10,
+    "file": "world/generated/west_escarpment/pine_open_A.bin",
+    "sha1": "48d13bc7e4c15126855c7be2e729ad5f97d9acbe"
+   },
+   "reed_A": {
+    "count": 10,
+    "file": "world/generated/west_escarpment/reed_A.bin",
+    "sha1": "8d7c10bf2ac5303f01d16ce39a318d68ae5fee0f"
+   },
+   "rock_shelf_A": {
+    "count": 5,
+    "file": "world/generated/west_escarpment/rock_shelf_A.bin",
+    "sha1": "5199fde27f8547fe113ed78839b93598f7c33715"
+   },
+   "root_flare_A": {
+    "count": 40,
+    "file": "world/generated/west_escarpment/root_flare_A.bin",
+    "sha1": "6d7819c9cbab173771f40b098f06999bb9bbe334"
+   },
+   "rubble_cluster_A": {
+    "count": 1,
+    "file": "world/generated/west_escarpment/rubble_cluster_A.bin",
+    "sha1": "3c53fd74ce56639ae273f1886805848a5352b353"
+   },
+   "shore_boulder_A": {
+    "count": 3,
+    "file": "world/generated/west_escarpment/shore_boulder_A.bin",
+    "sha1": "bd12390effdfa18a20738ad8b61fa21e401b9796"
+   },
+   "shrub_A": {
+    "count": 91,
+    "file": "world/generated/west_escarpment/shrub_A.bin",
+    "sha1": "812b2aaeeef14c2bb459f751a54991c8b2fb2834"
+   },
+   "shrub_B": {
+    "count": 127,
+    "file": "world/generated/west_escarpment/shrub_B.bin",
+    "sha1": "3b933112777a5ed92db24faf80cab11b1c72d15d"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 13,
+    "file": "world/generated/west_escarpment/spruce_L_normal_long_s27.bin",
+    "sha1": "15c2c2bfb420b34019ad3cbcfe82a5be0c0587d3"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 31,
+    "file": "world/generated/west_escarpment/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "9c6abbfe8907d1a5f5a8777fd63e2d785e58d662"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 13,
+    "file": "world/generated/west_escarpment/spruce_L_normal_std_s25.bin",
+    "sha1": "8cadce1fdf64244f7abaa19f7d0bd87cb6dfd27c"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 17,
+    "file": "world/generated/west_escarpment/spruce_L_normal_tall_s21.bin",
+    "sha1": "3f7d53f41cfa533c4acdea13dcb4ade5baccaa0d"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 26,
+    "file": "world/generated/west_escarpment/spruce_L_wide_std_s3.bin",
+    "sha1": "9b6477a62ea81ff742aa0786b555d383d1b76b7b"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 15,
+    "file": "world/generated/west_escarpment/spruce_M_normal_long_s11.bin",
+    "sha1": "347ea2ce79cafb6cc2f0f295053a016c57eaae55"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 33,
+    "file": "world/generated/west_escarpment/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "d168dc99a2b79e0fa8a7674f80a2b38f8b6cb077"
+   },
+   "spruce_M_slim_std_layered_s36": {
+    "count": 2,
+    "file": "world/generated/west_escarpment/spruce_M_slim_std_layered_s36.bin",
+    "sha1": "fd5bcc056685049e817efb16ae20d21bc3a0b38f"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 31,
+    "file": "world/generated/west_escarpment/spruce_M_wide_std_s35.bin",
+    "sha1": "458c0386c0b84580e0cd9e1c495039fe54bd6bc5"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 13,
+    "file": "world/generated/west_escarpment/spruce_S_normal_std_s10.bin",
+    "sha1": "8ed5a6da8baa2ebc069ba45799da90a67f907428"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 37,
+    "file": "world/generated/west_escarpment/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "8698dc32f8206c8d0883b4c505063df1914a1b99"
+   },
+   "spruce_edge_A": {
+    "count": 57,
+    "file": "world/generated/west_escarpment/spruce_edge_A.bin",
+    "sha1": "4ed25236a3601c488b2b2980ae11afd0c6ff98b1"
+   },
+   "spruce_mature_A": {
+    "count": 41,
+    "file": "world/generated/west_escarpment/spruce_mature_A.bin",
+    "sha1": "47fe8b8ae0e869e85c2f5d878093bf912a717950"
+   },
+   "spruce_mature_B": {
+    "count": 53,
+    "file": "world/generated/west_escarpment/spruce_mature_B.bin",
+    "sha1": "8de5464a047f1e1c7a8a91d8e72e14b323ac438a"
+   },
+   "spruce_young_A": {
+    "count": 37,
+    "file": "world/generated/west_escarpment/spruce_young_A.bin",
+    "sha1": "d1ec9f97b34cb9ad5b3e9c31471f4cf85de5bed5"
+   }
+  },
+  "west_river": {
+   "boulder_large_A": {
+    "count": 14,
+    "file": "world/generated/west_river/boulder_large_A.bin",
+    "sha1": "3bc23068a41b13287391027864b35e9c324272d5"
+   },
+   "boulder_medium_A": {
+    "count": 34,
+    "file": "world/generated/west_river/boulder_medium_A.bin",
+    "sha1": "3548fa1c76f45471284eef5f4cc20b01d5b89887"
+   },
+   "cliff_face_A": {
+    "count": 3,
+    "file": "world/generated/west_river/cliff_face_A.bin",
+    "sha1": "d52ceb732f73f07222b94ed35af22275e6bebe0f"
+   },
+   "dead_L_std_s3": {
+    "count": 2,
+    "file": "world/generated/west_river/dead_L_std_s3.bin",
+    "sha1": "8a8d43b564778fde2c0788cb22239a427cad76b8"
+   },
+   "fallen_log_A": {
+    "count": 5,
+    "file": "world/generated/west_river/fallen_log_A.bin",
+    "sha1": "09ca1bb5b12391966bbdc696c00b4db2d94ad03b"
+   },
+   "fern_A": {
+    "count": 58,
+    "file": "world/generated/west_river/fern_A.bin",
+    "sha1": "f0bb40ecdf67c94daf81cb1e02f357c4ef71d2f6"
+   },
+   "pine_open_A": {
+    "count": 4,
+    "file": "world/generated/west_river/pine_open_A.bin",
+    "sha1": "22fd68f43b424d5243bd7ace3653b54340d67dc4"
+   },
+   "reed_A": {
+    "count": 29,
+    "file": "world/generated/west_river/reed_A.bin",
+    "sha1": "234119edaf8f816dc16a0ffeb5c915c47e8f7c8c"
+   },
+   "root_flare_A": {
+    "count": 17,
+    "file": "world/generated/west_river/root_flare_A.bin",
+    "sha1": "c413e67ebc6792988d8079227102ae0e316034f2"
+   },
+   "rubble_cluster_A": {
+    "count": 5,
+    "file": "world/generated/west_river/rubble_cluster_A.bin",
+    "sha1": "24f9ca1be2ab91d7a0a790344679a07339909c51"
+   },
+   "shore_boulder_A": {
+    "count": 13,
+    "file": "world/generated/west_river/shore_boulder_A.bin",
+    "sha1": "0d0d237692fa9445f177191b9b591678ff16b5fb"
+   },
+   "shrub_A": {
+    "count": 80,
+    "file": "world/generated/west_river/shrub_A.bin",
+    "sha1": "4167dd8b6d94bc5ecc3b14bc779e857835fbb671"
+   },
+   "shrub_B": {
+    "count": 93,
+    "file": "world/generated/west_river/shrub_B.bin",
+    "sha1": "cfbb84a4bdaa53ddfc0a5cddb55f93afdab8f936"
+   },
+   "spruce_L_normal_long_s27": {
+    "count": 12,
+    "file": "world/generated/west_river/spruce_L_normal_long_s27.bin",
+    "sha1": "1328b41b089633c01eafc9fe68e688f00a5aaf37"
+   },
+   "spruce_L_normal_std_bottom_dense_s5": {
+    "count": 54,
+    "file": "world/generated/west_river/spruce_L_normal_std_bottom_dense_s5.bin",
+    "sha1": "26ee69dd9014ea7d884d7a31296fb3db97f5d465"
+   },
+   "spruce_L_normal_std_s25": {
+    "count": 8,
+    "file": "world/generated/west_river/spruce_L_normal_std_s25.bin",
+    "sha1": "ba30180efad72cb01b4599a2866ed8a1eece0675"
+   },
+   "spruce_L_normal_tall_s21": {
+    "count": 10,
+    "file": "world/generated/west_river/spruce_L_normal_tall_s21.bin",
+    "sha1": "ce14efed21b999d359b1aa737b488801d4cb78a4"
+   },
+   "spruce_L_wide_std_s3": {
+    "count": 40,
+    "file": "world/generated/west_river/spruce_L_wide_std_s3.bin",
+    "sha1": "530c6e884430d8096d7526433640218b4c6469bb"
+   },
+   "spruce_M_normal_long_s11": {
+    "count": 8,
+    "file": "world/generated/west_river/spruce_M_normal_long_s11.bin",
+    "sha1": "3c57d1182e360cc247a6f2e6e39f30d6818a76bd"
+   },
+   "spruce_M_normal_std_bottom_dense_s22": {
+    "count": 46,
+    "file": "world/generated/west_river/spruce_M_normal_std_bottom_dense_s22.bin",
+    "sha1": "44057719d3e5a137cf072ed5ea823505b472cccc"
+   },
+   "spruce_M_wide_std_s35": {
+    "count": 24,
+    "file": "world/generated/west_river/spruce_M_wide_std_s35.bin",
+    "sha1": "6770c4a94ad6f78dec7baf0a61bcf017a7c51019"
+   },
+   "spruce_S_normal_std_s10": {
+    "count": 19,
+    "file": "world/generated/west_river/spruce_S_normal_std_s10.bin",
+    "sha1": "11a9138252938bc5d485a15fba130ff5ed8c04fe"
+   },
+   "spruce_S_wide_std_dense_s39": {
+    "count": 46,
+    "file": "world/generated/west_river/spruce_S_wide_std_dense_s39.bin",
+    "sha1": "26ef1a3fd182c14076a1cccad490d203f913ed37"
+   },
+   "spruce_edge_A": {
+    "count": 68,
+    "file": "world/generated/west_river/spruce_edge_A.bin",
+    "sha1": "f1fa0f8370592f04f43287c51825a0e69d80d4fc"
+   },
+   "spruce_mature_A": {
+    "count": 30,
+    "file": "world/generated/west_river/spruce_mature_A.bin",
+    "sha1": "3b3a6d0b83e22b2b57db6075fc9a1cec692c6487"
+   },
+   "spruce_mature_B": {
+    "count": 21,
+    "file": "world/generated/west_river/spruce_mature_B.bin",
+    "sha1": "64f0c5f8c82b9b682899354f7db35418c3c32de5"
+   },
+   "spruce_young_A": {
+    "count": 53,
+    "file": "world/generated/west_river/spruce_young_A.bin",
+    "sha1": "42a1294d7bd53735091962b75ebd4de3dc093196"
+   }
+  }
+ },
+ "locked": {
+  "A_meadow_departure": [
+   1527225201,
+   2167251513,
+   3387725150,
+   2552455551,
+   2674503212,
+   2561785220
+  ],
+  "B_rock_ledge_bend": [
+   4072981350,
+   3560031803,
+   2533492222,
+   2206201712,
+   2625543072,
+   3244266393,
+   3320229132,
+   4253377115
+  ],
+  "C_mature_forest_pocket": [
+   3825941452,
+   2666279472,
+   1153465933,
+   1567426379,
+   2365853165,
+   3525879037,
+   3099705306,
+   191153845,
+   478144031,
+   367101201,
+   3643723642,
+   3065035007
+  ],
+  "F_bank_pocket": [
+   2309589298,
+   3988364295,
+   1698009925,
+   1662733732,
+   2408030438,
+   3578347733,
+   146387272
+  ],
+  "E_upper_lake_bank": [
+   2485419297,
+   3341288042,
+   1784558019,
+   1313101244,
+   2255256258,
+   2021357864,
+   1422216735,
+   1168412641,
+   4192087261,
+   834524358,
+   3788893701,
+   2789858237
+  ],
+  "J_east_falls_basin": [
+   3664294894,
+   1523246809,
+   2382602847,
+   584991042,
+   543110536,
+   1211549530
+  ],
+  "A2_spawn_shoulder": [
+   3501790225,
+   1227701533,
+   3359907836,
+   3695396571,
+   1879361760,
+   3165338517,
+   2501483170,
+   280860274
+  ]
+ },
+ "skipped": [],
+ "warnings": [
+  "tree count 10185 outside sane range (12000, 25000) (current runtime 18545)"
+ ],
+ "fields": {
+  "bank": {
+   "file": "tools/environment/out/fields/bank.png",
+   "format": "RGBA8 1024x1024 row0=north",
+   "sha1_rgba": "a73e8ddf05cf3e29c51fadc5a94dc82bc0e9275f"
+  },
+  "flowers": {
+   "file": "tools/environment/out/fields/flowers.png",
+   "format": "RGBA8 1024x1024 row0=north",
+   "sha1_rgba": "9b3e4e2b0b2c7acdb9c5b05532507ae0ae8c7faf"
+  },
+  "ground": {
+   "file": "tools/environment/out/fields/ground.png",
+   "format": "RGBA8 1024x1024 row0=north",
+   "sha1_rgba": "2d5dc34fb0c125b166704f3e78a3e9e438c3926c"
+  },
+  "habitat": {
+   "file": "tools/environment/out/fields/habitat.png",
+   "format": "RGBA8 1024x1024 row0=north",
+   "sha1_rgba": "c5444545ceb53c298dcfd271fc750d2f27eedaee"
+  }
+ },
+ "routes": [
+  {
+   "id": "spawn_departure",
+   "stones_on_turns": true,
+   "roots": true,
+   "clearance_height": 2.6,
+   "turn_band_m": [
+    1.5,
+    3.5
+   ],
+   "turns": [
+    {
+     "from_m": 59,
+     "to_m": 66,
+     "max_bend_deg": 58.7,
+     "outer_side": "left"
+    }
+   ]
+  }
+ ],
+ "validation": {
+  "ok": true,
+  "hard_failures": [],
+  "recipe_members": {
+   "total": 59,
+   "resolved": 59,
+   "skipped": 0
+  },
+  "origins_in_water": 0,
+  "route_core_min_clearance_m": 1.347,
+  "route_core_min_clearance_by_recipe_m": {
+   "A2_spawn_shoulder": 6.773,
+   "A_meadow_departure": 5.412,
+   "B_rock_ledge_bend": 1.347,
+   "C_mature_forest_pocket": 4.192,
+   "E_upper_lake_bank": 96.956,
+   "F_bank_pocket": 2.955,
+   "J_east_falls_basin": 473.919
+  },
+  "spawn_violations": 0,
+  "rock_exposure": {
+   "fill": {
+    "boulder_large": {
+     "n": 465,
+     "min": 0.501,
+     "p10": 0.574,
+     "median": 0.746
+    },
+    "boulder_medium": {
+     "n": 1031,
+     "min": 0.5,
+     "p10": 0.557,
+     "median": 0.68
+    },
+    "cliff_corner (cliffs.face)": {
+     "n": 539,
+     "min": 0.305,
+     "p10": 0.633,
+     "median": 0.81
+    },
+    "cliff_face (cliffs.face)": {
+     "n": 1036,
+     "min": 0.344,
+     "p10": 0.715,
+     "median": 0.862
+    },
+    "rock_shelf": {
+     "n": 4,
+     "min": 0.408,
+     "p10": 0.435,
+     "median": 0.661
+    },
+    "rock_shelf (cliffs.tread)": {
+     "n": 46,
+     "min": 0.395,
+     "p10": 0.547,
+     "median": 0.816
+    },
+    "rubble_cluster": {
+     "n": 69,
+     "min": 0.5,
+     "p10": 0.503,
+     "median": 0.628
+    },
+    "shore_boulder": {
+     "n": 236,
+     "min": 0.5,
+     "p10": 0.526,
+     "median": 0.585
+    }
+   },
+   "recipe": {
+    "boulder_large": {
+     "n": 5,
+     "min": 0.0,
+     "p10": 0.261,
+     "median": 0.694
+    },
+    "boulder_medium": {
+     "n": 7,
+     "min": 0.415,
+     "p10": 0.45,
+     "median": 0.721
+    },
+    "cliff_face": {
+     "n": 1,
+     "min": 0.812,
+     "p10": 0.812,
+     "median": 0.812
+    },
+    "rock_shelf": {
+     "n": 4,
+     "min": 0.588,
+     "p10": 0.621,
+     "median": 0.718
+    },
+    "rubble_cluster": {
+     "n": 6,
+     "min": 0.0,
+     "p10": 0.0,
+     "median": 0.0
+    },
+    "shore_boulder": {
+     "n": 8,
+     "min": 0.0,
+     "p10": 0.131,
+     "median": 0.35
+    }
+   }
+  },
+  "rock_rejected_candidates": {
+   "banks.coast_stones: boulder: no-float and exposure >= 0.5 incompatible": 11,
+   "banks.coast_stones: cliff module footprint": 7,
+   "banks.coast_stones: spacing": 8,
+   "banks.coast_stones: trunk/rock/log too close": 2,
+   "banks.gravel_stones: spacing": 85,
+   "banks.gravel_stones: trunk/rock/log too close": 60,
+   "banks.rock_boulders: boulder: no-float and exposure >= 0.5 incompatible": 40,
+   "banks.rock_boulders: cliff module footprint": 14,
+   "banks.rock_boulders: spacing": 71,
+   "banks.rock_boulders: trunk/rock/log too close": 18,
+   "banks.rock_rubble: boulder: no-float and exposure >= 0.5 incompatible": 54,
+   "banks.rock_rubble: cliff module footprint": 19,
+   "banks.rock_rubble: spacing": 28,
+   "banks.rock_rubble: trunk/rock/log too close": 59,
+   "banks.sedge_reeds: spacing": 276,
+   "banks.sedge_reeds: trunk/rock/log too close": 7,
+   "banks.sedge_shrubs: same-family plant too close": 6,
+   "banks.sedge_shrubs: spacing": 35,
+   "banks.sedge_shrubs: trunk/rock/log too close": 1,
+   "boulder_large: boulder: no-float and exposure >= 0.5 incompatible": 316,
+   "boulder_medium: boulder: no-float and exposure >= 0.5 incompatible": 1434,
+   "face: cliff: back exposed": 422,
+   "face: cliff: end exposed": 18,
+   "face: cliff: exposure < 0.3": 70,
+   "face: cliff: terrain rise > 1.60 x shelf rise": 1161,
+   "face: excluded (water/route core/spawn/reserve)": 126,
+   "face: overlaps placed rock": 956,
+   "face: spacing": 4268,
+   "face: tree trunk in footprint": 193,
+   "rock_shelf: shelf: exposure < 0.35": 3,
+   "rock_shelf: shelf: terrain rise > 1.10 x shelf rise": 38,
+   "rubble_cluster: boulder: no-float and exposure >= 0.5 incompatible": 76,
+   "shore_boulder: boulder: no-float and exposure >= 0.5 incompatible": 37,
+   "tread: excluded (water/route core/spawn/reserve)": 30,
+   "tread: overlaps placed rock": 49,
+   "tread: shelf: exposure < 0.3": 4,
+   "tread: shelf: terrain rise > 1.60 x shelf rise": 1,
+   "tread: spacing": 12,
+   "tread: tree trunk in footprint": 28
+  },
+  "recipe_rock_members": [
+   {
+    "recipe": "A_meadow_departure",
+    "member": 0,
+    "asset": "rock_shelf_A",
+    "id": 1527225201,
+    "exposure": 0.829,
+    "float_gap_m": -0.1
+   },
+   {
+    "recipe": "A_meadow_departure",
+    "member": 1,
+    "asset": "boulder_large_A",
+    "id": 2167251513,
+    "exposure": 0.696,
+    "float_gap_m": -0.18
+   },
+   {
+    "recipe": "A_meadow_departure",
+    "member": 2,
+    "asset": "boulder_medium_A",
+    "id": 3387725150,
+    "exposure": 0.673,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "A_meadow_departure",
+    "member": 3,
+    "asset": "rubble_cluster_A",
+    "id": 2552455551,
+    "exposure": 0.0,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "B_rock_ledge_bend",
+    "member": 0,
+    "asset": "rock_shelf_A",
+    "id": 4072981350,
+    "exposure": 0.699,
+    "float_gap_m": -0.1
+   },
+   {
+    "recipe": "B_rock_ledge_bend",
+    "member": 1,
+    "asset": "cliff_face_A",
+    "id": 3560031803,
+    "exposure": 0.812,
+    "float_gap_m": -0.1
+   },
+   {
+    "recipe": "B_rock_ledge_bend",
+    "member": 2,
+    "asset": "boulder_large_A",
+    "id": 2533492222,
+    "exposure": 0.897,
+    "float_gap_m": -0.18
+   },
+   {
+    "recipe": "B_rock_ledge_bend",
+    "member": 3,
+    "asset": "boulder_medium_A",
+    "id": 2206201712,
+    "exposure": 0.827,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "B_rock_ledge_bend",
+    "member": 4,
+    "asset": "boulder_medium_A",
+    "id": 2625543072,
+    "exposure": 0.728,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "B_rock_ledge_bend",
+    "member": 5,
+    "asset": "rubble_cluster_A",
+    "id": 3244266393,
+    "exposure": 0.498,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "F_bank_pocket",
+    "member": 0,
+    "asset": "shore_boulder_A",
+    "id": 2309589298,
+    "exposure": 0.251,
+    "float_gap_m": -0.616
+   },
+   {
+    "recipe": "F_bank_pocket",
+    "member": 1,
+    "asset": "shore_boulder_A",
+    "id": 3988364295,
+    "exposure": 0.187,
+    "float_gap_m": -0.481
+   },
+   {
+    "recipe": "F_bank_pocket",
+    "member": 2,
+    "asset": "shore_boulder_A",
+    "id": 1698009925,
+    "exposure": 0.323,
+    "float_gap_m": -0.297
+   },
+   {
+    "recipe": "F_bank_pocket",
+    "member": 3,
+    "asset": "boulder_medium_A",
+    "id": 1662733732,
+    "exposure": 0.721,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "E_upper_lake_bank",
+    "member": 0,
+    "asset": "boulder_large_A",
+    "id": 2485419297,
+    "exposure": 0.694,
+    "float_gap_m": -0.18
+   },
+   {
+    "recipe": "E_upper_lake_bank",
+    "member": 1,
+    "asset": "shore_boulder_A",
+    "id": 3341288042,
+    "exposure": 0.54,
+    "float_gap_m": -0.44
+   },
+   {
+    "recipe": "E_upper_lake_bank",
+    "member": 2,
+    "asset": "shore_boulder_A",
+    "id": 1784558019,
+    "exposure": 0.47,
+    "float_gap_m": -0.124
+   },
+   {
+    "recipe": "E_upper_lake_bank",
+    "member": 3,
+    "asset": "boulder_medium_A",
+    "id": 1313101244,
+    "exposure": 0.785,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "E_upper_lake_bank",
+    "member": 4,
+    "asset": "rubble_cluster_A",
+    "id": 2255256258,
+    "exposure": 0.136,
+    "float_gap_m": -0.11
+   },
+   {
+    "recipe": "J_east_falls_basin",
+    "member": 0,
+    "asset": "shore_boulder_A",
+    "id": 3664294894,
+    "exposure": 0.534,
+    "float_gap_m": -0.049
+   },
+   {
+    "recipe": "J_east_falls_basin",
+    "member": 1,
+    "asset": "shore_boulder_A",
+    "id": 1523246809,
+    "exposure": 0.0,
+    "float_gap_m": 0.0
+   },
+   {
+    "recipe": "J_east_falls_basin",
+    "member": 2,
+    "asset": "shore_boulder_A",
+    "id": 2382602847,
+    "exposure": 0.377,
+    "float_gap_m": 0.0
+   },
+   {
+    "recipe": "J_east_falls_basin",
+    "member": 3,
+    "asset": "rubble_cluster_A",
+    "id": 584991042,
+    "exposure": 0.0,
+    "float_gap_m": -0.11
+   },
+   {
+    "recipe": "J_east_falls_basin",
+    "member": 4,
+    "asset": "rubble_cluster_A",
+    "id": 543110536,
+    "exposure": 0.0,
+    "float_gap_m": -0.11
+   },
+   {
+    "recipe": "J_east_falls_basin",
+    "member": 5,
+    "asset": "boulder_large_A",
+    "id": 1211549530,
+    "exposure": 0.0,
+    "float_gap_m": -0.18
+   },
+   {
+    "recipe": "A2_spawn_shoulder",
+    "member": 0,
+    "asset": "rock_shelf_A",
+    "id": 3501790225,
+    "exposure": 0.738,
+    "float_gap_m": -0.1
+   },
+   {
+    "recipe": "A2_spawn_shoulder",
+    "member": 1,
+    "asset": "rock_shelf_A",
+    "id": 1227701533,
+    "exposure": 0.588,
+    "float_gap_m": -0.1
+   },
+   {
+    "recipe": "A2_spawn_shoulder",
+    "member": 2,
+    "asset": "boulder_large_A",
+    "id": 3359907836,
+    "exposure": 0.651,
+    "float_gap_m": -0.18
+   },
+   {
+    "recipe": "A2_spawn_shoulder",
+    "member": 3,
+    "asset": "boulder_medium_A",
+    "id": 3695396571,
+    "exposure": 0.415,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "A2_spawn_shoulder",
+    "member": 4,
+    "asset": "boulder_medium_A",
+    "id": 1879361760,
+    "exposure": 0.473,
+    "float_gap_m": -0.13
+   },
+   {
+    "recipe": "A2_spawn_shoulder",
+    "member": 5,
+    "asset": "rubble_cluster_A",
+    "id": 3165338517,
+    "exposure": 0.0,
+    "float_gap_m": -0.11
+   }
+  ],
+  "floating_worst_fill": {
+   "gap_m": 0.1,
+   "id": 2045050386,
+   "asset": "cliff_face_A",
+   "source": "cliffs.face"
+  },
+  "floating_worst_recipe": {
+   "gap_m": 0.0,
+   "id": 1523246809,
+   "asset": "shore_boulder_A",
+   "source": "J_east_falls_basin"
+  },
+  "trees_fill": 10185,
+  "trees_current_runtime": 18545,
+  "banks": {
+   "counts": {
+    "coast": {
+     "fill": 4,
+     "south_coast": 10
+    },
+    "gravel": {
+     "east_falls": 14,
+     "fill": 98,
+     "mature_forest": 1,
+     "ne_canyon": 26,
+     "south_coast": 7,
+     "spawn_meadow": 3,
+     "upper_lake": 15,
+     "west_escarpment": 3,
+     "west_river": 12
+    },
+    "rock": {
+     "east_falls": 7,
+     "fill": 102,
+     "ne_canyon": 24,
+     "south_coast": 22,
+     "spawn_meadow": 1,
+     "upper_lake": 24,
+     "west_escarpment": 2,
+     "west_river": 15
+    },
+    "sedge": {
+     "east_falls": 39,
+     "fill": 201,
+     "mature_forest": 29,
+     "ne_canyon": 82,
+     "south_coast": 1,
+     "spawn_meadow": 9,
+     "upper_lake": 42,
+     "west_escarpment": 6,
+     "west_river": 32
+    }
+   },
+   "max_depth_m": {
+    "banks.coast_stones/shore_boulder_A": 0.197,
+    "banks.gravel_stones/shore_boulder_A": 0.397,
+    "banks.sedge_reeds/reed_A": 0.449
+   },
+   "shore_m": {
+    "inland": {
+     "plain": 1884,
+     "gravel": 2111,
+     "rock": 2440,
+     "sedge": 2378
+    },
+    "coast": {
+     "plain": 912,
+     "gravel": 344,
+     "rock": 2018,
+     "sedge": 0
+    }
+   }
+  },
+  "determinism": {
+   "run_a": "03060737e1ad15cc8931662ffc96ccdf29a7ba1c",
+   "run_b": "03060737e1ad15cc8931662ffc96ccdf29a7ba1c",
+   "equal": true
+  }
+ }
+}

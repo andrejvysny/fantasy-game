@@ -1,0 +1,933 @@
+{
+  "_doc": "Scene-assembly recipes (plan section 7): intentional, locked anchors placed before any fill scatter. frame: 'face' = local +z points from 'anchor' toward 'face' (asset fronts face +z, see assets/nature/README.md), local +x = right of that; members with space 'world' use world x,z directly. yaw = degrees about +y added to the frame (positive = counter-clockwise seen from above). ground: 'min' = lowest terrain under the member's footprint (rocks emerge from slopes, never float), 'median' = median under footprint, 'center' = height at the origin, 'contact' (rocks) = highest no-float position (base touches the lowest terrain under the footprint). sink = extra metres lowered after grounding. fracture_yaw_jitter keeps one geological direction per outcrop: rock members get at most this much extra deterministic yaw. Members whose asset does not exist yet are skipped with a warning (reported in the manifest). reserve = fill scatter keeps trees/shrubs/rocks out of each member footprint grown by this margin (m). patches = flower/grass/fern density stamps added to the generated fields (radius m, strength 0..1).",
+  "recipes": {
+    "A_meadow_departure": {
+      "zone": "spawn_meadow",
+      "note": "Off-centre rock terrace uphill of the departure, shrubs on its left end, a white/pink drift on the opposite (downhill) shoulder. Spawn clear radius stays open.",
+      "anchor": [
+        -39.5,
+        -138.5
+      ],
+      "face": [
+        -24,
+        -151
+      ],
+      "fracture_yaw_jitter": 10,
+      "reserve": 1.2,
+      "members": [
+        {
+          "asset": "rock_shelf_A",
+          "at": [
+            0.0,
+            0.0
+          ],
+          "yaw": 0,
+          "scale": 1.0,
+          "ground": "contact",
+          "sink": 0.2
+        },
+        {
+          "asset": "boulder_large_A",
+          "at": [
+            4.8,
+            1.9
+          ],
+          "yaw": 25,
+          "scale": 0.75,
+          "ground": "contact",
+          "sink": 0.18
+        },
+        {
+          "asset": "boulder_medium_A",
+          "at": [
+            -3.6,
+            2.4
+          ],
+          "yaw": -12,
+          "scale": 0.9,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "rubble_cluster_A",
+          "at": [
+            2.2,
+            2.7
+          ],
+          "yaw": 5,
+          "scale": 1.0,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "shrub_A",
+          "at": [
+            -5.0,
+            0.8
+          ],
+          "yaw": 40,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "shrub_B",
+          "at": [
+            -6.2,
+            -0.9
+          ],
+          "yaw": 130,
+          "scale": 0.85,
+          "ground": "center",
+          "sink": 0.05
+        }
+      ],
+      "patches": [
+        {
+          "field": "flower_white",
+          "at": [
+            -29,
+            -153
+          ],
+          "radius": 4.5,
+          "strength": 0.8
+        },
+        {
+          "field": "flower_pink",
+          "at": [
+            -35.5,
+            -155
+          ],
+          "radius": 3.0,
+          "strength": 0.6
+        },
+        {
+          "field": "grass_tall",
+          "at": [
+            -44.5,
+            -136.5
+          ],
+          "radius": 3.5,
+          "strength": 0.7
+        }
+      ]
+    },
+    "B_rock_ledge_bend": {
+      "zone": "spawn_meadow",
+      "note": "Primary shelf on the outside of the route bend facing the route, an upper rock tier behind it, a large boulder and smaller related rocks at its foot, shrubs bridging two contacts. Route core stays >= 2.5 m clear.",
+      "anchor": [
+        -79.5,
+        -178.0
+      ],
+      "face": [
+        -73.1,
+        -182.8
+      ],
+      "fracture_yaw_jitter": 12,
+      "reserve": 1.5,
+      "members": [
+        {
+          "asset": "rock_shelf_A",
+          "at": [
+            0.0,
+            0.0
+          ],
+          "yaw": 0,
+          "scale": 1.15,
+          "ground": "contact",
+          "sink": 0.2
+        },
+        {
+          "asset": "cliff_face_A",
+          "at": [
+            -1.0,
+            -5.2
+          ],
+          "yaw": 6,
+          "scale": 0.6,
+          "ground": "contact",
+          "sink": 0.2
+        },
+        {
+          "asset": "boulder_large_A",
+          "at": [
+            3.4,
+            2.4
+          ],
+          "yaw": -18,
+          "scale": 0.9,
+          "ground": "contact",
+          "sink": 0.18
+        },
+        {
+          "asset": "boulder_medium_A",
+          "at": [
+            -2.8,
+            2.9
+          ],
+          "yaw": 14,
+          "scale": 1.0,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "boulder_medium_A",
+          "at": [
+            1.2,
+            3.6
+          ],
+          "yaw": 40,
+          "scale": 0.6,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "rubble_cluster_A",
+          "at": [
+            0.4,
+            2.3
+          ],
+          "yaw": 0,
+          "scale": 1.0,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "shrub_A",
+          "at": [
+            -3.8,
+            1.5
+          ],
+          "yaw": 70,
+          "scale": 0.9,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "shrub_B",
+          "at": [
+            4.6,
+            0.3
+          ],
+          "yaw": 200,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.05
+        }
+      ],
+      "patches": [
+        {
+          "field": "flower_pink",
+          "at": [
+            -74.5,
+            -183.5
+          ],
+          "radius": 2.5,
+          "strength": 0.7
+        },
+        {
+          "field": "grass_tall",
+          "at": [
+            -83.0,
+            -172.0
+          ],
+          "radius": 3.0,
+          "strength": 0.6
+        }
+      ]
+    },
+    "C_mature_forest_pocket": {
+      "zone": "spawn_meadow",
+      "note": "Short wooded passage: a few mature trunks give the rhythm (canopy overhead, open floor below), one log + root anchor, ferns in shade, young spruce only at the light edge toward spawn.",
+      "anchor": [
+        -58.0,
+        -162.0
+      ],
+      "face": [
+        -58.0,
+        -170.0
+      ],
+      "fracture_yaw_jitter": 0,
+      "reserve": 2.0,
+      "members": [
+        {
+          "asset": "spruce_mature_A",
+          "space": "world",
+          "at": [
+            -53.5,
+            -166.5
+          ],
+          "yaw": 0,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.25
+        },
+        {
+          "asset": "spruce_mature_B",
+          "space": "world",
+          "at": [
+            -61.5,
+            -155.0
+          ],
+          "yaw": 110,
+          "scale": 0.95,
+          "ground": "center",
+          "sink": 0.25
+        },
+        {
+          "asset": "spruce_mature_A",
+          "space": "world",
+          "at": [
+            -68.5,
+            -160.5
+          ],
+          "yaw": 230,
+          "scale": 0.88,
+          "ground": "center",
+          "sink": 0.25
+        },
+        {
+          "asset": "spruce_mature_B",
+          "space": "world",
+          "at": [
+            -59.0,
+            -171.0
+          ],
+          "yaw": 300,
+          "scale": 1.05,
+          "ground": "center",
+          "sink": 0.25
+        },
+        {
+          "asset": "root_flare_A",
+          "space": "world",
+          "at": [
+            -53.5,
+            -166.5
+          ],
+          "yaw": 35,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.1
+        },
+        {
+          "asset": "fallen_log_A",
+          "space": "world",
+          "at": [
+            -50.5,
+            -159.5
+          ],
+          "yaw": 72,
+          "scale": 1.0,
+          "ground": "median",
+          "sink": 0.12
+        },
+        {
+          "asset": "fern_A",
+          "space": "world",
+          "at": [
+            -55.2,
+            -168.8
+          ],
+          "yaw": 10,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.02
+        },
+        {
+          "asset": "fern_A",
+          "space": "world",
+          "at": [
+            -56.9,
+            -169.9
+          ],
+          "yaw": 140,
+          "scale": 0.85,
+          "ground": "center",
+          "sink": 0.02
+        },
+        {
+          "asset": "fern_A",
+          "space": "world",
+          "at": [
+            -51.2,
+            -162.2
+          ],
+          "yaw": 250,
+          "scale": 1.1,
+          "ground": "center",
+          "sink": 0.02
+        },
+        {
+          "asset": "spruce_young_A",
+          "space": "world",
+          "at": [
+            -46.5,
+            -160.5
+          ],
+          "yaw": 60,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.1
+        },
+        {
+          "asset": "spruce_young_A",
+          "space": "world",
+          "at": [
+            -45.0,
+            -164.0
+          ],
+          "yaw": 190,
+          "scale": 0.8,
+          "ground": "center",
+          "sink": 0.1
+        },
+        {
+          "asset": "shrub_B",
+          "space": "world",
+          "at": [
+            -66.0,
+            -166.5
+          ],
+          "yaw": 15,
+          "scale": 0.9,
+          "ground": "center",
+          "sink": 0.05
+        }
+      ],
+      "patches": [
+        {
+          "field": "fern",
+          "at": [
+            -60.0,
+            -167.0
+          ],
+          "radius": 6.0,
+          "strength": 0.6
+        }
+      ]
+    },
+    "F_bank_pocket": {
+      "zone": "spawn_meadow",
+      "note": "Route ends at an open access pocket on the river bank; stones at varied distances from the water, reeds only in the sheltered spots either side, not along the whole bank.",
+      "anchor": [
+        -56.0,
+        -203.0
+      ],
+      "face": [
+        -54.0,
+        -209.0
+      ],
+      "fracture_yaw_jitter": 15,
+      "reserve": 1.0,
+      "members": [
+        {
+          "asset": "shore_boulder_A",
+          "space": "world",
+          "at": [
+            -51.5,
+            -206.0
+          ],
+          "yaw": 20,
+          "scale": 1.0,
+          "ground": "min",
+          "sink": 0.15
+        },
+        {
+          "asset": "shore_boulder_A",
+          "space": "world",
+          "at": [
+            -59.0,
+            -205.5
+          ],
+          "yaw": 110,
+          "scale": 0.7,
+          "ground": "min",
+          "sink": 0.1
+        },
+        {
+          "asset": "shore_boulder_A",
+          "space": "world",
+          "at": [
+            -48.5,
+            -203.5
+          ],
+          "yaw": 200,
+          "scale": 0.5,
+          "ground": "min",
+          "sink": 0.05
+        },
+        {
+          "asset": "boulder_medium_A",
+          "space": "world",
+          "at": [
+            -61.0,
+            -202.0
+          ],
+          "yaw": 35,
+          "scale": 0.8,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "reed_A",
+          "space": "world",
+          "at": [
+            -44.0,
+            -208.0
+          ],
+          "yaw": 0,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "reed_A",
+          "space": "world",
+          "at": [
+            -45.6,
+            -209.2
+          ],
+          "yaw": 120,
+          "scale": 0.8,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "reed_A",
+          "space": "world",
+          "at": [
+            -63.5,
+            -207.0
+          ],
+          "yaw": 240,
+          "scale": 0.9,
+          "ground": "center",
+          "sink": 0.05
+        }
+      ],
+      "patches": [
+        {
+          "field": "grass_tall",
+          "at": [
+            -64.0,
+            -204.0
+          ],
+          "radius": 2.5,
+          "strength": 0.7
+        }
+      ]
+    },
+    "E_upper_lake_bank": {
+      "zone": "upper_lake",
+      "note": "Mainland east bank facing the island: an open meadow strip reaching the water in the middle, one rocky shore group to the north, a small sheltered reed pocket to the south, edge spruces set back so the reveal stays open.",
+      "anchor": [
+        -30.0,
+        -303.0
+      ],
+      "face": [
+        -60.0,
+        -301.0
+      ],
+      "fracture_yaw_jitter": 14,
+      "reserve": 1.2,
+      "members": [
+        {
+          "asset": "boulder_large_A",
+          "space": "world",
+          "at": [
+            -35.5,
+            -321.0
+          ],
+          "yaw": 200,
+          "scale": 0.95,
+          "ground": "contact",
+          "sink": 0.18
+        },
+        {
+          "asset": "shore_boulder_A",
+          "space": "world",
+          "at": [
+            -40.0,
+            -318.0
+          ],
+          "yaw": 30,
+          "scale": 1.0,
+          "ground": "median",
+          "sink": 0.2
+        },
+        {
+          "asset": "shore_boulder_A",
+          "space": "world",
+          "at": [
+            -42.5,
+            -325.5
+          ],
+          "yaw": 140,
+          "scale": 0.7,
+          "ground": "median",
+          "sink": 0.15
+        },
+        {
+          "asset": "boulder_medium_A",
+          "space": "world",
+          "at": [
+            -32.5,
+            -325.5
+          ],
+          "yaw": 75,
+          "scale": 0.9,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "rubble_cluster_A",
+          "space": "world",
+          "at": [
+            -31.0,
+            -319.5
+          ],
+          "yaw": 260,
+          "scale": 0.9,
+          "ground": "contact",
+          "sink": 0.11
+        },
+        {
+          "asset": "reed_A",
+          "space": "world",
+          "at": [
+            -31.5,
+            -283.0
+          ],
+          "yaw": 0,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "reed_A",
+          "space": "world",
+          "at": [
+            -33.2,
+            -280.2
+          ],
+          "yaw": 130,
+          "scale": 0.85,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "reed_A",
+          "space": "world",
+          "at": [
+            -29.6,
+            -287.0
+          ],
+          "yaw": 250,
+          "scale": 0.9,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "shrub_B",
+          "space": "world",
+          "at": [
+            -27.5,
+            -327.0
+          ],
+          "yaw": 40,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "spruce_edge_A",
+          "space": "world",
+          "at": [
+            -17.5,
+            -323.0
+          ],
+          "yaw": 0,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.2
+        },
+        {
+          "asset": "spruce_edge_A",
+          "space": "world",
+          "at": [
+            -12.0,
+            -313.5
+          ],
+          "yaw": 120,
+          "scale": 0.9,
+          "ground": "center",
+          "sink": 0.2
+        },
+        {
+          "asset": "spruce_young_A",
+          "space": "world",
+          "at": [
+            -16.0,
+            -290.0
+          ],
+          "yaw": 60,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.1
+        }
+      ],
+      "patches": [
+        {
+          "field": "flower_white",
+          "at": [
+            -22.0,
+            -304.0
+          ],
+          "radius": 4.0,
+          "strength": 0.75
+        },
+        {
+          "field": "flower_pink",
+          "at": [
+            -26.0,
+            -315.0
+          ],
+          "radius": 2.5,
+          "strength": 0.6
+        },
+        {
+          "field": "grass_tall",
+          "at": [
+            -27.0,
+            -283.5
+          ],
+          "radius": 3.0,
+          "strength": 0.8
+        }
+      ]
+    },
+    "J_east_falls_basin": {
+      "zone": "east_falls",
+      "note": "Fall_East_Scarp drops ~28 m around (410,62) into a pool at level 10.6 m (x 400-415, z 70-130), located from terrain_masks levels. Wet boulders ring the splash basin at varied distances, rubble at the foot of both walls; cliff modules on the walls come from cliff_dressing.",
+      "anchor": [
+        407.0,
+        82.0
+      ],
+      "face": [
+        400.0,
+        120.0
+      ],
+      "fracture_yaw_jitter": 15,
+      "reserve": 1.0,
+      "members": [
+        {
+          "asset": "shore_boulder_A",
+          "space": "world",
+          "at": [
+            397.5,
+            86.0
+          ],
+          "yaw": 20,
+          "scale": 1.0,
+          "ground": "median",
+          "sink": 0.2
+        },
+        {
+          "asset": "shore_boulder_A",
+          "space": "world",
+          "at": [
+            416.5,
+            84.0
+          ],
+          "yaw": 160,
+          "scale": 0.8,
+          "ground": "median",
+          "sink": 0.2
+        },
+        {
+          "asset": "shore_boulder_A",
+          "space": "world",
+          "at": [
+            411.5,
+            96.0
+          ],
+          "yaw": 280,
+          "scale": 0.6,
+          "ground": "median",
+          "sink": 0.25
+        },
+        {
+          "asset": "rubble_cluster_A",
+          "space": "world",
+          "at": [
+            401.5,
+            73.5
+          ],
+          "yaw": 200,
+          "scale": 1.1,
+          "ground": "contact",
+          "sink": 0.11
+        },
+        {
+          "asset": "rubble_cluster_A",
+          "space": "world",
+          "at": [
+            418.0,
+            73.0
+          ],
+          "yaw": 330,
+          "scale": 1.0,
+          "ground": "contact",
+          "sink": 0.11
+        },
+        {
+          "asset": "boulder_large_A",
+          "space": "world",
+          "at": [
+            394.0,
+            95.0
+          ],
+          "yaw": 60,
+          "scale": 0.8,
+          "ground": "contact",
+          "sink": 0.18
+        }
+      ],
+      "patches": []
+    },
+    "A2_spawn_shoulder": {
+      "zone": "spawn_meadow",
+      "note": "First view (player faces north at spawn): the meadow breaks over a 31-35 deg shoulder down to the river bench. Two related shelves emerge along the break with a boulder group at the east end and rubble below, shrubs bridging both ends; a white drift on the right shoulder and a small pink one by the west shelf. Spawn clear radius and the departure route stay open.",
+      "anchor": [
+        -16.0,
+        -157.0
+      ],
+      "face": [
+        -16.0,
+        -167.0
+      ],
+      "fracture_yaw_jitter": 10,
+      "reserve": 1.2,
+      "members": [
+        {
+          "asset": "rock_shelf_A",
+          "at": [
+            0.0,
+            0.0
+          ],
+          "yaw": 0,
+          "scale": 1.1,
+          "ground": "contact",
+          "sink": 0.2
+        },
+        {
+          "asset": "rock_shelf_A",
+          "at": [
+            -8.5,
+            1.5
+          ],
+          "yaw": 12,
+          "scale": 0.85,
+          "ground": "contact",
+          "sink": 0.2
+        },
+        {
+          "asset": "boulder_large_A",
+          "at": [
+            5.5,
+            1.2
+          ],
+          "yaw": -20,
+          "scale": 0.8,
+          "ground": "contact",
+          "sink": 0.18
+        },
+        {
+          "asset": "boulder_medium_A",
+          "at": [
+            3.0,
+            3.2
+          ],
+          "yaw": 25,
+          "scale": 0.8,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "boulder_medium_A",
+          "at": [
+            -4.5,
+            3.6
+          ],
+          "yaw": -35,
+          "scale": 0.6,
+          "ground": "contact",
+          "sink": 0.13
+        },
+        {
+          "asset": "rubble_cluster_A",
+          "at": [
+            -1.5,
+            3.9
+          ],
+          "yaw": 0,
+          "scale": 1.0,
+          "ground": "contact",
+          "sink": 0.11
+        },
+        {
+          "asset": "shrub_B",
+          "at": [
+            7.8,
+            -0.5
+          ],
+          "yaw": 30,
+          "scale": 1.0,
+          "ground": "center",
+          "sink": 0.05
+        },
+        {
+          "asset": "shrub_A",
+          "at": [
+            -11.8,
+            0.4
+          ],
+          "yaw": 200,
+          "scale": 0.9,
+          "ground": "center",
+          "sink": 0.05
+        }
+      ],
+      "patches": [
+        {
+          "field": "flower_white",
+          "at": [
+            -9.0,
+            -148.0
+          ],
+          "radius": 6.0,
+          "strength": 0.9
+        },
+        {
+          "field": "flower_pink",
+          "at": [
+            -27.0,
+            -155.5
+          ],
+          "radius": 3.0,
+          "strength": 0.7
+        },
+        {
+          "field": "grass_tall",
+          "at": [
+            -4.5,
+            -157.5
+          ],
+          "radius": 2.5,
+          "strength": 0.6
+        }
+      ]
+    }
+  }
+}

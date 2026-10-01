@@ -18,9 +18,13 @@ const PRESET_ACTIONS := ["preset_dawn", "preset_midday", "preset_evening"]
 @export var campfire_path: NodePath
 @export var occluder_path: NodePath
 @export var cloud_wind := Vector2(0.004, 0.0015) # uv per second
+## World wind field for every vegetation shader (global `wind`, materials/wind.gdshaderinc);
+## strength comes from the preset (or --wind=<strength> for extreme-wind tests).
+@export var wind_direction := Vector2(1.0, 0.4) # world x, z
+@export var wind_tempo := 1.0
 
 var _env: Environment
-var _sky: ProceduralSkyMaterial
+var _sky: Material # ProceduralSkyMaterial (forest) or ShaderMaterial with sky.gdshader (valley)
 var _sun: DirectionalLight3D
 var _fog_mat: FogMaterial
 var _dust: GPUParticles3D
@@ -30,6 +34,8 @@ var _focus_fog: Node3D
 var _campfire: Node
 var _mist: Node3D
 var _occluder: Node
+var _player_fill: Light3D
+var _wind_override := -1.0 # --wind=<strength>; negative = use the preset
 var _motes: Node3D
 var _grade_tex: GradientTexture1D
 var _cur := LightingPreset.new()
@@ -48,7 +54,7 @@ var _ground_debug := 0
 
 func _ready() -> void:
 	_env = (get_node(environment_path) as WorldEnvironment).environment
-	_sky = _env.sky.sky_material as ProceduralSkyMaterial
+	_sky = _env.sky.sky_material
 	_sun = get_node(sun_path)
 	# FogVolume or the Mist node: both expose the shared FogMaterial as `material`.
 	_mist = get_node(ground_fog_path) as Node3D
@@ -56,6 +62,8 @@ func _ready() -> void:
 	_dust = get_node(dust_path)
 	_fireflies = get_node(fireflies_path)
 	_player = get_node_or_null(player_path)
+	if _player != null:
+		_player_fill = _player.get_node_or_null("Fill") as Light3D
 	_focus_fog = get_node_or_null(focus_fog_path)
 	_campfire = get_node_or_null(campfire_path)
 	_occluder = get_node_or_null(occluder_path)
@@ -70,6 +78,8 @@ func _ready() -> void:
 			_set_flags(arg.trim_prefix("--off="), false)
 		elif arg.begins_with("--on="):
 			_set_flags(arg.trim_prefix("--on="), true)
+		elif arg.begins_with("--wind="):
+			_wind_override = maxf(float(arg.trim_prefix("--wind=")), 0.0)
 		elif arg.begins_with("--ground_debug="):
 			_ground_debug = clampi(int(arg.trim_prefix("--ground_debug=")), 0, GROUND_DEBUG_VIEWS - 1)
 	_cur.grade = presets[idx].grade.duplicate()
@@ -254,10 +264,7 @@ func _apply() -> void:
 	_env.tonemap_exposure = c.exposure
 	_env.tonemap_agx_contrast = c.agx_contrast
 	_env.adjustment_saturation = c.saturation if _debug.sat else 1.0
-	_sky.sky_top_color = c.sky_top
-	_sky.sky_horizon_color = c.sky_horizon
-	_sky.ground_horizon_color = c.ground_horizon
-	_sky.ground_bottom_color = c.ground_horizon.darkened(0.5)
+	_apply_sky(c)
 	_fog_mat.density = c.ground_fog_density
 	_fog_mat.albedo = c.fog_color
 	RenderingServer.global_shader_parameter_set("shadow_tint", c.shadow_tint)
@@ -265,6 +272,41 @@ func _apply() -> void:
 	RenderingServer.global_shader_parameter_set("focus_fog_color", c.focus_fog_color)
 	if _campfire != null:
 		_campfire.set("energy", c.fire_energy)
+	if _player_fill != null:
+		_player_fill.light_energy = c.player_fill
+		_player_fill.visible = c.player_fill > 0.001
+	var strength := _wind_override if _wind_override >= 0.0 else c.wind_strength
+	var d := wind_direction.normalized()
+	RenderingServer.global_shader_parameter_set("wind", Vector4(d.x, d.y, strength, wind_tempo))
+
+
+func _apply_sky(c: LightingPreset) -> void:
+	var proc := _sky as ProceduralSkyMaterial
+	if proc != null:
+		proc.sky_top_color = c.sky_top
+		proc.sky_horizon_color = c.sky_horizon
+		proc.ground_horizon_color = c.ground_horizon
+		proc.ground_bottom_color = c.ground_horizon.darkened(0.5)
+		return
+	var mat := _sky as ShaderMaterial
+	if mat == null:
+		return
+	mat.set_shader_parameter("sky_top", c.sky_top)
+	mat.set_shader_parameter("sky_horizon", c.sky_horizon)
+	mat.set_shader_parameter("sun_halo_strength", c.sun_halo_strength)
+	mat.set_shader_parameter("sun_halo_power", c.sun_halo_power)
+	# Below the valley horizon only the distant sea past the far plane shows: a fog-toned haze.
+	var haze := c.sky_horizon.lerp(c.fog_color, 0.5)
+	mat.set_shader_parameter("ground_horizon", haze)
+	mat.set_shader_parameter("ground_bottom", haze.darkened(0.3))
+	# Cloud tones come from the preset: lit side near-white toward the sun colour, shaded side
+	# the fog tone leaning to the sky top, desaturated so masses stay low-contrast.
+	var lit := c.sky_horizon.lerp(Color.WHITE, 0.45).lerp(c.sun_color, 0.25)
+	var shade := c.fog_color.lerp(c.sky_top, 0.3)
+	var grey := shade.get_luminance()
+	shade = shade.lerp(Color(grey, grey, grey), 0.4)
+	mat.set_shader_parameter("cloud_color_lit", lit)
+	mat.set_shader_parameter("cloud_color_shade", shade)
 
 
 func _set_particles(fireflies: bool) -> void:

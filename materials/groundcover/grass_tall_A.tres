@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="GroundcoverLayer" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/groundcover_layer.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+mesh_path = "res://assets/nature/groundcover/grass_tall_A.glb"
+field = "ground"
+channel = 1
+spacing = 0.55
+radius = 36.0
+inner_radius = 0.0
+density = 1.0
+scale_min = 0.7
+scale_max = 0.95
+max_slope = 0.8
+palette_strength = 0.6
+wind = 0.09
+seed = 15
+thin_start = 16.0
+far_keep = 0.6

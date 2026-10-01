@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="GroundcoverLayer" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/groundcover_layer.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+mesh_path = "res://assets/nature/groundcover/flower_pink_A.glb"
+field = "flowers"
+channel = 1
+spacing = 1.1
+radius = 30.0
+inner_radius = 0.0
+density = 1.6
+scale_min = 1.15
+scale_max = 1.6
+max_slope = 0.8
+palette_strength = 0.0
+wind = 0.08
+seed = 22
+thin_start = 15.0
+far_keep = 0.6

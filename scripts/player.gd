@@ -2,6 +2,9 @@ extends CharacterBody3D
 
 const SPEED := 5.0
 const KEY_TURN_SPEED := 2.5
+# Visual layer 20 is the character's alone: the Fill light (cool dark-side fill, energy per
+# lighting preset in atmosphere.gd) is culled to it so the environment grading is untouched.
+const FILL_LAYER := 1 << 19
 
 @export var mouse_sensitivity := 0.003 # radians per pixel
 
@@ -11,6 +14,9 @@ var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	PropMaterials.make_dielectric($Model)
+	for mi: MeshInstance3D in $Model.find_children("*", "MeshInstance3D", true, false):
+		mi.layers |= FILL_LAYER
+	$Fill.light_cull_mask = FILL_LAYER
 
 
 func _physics_process(delta: float) -> void:

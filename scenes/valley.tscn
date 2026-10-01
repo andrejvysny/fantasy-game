@@ -1,19 +1,34 @@
-[gd_scene load_steps=28 format=3]
+[gd_scene load_steps=30 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/valley_terrain.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/valley_forest.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/valley_props.gd" id="props_script"]
 [ext_resource type="Script" path="res://scripts/valley_grass.gd" id="11"]
+[ext_resource type="Script" path="res://scripts/valley_groundcover.gd" id="groundcover_script"]
+[ext_resource type="Script" path="res://scripts/groundcover_layer.gd" id="groundcover_layer"]
+[ext_resource type="Resource" path="res://materials/groundcover/grass_short_A_inner.tres" id="gc_grass_inner"]
+[ext_resource type="Resource" path="res://materials/groundcover/grass_short_A_outer.tres" id="gc_grass_outer"]
+[ext_resource type="Resource" path="res://materials/groundcover/flower_white_A.tres" id="gc_flower_white"]
+[ext_resource type="Resource" path="res://materials/groundcover/grass_short_B_inner.tres" id="gc_grass_b"]
+[ext_resource type="Resource" path="res://materials/groundcover/grass_short_C_inner.tres" id="gc_grass_c"]
+[ext_resource type="Resource" path="res://materials/groundcover/grass_tall_A.tres" id="gc_grass_tall"]
+[ext_resource type="Resource" path="res://materials/groundcover/flower_pink_A.tres" id="gc_flower_pink"]
 [ext_resource type="PackedScene" path="res://scenes/player.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/camera_rig.tscn" id="5"]
 [ext_resource type="Script" path="res://scripts/atmosphere.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/lighting_preset.gd" id="10"]
-[ext_resource type="Resource" path="res://presets/dawn.tres" id="7"]
+[ext_resource type="Resource" path="res://presets/valley_dawn.tres" id="7"]
 [ext_resource type="Resource" path="res://presets/midday.tres" id="8"]
-[ext_resource type="Resource" path="res://presets/evening.tres" id="9"]
+[ext_resource type="Resource" path="res://presets/valley_evening.tres" id="9"]
 [ext_resource type="Script" path="res://scripts/mist.gd" id="14"]
+[ext_resource type="Script" path="res://scripts/tree_occluder.gd" id="tree_occluder"]
+[ext_resource type="Script" path="res://scripts/valley_water.gd" id="water_script"]
+[ext_resource type="Script" path="res://scripts/valley_falls.gd" id="falls_script"]
+[ext_resource type="Shader" path="res://materials/sky.gdshader" id="sky_shader"]
 
-[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+[sub_resource type="ShaderMaterial" id="sky_mat"]
+shader = ExtResource("sky_shader")
 
 [sub_resource type="Sky" id="sky"]
 sky_material = SubResource("sky_mat")
@@ -156,13 +171,32 @@ min_height = 2.0
 [node name="Terrain" type="Node3D" parent="."]
 script = ExtResource("2")
 
+[node name="Water" type="Node3D" parent="."]
+script = ExtResource("water_script")
+terrain_path = NodePath("../Terrain")
+
+[node name="Falls" type="Node3D" parent="."]
+script = ExtResource("falls_script")
+terrain_path = NodePath("../Terrain")
+
 [node name="Forest" type="Node3D" parent="."]
 script = ExtResource("3")
+terrain_path = NodePath("../Terrain")
+placement_mode = "generated"
+
+[node name="Props" type="Node3D" parent="."]
+script = ExtResource("props_script")
 terrain_path = NodePath("../Terrain")
 
 [node name="Grass" type="Node3D" parent="."]
 script = ExtResource("11")
 terrain_path = NodePath("../Terrain")
+
+[node name="Groundcover" type="Node3D" parent="."]
+script = ExtResource("groundcover_script")
+terrain_path = NodePath("../Terrain")
+camera_path = NodePath("../CameraRig/Camera")
+layers = Array[ExtResource("groundcover_layer")]([ExtResource("gc_grass_inner"), ExtResource("gc_grass_outer"), ExtResource("gc_grass_b"), ExtResource("gc_grass_c"), ExtResource("gc_grass_tall"), ExtResource("gc_flower_white"), ExtResource("gc_flower_pink")])
 
 [node name="Player" parent="." instance=ExtResource("4")]
 
@@ -190,6 +224,12 @@ visibility_aabb = AABB(-20, -10, -20, 40, 20, 40)
 process_material = SubResource("fly_proc")
 draw_pass_1 = SubResource("fly_mesh")
 
+[node name="TreeOccluder" type="Node" parent="."]
+script = ExtResource("tree_occluder")
+forest_path = NodePath("../Forest")
+camera_path = NodePath("../CameraRig/Camera")
+player_path = NodePath("../Player")
+
 [node name="Atmosphere" type="Node" parent="."]
 script = ExtResource("6")
 start_index = 1
@@ -201,3 +241,4 @@ dust_path = NodePath("../Motes/Dust")
 fireflies_path = NodePath("../Motes/Fireflies")
 player_path = NodePath("../Player")
 focus_fog_path = NodePath("../CameraRig/Camera/FocusFog")
+occluder_path = NodePath("../TreeOccluder")

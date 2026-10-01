@@ -1,0 +1,240 @@
+{
+  "asset_id": "root_flare_A",
+  "version": 1,
+  "family": "root_flare",
+  "group": "debris",
+  "habitats": [
+    "mature_forest"
+  ],
+  "bbox_min": [
+    -1.116,
+    -0.11,
+    -0.996
+  ],
+  "bbox_max": [
+    1.164,
+    0.396,
+    1.055
+  ],
+  "pivot": "ground_contact",
+  "embed_depth": 0.1,
+  "scale_range": [
+    0.95,
+    1.05
+  ],
+  "max_tilt_deg": 6.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid"
+  ],
+  "tris": 864,
+  "verts": 448,
+  "budget_tris": [
+    300,
+    1200
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "none"
+  },
+  "wind": "none",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 5207,
+    "script": "tools/blender/debris_family.py",
+    "params": {
+      "seed": 5207,
+      "r_in": 0.34,
+      "depth": 0.1,
+      "foot": -0.035,
+      "roots": [
+        {
+          "az": 6,
+          "reach": 1.12,
+          "h0": 0.27,
+          "hw0": 0.26,
+          "hw1": 0.095,
+          "tw": 0.36,
+          "wander": 0.09,
+          "tail": 0.065
+        },
+        {
+          "az": 52,
+          "reach": 0.9,
+          "h0": 0.19,
+          "hw0": 0.21,
+          "hw1": 0.085,
+          "tw": -0.3,
+          "wander": -0.06,
+          "tail": 0.055
+        },
+        {
+          "az": 110,
+          "reach": 1.05,
+          "h0": 0.24,
+          "hw0": 0.25,
+          "hw1": 0.095,
+          "tw": 0.4,
+          "wander": -0.1,
+          "tail": 0.06,
+          "fork": {
+            "at": 4,
+            "side": 1,
+            "ang": 40.0,
+            "length": 0.44,
+            "size": 0.56,
+            "hw1": 0.05,
+            "tail": 0.05
+          }
+        },
+        {
+          "az": 178,
+          "reach": 1.08,
+          "h0": 0.18,
+          "hw0": 0.2,
+          "hw1": 0.085,
+          "tw": -0.26,
+          "wander": -0.08,
+          "tail": 0.055
+        },
+        {
+          "az": 258,
+          "reach": 1.06,
+          "h0": 0.3,
+          "hw0": 0.27,
+          "hw1": 0.1,
+          "tw": 0.3,
+          "wander": 0.09,
+          "tail": 0.065,
+          "fork": {
+            "at": 4,
+            "side": -1,
+            "ang": 36.0,
+            "length": 0.38,
+            "size": 0.52,
+            "hw1": 0.05,
+            "tail": 0.05
+          }
+        },
+        {
+          "az": 318,
+          "reach": 0.92,
+          "h0": 0.21,
+          "hw0": 0.22,
+          "hw1": 0.085,
+          "tw": -0.34,
+          "wander": 0.06,
+          "tail": 0.06
+        }
+      ]
+    },
+    "host": {
+      "family": "spruce_mature",
+      "assets": [
+        "spruce_mature_A"
+      ],
+      "yaw_offset_deg": [
+        -10.0,
+        10.0
+      ],
+      "scale": "host_scale * scale_range",
+      "scale_range": [
+        0.95,
+        1.05
+      ],
+      "aligned_spurs_deg": [
+        [
+          0,
+          60
+        ],
+        [
+          240,
+          270
+        ],
+        [
+          300,
+          330
+        ]
+      ]
+    },
+    "measured": {
+      "size_x": 2.28,
+      "size_y": 2.051,
+      "z_min": -0.11,
+      "z_max": 0.396,
+      "roots": [
+        {
+          "az": 6,
+          "reach": 1.12,
+          "h_at_trunk": 0.27
+        },
+        {
+          "az": 52,
+          "reach": 0.9,
+          "h_at_trunk": 0.19
+        },
+        {
+          "az": 110,
+          "reach": 1.05,
+          "h_at_trunk": 0.24
+        },
+        {
+          "az": 178,
+          "reach": 1.08,
+          "h_at_trunk": 0.18
+        },
+        {
+          "az": 258,
+          "reach": 1.06,
+          "h_at_trunk": 0.3
+        },
+        {
+          "az": 318,
+          "reach": 0.92,
+          "h_at_trunk": 0.21
+        }
+      ],
+      "hole_radius_min_vertex": 0.308
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Origin = trunk centre at ground. 6 uneven buttress roots (0.9-1.12 m reach, 0.18-0.30 m crest at r = 0.5 m) with two small forks, round tips that sink into the soil, buried bottoms at y=-0.1. The inner hole (r < 0.3) is open. HOST COUPLED: scale = host tree scale x scale_range (0.95-1.05), yaw = host yaw +- 10 deg so the roots line up with spruce_mature_A's ground spurs.",
+  "host": {
+    "family": "spruce_mature",
+    "assets": [
+      "spruce_mature_A"
+    ],
+    "yaw_offset_deg": [
+      -10.0,
+      10.0
+    ],
+    "scale": "host_scale * scale_range",
+    "scale_range": [
+      0.95,
+      1.05
+    ],
+    "aligned_spurs_deg": [
+      [
+        0,
+        60
+      ],
+      [
+        240,
+        270
+      ],
+      [
+        300,
+        330
+      ]
+    ]
+  }
+}

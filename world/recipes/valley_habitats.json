@@ -1,0 +1,497 @@
+{
+  "_doc": "Constrained fill rules (plan 8.3). Habitats are computed per metre from the protected terrain (tools/environment/fields.py): open_meadow, forest_edge, mature_forest, rocky_slope, sheltered_bank, exposed (ridge/coast). Densities are instances per 100 m2 before masks. spacing = minimum distance between trunks / rock origins (variable-radius Poisson: each instance uses its own footprint). Weights pick variants; missing assets are dropped and reported. Patch scale = size of the low-frequency noise that clusters plants into drifts (3-10 m). All values are starting experiments; expose, do not hardcode map sizes.",
+  "habitat_field": {
+    "forest_blur_m": 6.0,
+    "edge_band_m": [
+      -9.0,
+      7.0
+    ],
+    "mature_depth_m": 9.0,
+    "rocky_slope_deg": 38.0,
+    "bank_distance_m": [
+      0.0,
+      7.0
+    ],
+    "exposed_height_percentile": 88,
+    "exposed_sea_distance_m": 45.0,
+    "clearing_noise_m": 38.0,
+    "clearing_threshold": 0.72,
+    "meadow_rock": {
+      "slope_deg": [
+        14,
+        34
+      ],
+      "rock_distance_m": 25.0,
+      "_doc": "moderate slopes near rock exposure: terraces and boulders emerging from grassy ground (R02/R05)"
+    }
+  },
+  "trees": {
+    "mature_forest": {
+      "density": 3.4,
+      "spacing": 4.4,
+      "gap_noise_m": 22.0,
+      "gap_threshold": 0.62,
+      "weights": {
+        "spruce_mature_A": 1.0,
+        "spruce_mature_B": 1.0,
+        "spruce_L_normal_std_s25": 0.25,
+        "spruce_L_normal_tall_s21": 0.3,
+        "spruce_L_normal_long_s27": 0.3,
+        "spruce_M_normal_long_s11": 0.2,
+        "pine_open_A": 0.12,
+        "dead_L_std_s3": 0.05
+      }
+    },
+    "forest_edge": {
+      "density": 4.4,
+      "spacing": 2.9,
+      "gap_noise_m": 12.0,
+      "gap_threshold": 0.66,
+      "weights": {
+        "spruce_edge_A": 1.0,
+        "spruce_L_normal_std_bottom_dense_s5": 0.7,
+        "spruce_L_wide_std_s3": 0.6,
+        "spruce_M_normal_std_bottom_dense_s22": 0.6,
+        "spruce_M_wide_std_s35": 0.5,
+        "spruce_young_A": 0.8,
+        "spruce_S_wide_std_dense_s39": 0.5,
+        "spruce_S_normal_std_s10": 0.4
+      }
+    },
+    "open_meadow": {
+      "density": 0.04,
+      "spacing": 9.0,
+      "group_prob": 0.4,
+      "group_size": [
+        2,
+        4
+      ],
+      "weights": {
+        "spruce_edge_A": 1.0,
+        "spruce_M_normal_std_s9": 0.6,
+        "spruce_L_normal_std_irregular_s21": 0.5,
+        "spruce_young_A": 0.5,
+        "pine_open_A": 0.3
+      }
+    },
+    "rocky_slope": {
+      "density": 0.12,
+      "spacing": 7.0,
+      "needs_soil": true,
+      "weights": {
+        "pine_open_A": 1.0,
+        "spruce_M_slim_std_s27": 0.6,
+        "spruce_young_A": 0.5,
+        "dead_M_std_s3": 0.15
+      }
+    },
+    "sheltered_bank": {
+      "density": 0.15,
+      "spacing": 7.0,
+      "setback_m": 4.0,
+      "weights": {
+        "spruce_edge_A": 1.0,
+        "spruce_M_normal_std_layered_s6": 0.5,
+        "spruce_young_A": 0.4
+      }
+    },
+    "exposed": {
+      "density": 0.08,
+      "spacing": 10.0,
+      "weights": {
+        "pine_open_A": 1.0,
+        "spruce_M_slim_std_layered_s36": 0.5,
+        "dead_M_long_s7": 0.2
+      }
+    }
+  },
+  "props": {
+    "boulder_large": {
+      "habitats": {
+        "rocky_slope": 0.25,
+        "forest_edge": 0.05,
+        "open_meadow": 0.015,
+        "mature_forest": 0.03,
+        "meadow_rock": 0.12
+      },
+      "spacing": 9.0,
+      "outcrop_group": [
+        1,
+        3
+      ],
+      "ground": "median",
+      "sink": 0.12
+    },
+    "boulder_medium": {
+      "habitats": {
+        "rocky_slope": 0.5,
+        "forest_edge": 0.1,
+        "open_meadow": 0.02,
+        "sheltered_bank": 0.2,
+        "meadow_rock": 0.35
+      },
+      "spacing": 4.0,
+      "near_rock_boost": 3.0,
+      "ground": "median",
+      "sink": 0.06
+    },
+    "rubble_cluster": {
+      "habitats": {
+        "rocky_slope": 0.35
+      },
+      "at_rock_foot": true,
+      "spacing": 5.0,
+      "ground": "median",
+      "sink": 0.04
+    },
+    "rock_shelf": {
+      "habitats": {
+        "rocky_slope": 0.03,
+        "meadow_rock": 0.025
+      },
+      "spacing": 16.0,
+      "face": "downhill",
+      "ground": "min",
+      "sink": 0.15,
+      "rise_limit": 1.1,
+      "max_tilt": 14
+    },
+    "shore_boulder": {
+      "habitats": {
+        "sheltered_bank": 0.4,
+        "exposed_shore": 0.6
+      },
+      "spacing": 4.5,
+      "shore_distance_m": [
+        -1.5,
+        3.0
+      ],
+      "ground": "median",
+      "sink": 0.12
+    },
+    "shrub": {
+      "habitats": {
+        "forest_edge": 1.4,
+        "mature_forest": 0.25,
+        "open_meadow": 0.05,
+        "rocky_slope": 0.3
+      },
+      "spacing": 2.2,
+      "patch_m": 7.0,
+      "near_rock_boost": 2.5,
+      "near_trunk_boost": 1.5
+    },
+    "fern": {
+      "habitats": {
+        "mature_forest": 2.2,
+        "forest_edge": 0.4
+      },
+      "spacing": 1.3,
+      "patch_m": 5.0,
+      "needs_canopy": 0.4,
+      "near_log_boost": 3.0
+    },
+    "fallen_log": {
+      "habitats": {
+        "mature_forest": 0.05
+      },
+      "spacing": 14.0,
+      "ground": "median",
+      "sink": 0.12
+    },
+    "root_flare": {
+      "at_tree": "spruce_mature",
+      "probability": 0.35
+    },
+    "reed": {
+      "habitats": {
+        "sheltered_bank": 0.9
+      },
+      "spacing": 1.6,
+      "shore_distance_m": [
+        -1.2,
+        0.6
+      ],
+      "patch_m": 4.0,
+      "sheltered_only": true
+    }
+  },
+  "fields": {
+    "grass_short": {
+      "open_meadow": 1.0,
+      "forest_edge": 0.75,
+      "mature_forest": 0.12,
+      "rocky_slope": 0.15,
+      "sheltered_bank": 0.8,
+      "exposed": 0.6,
+      "path_core": 0.0,
+      "path_shoulder": 0.45,
+      "max_slope_deg": 34
+    },
+    "grass_tall": {
+      "sheltered_bank": 0.6,
+      "forest_edge": 0.25,
+      "open_meadow": 0.05,
+      "patch_m": 6.0,
+      "patch_threshold": 0.6
+    },
+    "flower_white": {
+      "open_meadow": 0.35,
+      "path_shoulder": 0.5,
+      "patch_m": 8.0,
+      "patch_threshold": 0.7
+    },
+    "flower_pink": {
+      "open_meadow": 0.2,
+      "path_shoulder": 0.35,
+      "rock_foot": 0.4,
+      "patch_m": 6.0,
+      "patch_threshold": 0.74
+    },
+    "flower_yellow": {
+      "open_meadow": 0.12,
+      "patch_m": 5.0,
+      "patch_threshold": 0.8
+    },
+    "flower_blue": {
+      "open_meadow": 0.06,
+      "patch_m": 4.0,
+      "patch_threshold": 0.84
+    }
+  },
+  "cliff_dressing": {
+    "_doc": "Cliff/shelf modules on the existing steep landforms (plan 7G): sample the terrain cliff mask (terrain_masks.npz cliff) and slopes steeper than min_slope_deg, variable-radius spacing along the face, module front faces downhill (+z), grounded by the front-edge rule, tilt up to max_tilt, exposure >= min_exposure else reject. corner modules where the face contour bends more than corner_bend_deg within 10 m. Keep them off water and route cores.",
+    "assets": {
+      "cliff_face": 1.0,
+      "cliff_corner": 0.35
+    },
+    "min_slope_deg": 42.0,
+    "spacing": 7.0,
+    "max_tilt": 16,
+    "min_exposure": 0.3,
+    "rise_limit": 1.6,
+    "scale": [
+      0.8,
+      1.3
+    ],
+    "corner_bend_deg": 25.0,
+    "shelf_on_treads": {
+      "asset_family": "rock_shelf",
+      "tread_slope_deg": [
+        8,
+        26
+      ],
+      "within_m_of_face": 6.0,
+      "spacing": 14.0
+    }
+  },
+  "banks": {
+    "_doc": "Bank character (plan 7E/7F/7J; tools/environment/banks.py, bank_props.py). Shore pixels get a soft character from a seeded low-frequency noise along the shore (char_noise_m, plus fine_mix of a 0.3x finer noise so the two banks of a narrow reach differ), biased by shoreline curvature (outer bends / convex water outline -> gravel and rock end, inner bends -> sedge end; bend_ref_m = bend radius giving full bias) and by bank slope (slope_bias_deg: flat -> sedge end, steep -> rock end). classes are bands of that value; values between bands stay plain (open access). rock is also forced where the band slope reaches rock_slope_deg or rock exposure rock_exposure. Sedge fades out on banks steeper than sedge_max_slope_deg. Inland banks: width_m band; sea coast: coast_width_m band, rock and gravel only (no sedge). Props: per rule, density (instances per 100 m2) per character field (optional require mask), own hash stream 'bank:<rule>', clusters of cluster [min, max] instances within cluster_radius_m; leaders and members are moved across the shore to a hashed distance inside shore_distance_m (negative = in water); only assets in in_water may stand in water, up to that depth (m). footprint_k = share of summed footprint radii kept clear inside a rule (0.8 default; low for reed clumps), face along_shore lays rubble on the contour, scale multiplies the asset scale range. groundcover: tall grass along sedge banks (tall_near_water at the water line, patchy, fading over tall_falloff_m), short grass cut on gravel banks. Placed after cliffs: no tree, prop or cliff moves. Editing this section does not change the placement seed (generate._seed_sha).",
+    "field": {
+      "width_m": 7.0,
+      "coast_width_m": 8.0,
+      "char_noise_m": 28.0,
+      "fine_mix": 0.5,
+      "bend_ref_m": 30.0,
+      "bend_along_m": 8.0,
+      "bend_bias": 0.3,
+      "slope_bias": 0.15,
+      "slope_bias_deg": [
+        18.0,
+        26.0
+      ],
+      "soft": 0.03,
+      "classes": {
+        "sedge": [
+          0.0,
+          0.3
+        ],
+        "gravel": [
+          0.43,
+          0.71
+        ],
+        "rock": [
+          0.85,
+          1.0
+        ]
+      },
+      "rock_slope_deg": [
+        32.0,
+        38.0
+      ],
+      "rock_exposure": [
+        0.35,
+        0.6
+      ],
+      "sedge_max_slope_deg": [
+        24.0,
+        30.0
+      ]
+    },
+    "props": {
+      "gravel_stones": {
+        "fields": {
+          "bank_gravel": 1.6
+        },
+        "assets": {
+          "shore_boulder_A": 1.0,
+          "boulder_medium_A": 0.7
+        },
+        "spacing": 7.0,
+        "cluster": [
+          2,
+          4
+        ],
+        "cluster_radius_m": [
+          1.3,
+          3.0
+        ],
+        "shore_distance_m": [
+          -1.0,
+          3.0
+        ],
+        "in_water": {
+          "shore_boulder_A": 0.4
+        },
+        "ground": "median",
+        "sink": 0.1,
+        "max_tilt": 18,
+        "scale": 0.85,
+        "footprint_k": 0.6
+      },
+      "rock_boulders": {
+        "fields": {
+          "bank_rock": 1.4
+        },
+        "assets": {
+          "boulder_medium_A": 1.0,
+          "boulder_large_A": 0.45
+        },
+        "spacing": 6.0,
+        "cluster": [
+          1,
+          2
+        ],
+        "cluster_radius_m": [
+          1.5,
+          3.0
+        ],
+        "shore_distance_m": [
+          0.3,
+          5.5
+        ],
+        "ground": "median",
+        "sink": 0.08,
+        "max_tilt": 18
+      },
+      "rock_rubble": {
+        "fields": {
+          "bank_rock": 1.3
+        },
+        "assets": {
+          "rubble_cluster_A": 1.0
+        },
+        "spacing": 5.0,
+        "shore_distance_m": [
+          0.3,
+          1.8
+        ],
+        "ground": "median",
+        "sink": 0.04,
+        "max_tilt": 20,
+        "face": "along_shore"
+      },
+      "sedge_reeds": {
+        "fields": {
+          "bank_sedge": 3.0
+        },
+        "assets": {
+          "reed_A": 1.0
+        },
+        "spacing": 5.0,
+        "cluster": [
+          4,
+          7
+        ],
+        "cluster_radius_m": [
+          0.3,
+          1.0
+        ],
+        "shore_distance_m": [
+          -1.0,
+          0.4
+        ],
+        "in_water": {
+          "reed_A": 0.45
+        },
+        "footprint_k": 0.35
+      },
+      "sedge_shrubs": {
+        "fields": {
+          "bank_sedge": 0.7
+        },
+        "assets": {
+          "shrub_B": 1.0
+        },
+        "spacing": 6.0,
+        "cluster": [
+          1,
+          2
+        ],
+        "cluster_radius_m": [
+          1.2,
+          2.2
+        ],
+        "shore_distance_m": [
+          2.0,
+          5.0
+        ]
+      },
+      "coast_stones": {
+        "fields": {
+          "coast_gravel": 0.3,
+          "coast_rock": 0.2
+        },
+        "require": "exposed_shore",
+        "assets": {
+          "shore_boulder_A": 1.0
+        },
+        "spacing": 10.0,
+        "cluster": [
+          1,
+          3
+        ],
+        "cluster_radius_m": [
+          1.0,
+          2.5
+        ],
+        "shore_distance_m": [
+          -0.8,
+          3.0
+        ],
+        "in_water": {
+          "shore_boulder_A": 0.4
+        },
+        "ground": "median",
+        "sink": 0.1,
+        "max_tilt": 18
+      }
+    },
+    "groundcover": {
+      "tall_near_water": [
+        0.5,
+        0.9
+      ],
+      "tall_patch_m": 6.0,
+      "tall_falloff_m": [
+        1.5,
+        5.0
+      ],
+      "short_on_gravel_cut": 0.45,
+      "gravel_falloff_m": [
+        2.0,
+        5.0
+      ]
+    }
+  }
+}

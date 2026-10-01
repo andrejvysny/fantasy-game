@@ -1,0 +1,234 @@
+{
+  "asset_id": "boulder_large_A",
+  "version": 1,
+  "family": "boulder_large",
+  "group": "rocks",
+  "habitats": [
+    "meadow",
+    "forest_edge",
+    "rocky_slope",
+    "shore"
+  ],
+  "bbox_min": [
+    -1.379,
+    -0.4,
+    -1.192
+  ],
+  "bbox_max": [
+    1.4,
+    1.888,
+    1.222
+  ],
+  "pivot": "embed_origin",
+  "embed_depth": 0.4,
+  "scale_range": [
+    0.7,
+    1.4
+  ],
+  "max_tilt_deg": 12.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid"
+  ],
+  "tris": 934,
+  "verts": 469,
+  "budget_tris": [
+    600,
+    2000
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "convex"
+  },
+  "wind": "none",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 3301,
+    "method": "one convex mass from fracture-frame planes, carved by convex cutters (set-backs, bedding steps, lowered tops), corner spalls, narrow chamfer, refine, distort",
+    "params": {
+      "tilt": 11.0,
+      "azimuth": 35.0,
+      "yaw": 5.0,
+      "height": 1.9,
+      "embed": 0.4,
+      "front": null,
+      "bevel": 0.04,
+      "edge_len": 0.42,
+      "distort": 0.03,
+      "distort_freq": 0.5,
+      "mass": [
+        [
+          "flat",
+          0,
+          1.5,
+          0,
+          0,
+          1.0
+        ],
+        [
+          "!flat",
+          0,
+          0,
+          0,
+          0,
+          -1.4
+        ],
+        [
+          "flat",
+          75,
+          9,
+          0.35,
+          0.1,
+          0.9
+        ],
+        [
+          "wall",
+          -14,
+          9,
+          -0.37,
+          -0.86,
+          0
+        ],
+        [
+          "wall",
+          22,
+          14,
+          0.66,
+          -0.78,
+          0
+        ],
+        [
+          "wall",
+          88,
+          8,
+          1.15,
+          0,
+          0
+        ],
+        [
+          "wall",
+          140,
+          20,
+          0.74,
+          0.57,
+          0
+        ],
+        [
+          "wall",
+          178,
+          13,
+          0,
+          0.82,
+          0
+        ],
+        [
+          "wall",
+          -152,
+          10,
+          -0.74,
+          0.62,
+          0
+        ],
+        [
+          "wall",
+          -92,
+          12,
+          -1.11,
+          0,
+          0
+        ]
+      ],
+      "carves": [
+        [
+          [
+            "wall",
+            -130,
+            1,
+            -0.99,
+            0,
+            0
+          ],
+          [
+            "!flat",
+            0,
+            1.0,
+            0,
+            0,
+            0.25
+          ],
+          [
+            "!wall",
+            176,
+            13,
+            0,
+            0.59,
+            0
+          ]
+        ],
+        [
+          [
+            "wall",
+            135,
+            1,
+            -0.8,
+            0,
+            0
+          ],
+          [
+            "!flat",
+            0,
+            1.0,
+            0,
+            0,
+            -0.15
+          ],
+          [
+            "!wall",
+            -14,
+            9,
+            -0.37,
+            -0.52,
+            0
+          ]
+        ]
+      ],
+      "chips": [
+        [
+          [
+            0.5,
+            -0.5,
+            0.7
+          ],
+          0.4
+        ],
+        [
+          [
+            -0.4,
+            0.5,
+            0.75
+          ],
+          0.22
+        ],
+        [
+          [
+            0.9,
+            0.2,
+            0.3
+          ],
+          0.25
+        ]
+      ]
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Primary foreground rock: steep planes (<= 24 deg lean), one ~1.2 m bedding top, toe step and stepped back; same fracture frame as the cliff."
+}

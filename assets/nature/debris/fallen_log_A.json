@@ -1,0 +1,228 @@
+{
+  "asset_id": "fallen_log_A",
+  "version": 1,
+  "family": "fallen_log",
+  "group": "debris",
+  "habitats": [
+    "mature_forest"
+  ],
+  "bbox_min": [
+    -2.139,
+    -0.1,
+    -0.329
+  ],
+  "bbox_max": [
+    2.139,
+    0.598,
+    0.51
+  ],
+  "pivot": "ground_contact",
+  "embed_depth": 0.1,
+  "scale_range": [
+    0.8,
+    1.25
+  ],
+  "max_tilt_deg": 12.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid"
+  ],
+  "tris": 840,
+  "verts": 436,
+  "budget_tris": [
+    500,
+    1500
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "convex"
+  },
+  "wind": "none",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 4101,
+    "script": "tools/blender/debris_family.py",
+    "params": {
+      "seed": 4101,
+      "length": 3.45,
+      "sides": 10,
+      "rings": 22,
+      "r_butt": 0.275,
+      "r_top": 0.235,
+      "butt_flare": 0.035,
+      "bend_y": 0.075,
+      "wobble_y": 0.012,
+      "underside": 0.1,
+      "lift": 0.02,
+      "flat": 0.8,
+      "seams": [
+        [
+          4,
+          1,
+          10,
+          0.15
+        ],
+        [
+          1,
+          8,
+          17,
+          0.15
+        ],
+        [
+          7,
+          12,
+          21,
+          0.15
+        ]
+      ],
+      "lens": [
+        [
+          4,
+          13
+        ],
+        [
+          4,
+          14
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          5,
+          15
+        ]
+      ],
+      "butt": {
+        "jitter": 0.08,
+        "slant": 0.05,
+        "slant_az": 60.0,
+        "dish": 0.06,
+        "inner": 0.88,
+        "core": 0.42,
+        "heart": 0.2,
+        "chunks": [
+          2,
+          3
+        ],
+        "chunk_depth": 0.11
+      },
+      "break": {
+        "front": 0.05,
+        "tongue": 0.1,
+        "tear_az": 30.0,
+        "bark_set": 0.03,
+        "inner": 0.8,
+        "core": 0.36,
+        "core_e": 0.03,
+        "steps": [
+          0.035,
+          0.0,
+          0.06,
+          0.03,
+          0.07,
+          0.0,
+          0.04,
+          0.02,
+          0.07,
+          0.05
+        ],
+        "shards": [
+          {
+            "az": 52.0,
+            "rho": 0.84,
+            "length": 0.46,
+            "width": 0.12,
+            "thick": 0.032,
+            "lean": 0.1,
+            "splay": 0.04,
+            "cut": 0.07
+          },
+          {
+            "az": 335.0,
+            "rho": 0.82,
+            "length": 0.28,
+            "width": 0.09,
+            "thick": 0.03,
+            "lean": 0.03,
+            "splay": -0.12,
+            "cut": 0.05
+          },
+          {
+            "az": 12.0,
+            "rho": 0.8,
+            "length": 0.21,
+            "width": 0.08,
+            "thick": 0.03,
+            "lean": 0.16,
+            "splay": 0.1,
+            "cut": -0.04
+          }
+        ]
+      },
+      "stubs": [
+        {
+          "t": 0.29,
+          "az": 150.0,
+          "length": 0.26,
+          "r": 0.07,
+          "pitch": 45.0
+        },
+        {
+          "t": 0.58,
+          "az": 80.0,
+          "length": 0.27,
+          "r": 0.055,
+          "pitch": 48.0
+        },
+        {
+          "t": 0.83,
+          "az": 40.0,
+          "length": 0.12,
+          "r": 0.055,
+          "pitch": 70.0,
+          "tones": [
+            1,
+            5,
+            3,
+            3
+          ]
+        },
+        {
+          "t": 0.15,
+          "az": 195.0,
+          "length": 0.22,
+          "r": 0.065,
+          "pitch": 55.0
+        }
+      ]
+    },
+    "measured": {
+      "size_x": 4.277,
+      "size_y": 0.839,
+      "z_min": -0.1,
+      "z_max": 0.598,
+      "max_axis_dev_m": 0.095,
+      "mid_share": 0.764,
+      "dark_share": 0.123,
+      "ridge_share": 0.095,
+      "lens_faces": 4,
+      "seam_len_frac": [
+        0.41,
+        0.41,
+        0.41
+      ]
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Spruce log along X (origin mid-length, front = -Y = Godot +Z, for logs lying across a slope): 10-sided, tapered 0.55 -> 0.47 m, nearly straight (<= 0.10 m off the chord), flat underside 0.1 m below y=0 (embed), 3 long bark seams, one weathered lens, torn +X end (stepped pale wood on the front, a tongue with 3 flat shards on the back, dark heart), dished rotted -X end, 3 broken branch stubs + one prop stub. Moss is shader-side."
+}

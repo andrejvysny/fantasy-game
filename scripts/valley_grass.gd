@@ -41,6 +41,10 @@ var patch_count := 0
 
 
 func _ready() -> void:
+	# Replaced by valley_groundcover.gd; the cards stay for A/B only.
+	if not "--grass=cards" in OS.get_cmdline_user_args():
+		queue_free()
+		return
 	_terrain = get_node(terrain_path)
 	_rng.seed = world_seed
 	_load_meshes()
@@ -146,6 +150,6 @@ func _build_chunk(key: Vector2i, per_kind: Dictionary) -> void:
 		inst.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		inst.visibility_range_end = view_range
 		inst.visibility_range_end_margin = 10.0
-		inst.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_SELF
+		inst.visibility_range_fade_mode = GeometryInstance3D.VISIBILITY_RANGE_FADE_DISABLED
 		add_child(inst)
 		patch_count += items.size()

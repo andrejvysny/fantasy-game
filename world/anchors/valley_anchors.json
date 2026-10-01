@@ -1,0 +1,619 @@
+{
+  "_doc": "Semantic anchors for the valley (plan section 3.2). World metres, Godot axes: x east, z south (-z = north), map centred on the origin, 1024 m square. Coordinates were surveyed with tools/environment/probe.py on the protected terrain (tools/terrain/out, heightmap float32). Zone bounds partition generation: an instance belongs to the first zone whose polygon contains it, else 'fill'. Regenerating a zone rewrites only that zone's files. 'views' reuse tools/capture/views_valley.tsv names.",
+  "terrain_revision": "tools/terrain/out/heightmap.f32 @ dfb2ce3",
+  "rollout_order": [
+    "spawn_meadow",
+    "upper_lake",
+    "mature_forest",
+    "west_river",
+    "ne_canyon",
+    "west_escarpment",
+    "central_hill",
+    "butte_scarp",
+    "north_ridge",
+    "east_falls",
+    "south_coast"
+  ],
+  "zones": [
+    {
+      "id": "spawn_meadow",
+      "name": "Starting meadow and departure (vertical slice)",
+      "center": [
+        -22,
+        -145
+      ],
+      "bounds": [
+        [
+          -110,
+          -118
+        ],
+        [
+          0,
+          -118
+        ],
+        [
+          0,
+          -215
+        ],
+        [
+          -110,
+          -215
+        ]
+      ],
+      "protected": [
+        {
+          "kind": "spawn",
+          "at": [
+            -22,
+            -145
+          ],
+          "clear_radius": 7.0,
+          "note": "scenes/valley.tscn spawn_point; no lodge exists in the valley scene, so the clear radius reserves the start area only"
+        },
+        {
+          "kind": "river",
+          "note": "river bed and levels along the north edge unchanged"
+        }
+      ],
+      "refs": [
+        "R01",
+        "R02",
+        "R03",
+        "R05"
+      ],
+      "families": [
+        "rock_shelf",
+        "boulder_large",
+        "boulder_medium",
+        "rubble_cluster",
+        "spruce_mature",
+        "spruce_edge",
+        "spruce_young",
+        "shrub",
+        "fern",
+        "grass_short",
+        "flower_white",
+        "flower_pink",
+        "fallen_log",
+        "root_flare",
+        "shore_boulder",
+        "reed"
+      ],
+      "routes": [
+        "spawn_departure"
+      ],
+      "view_corridors": [
+        {
+          "from": [
+            -22,
+            -145
+          ],
+          "to": [
+            -120,
+            -300
+          ],
+          "width": 16.0,
+          "note": "keep the upper-lake direction readable from spawn (tactical view); applies to fill only, recipe members are locked"
+        }
+      ],
+      "recipes": [
+        "A_meadow_departure",
+        "A2_spawn_shoulder",
+        "B_rock_ledge_bend",
+        "C_mature_forest_pocket",
+        "F_bank_pocket"
+      ],
+      "views": [
+        "00_start_low",
+        "00_start_tactical",
+        "01_spawn_meadow",
+        "02_spawn_horizon",
+        "14_dawn_meadow",
+        "16_evening_horizon"
+      ]
+    },
+    {
+      "id": "upper_lake",
+      "name": "Upper lake reveal",
+      "center": [
+        -120,
+        -303
+      ],
+      "bounds": [
+        [
+          -240,
+          -385
+        ],
+        [
+          -20,
+          -385
+        ],
+        [
+          -20,
+          -216
+        ],
+        [
+          -240,
+          -216
+        ]
+      ],
+      "protected": [
+        {
+          "kind": "lake",
+          "note": "flat lake level 24.65 m and shoreline unchanged"
+        }
+      ],
+      "refs": [
+        "R06"
+      ],
+      "families": [
+        "shore_boulder",
+        "boulder_large",
+        "boulder_medium",
+        "reed",
+        "spruce_edge",
+        "spruce_young",
+        "grass_tall",
+        "flower_white"
+      ],
+      "routes": [],
+      "view_corridors": [
+        {
+          "from": [
+            -14.0,
+            -302.0
+          ],
+          "to": [
+            -90.0,
+            -300.0
+          ],
+          "width": 18.0,
+          "note": "east bank reveal across the water to the island"
+        }
+      ],
+      "recipes": [
+        "E_upper_lake_bank"
+      ],
+      "views": [
+        "03_upper_lake",
+        "04_upper_lake_low",
+        "15_evening_lake",
+        "17_upper_lake_bank"
+      ]
+    },
+    {
+      "id": "mature_forest",
+      "name": "Mature forest east of spawn",
+      "center": [
+        40,
+        -210
+      ],
+      "bounds": [
+        [
+          0,
+          -262
+        ],
+        [
+          100,
+          -262
+        ],
+        [
+          100,
+          -150
+        ],
+        [
+          0,
+          -150
+        ]
+      ],
+      "protected": [],
+      "refs": [
+        "R04"
+      ],
+      "families": [
+        "spruce_mature",
+        "spruce_edge",
+        "spruce_young",
+        "fern",
+        "shrub",
+        "fallen_log",
+        "root_flare"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [],
+      "views": [
+        "13_forest"
+      ]
+    },
+    {
+      "id": "west_river",
+      "name": "Western riverbank",
+      "center": [
+        -230,
+        -10
+      ],
+      "bounds": [
+        [
+          -330,
+          -80
+        ],
+        [
+          -150,
+          -80
+        ],
+        [
+          -150,
+          90
+        ],
+        [
+          -330,
+          90
+        ]
+      ],
+      "protected": [
+        {
+          "kind": "river",
+          "note": "sloped river profile unchanged"
+        }
+      ],
+      "refs": [
+        "R06"
+      ],
+      "families": [
+        "shore_boulder",
+        "boulder_medium",
+        "reed",
+        "grass_tall",
+        "shrub",
+        "spruce_edge"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [],
+      "views": [
+        "08_west_river"
+      ]
+    },
+    {
+      "id": "ne_canyon",
+      "name": "Northeastern canyon",
+      "center": [
+        330,
+        -260
+      ],
+      "bounds": [
+        [
+          225,
+          -430
+        ],
+        [
+          450,
+          -430
+        ],
+        [
+          450,
+          -125
+        ],
+        [
+          225,
+          -125
+        ]
+      ],
+      "protected": [
+        {
+          "kind": "falls",
+          "note": "Fall_Canyon_Top/Mid/Low lines (tools/terrain/terrain_features.py) unchanged"
+        }
+      ],
+      "refs": [
+        "R02",
+        "R05"
+      ],
+      "families": [
+        "cliff_face",
+        "cliff_corner",
+        "rock_shelf",
+        "rubble_cluster",
+        "boulder_large",
+        "pine_open",
+        "shrub"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [],
+      "views": [
+        "05_ne_canyon_low"
+      ]
+    },
+    {
+      "id": "west_escarpment",
+      "name": "Western escarpment",
+      "center": [
+        -420,
+        -170
+      ],
+      "bounds": [
+        [
+          -512,
+          -310
+        ],
+        [
+          -330,
+          -310
+        ],
+        [
+          -330,
+          -40
+        ],
+        [
+          -512,
+          -40
+        ]
+      ],
+      "protected": [],
+      "refs": [
+        "R02"
+      ],
+      "families": [
+        "cliff_face",
+        "cliff_corner",
+        "rock_shelf",
+        "rubble_cluster",
+        "shrub",
+        "spruce_edge"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [],
+      "views": [
+        "07_west_escarpment_low"
+      ]
+    },
+    {
+      "id": "central_hill",
+      "name": "Central hill",
+      "center": [
+        -130,
+        -128
+      ],
+      "bounds": [
+        [
+          -235,
+          -40
+        ],
+        [
+          -110,
+          -40
+        ],
+        [
+          -110,
+          -216
+        ],
+        [
+          -235,
+          -216
+        ]
+      ],
+      "protected": [],
+      "refs": [
+        "R04",
+        "R05"
+      ],
+      "families": [
+        "spruce_mature",
+        "boulder_large",
+        "rock_shelf",
+        "root_flare",
+        "fern"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [],
+      "views": [
+        "10_central_hill_low"
+      ]
+    },
+    {
+      "id": "butte_scarp",
+      "name": "Butte scarp",
+      "center": [
+        280,
+        0
+      ],
+      "bounds": [
+        [
+          175,
+          -125
+        ],
+        [
+          340,
+          -125
+        ],
+        [
+          340,
+          110
+        ],
+        [
+          175,
+          110
+        ]
+      ],
+      "protected": [],
+      "refs": [
+        "R02"
+      ],
+      "families": [
+        "cliff_face",
+        "rock_shelf",
+        "rubble_cluster",
+        "spruce_mature",
+        "spruce_edge"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [],
+      "views": [
+        "06_butte_scarp_low"
+      ]
+    },
+    {
+      "id": "north_ridge",
+      "name": "Northern ridge",
+      "center": [
+        -40,
+        -420
+      ],
+      "bounds": [
+        [
+          -170,
+          -512
+        ],
+        [
+          90,
+          -512
+        ],
+        [
+          90,
+          -386
+        ],
+        [
+          -170,
+          -386
+        ]
+      ],
+      "protected": [
+        {
+          "kind": "silhouette",
+          "note": "ridge elevation and silhouette unchanged"
+        }
+      ],
+      "refs": [
+        "R01",
+        "R05"
+      ],
+      "families": [
+        "boulder_large",
+        "rock_shelf",
+        "pine_open",
+        "spruce_young"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [],
+      "views": [
+        "12_north_ridge_low"
+      ]
+    },
+    {
+      "id": "east_falls",
+      "name": "Eastern falls (Fall_East_Scarp)",
+      "center": [
+        410,
+        70
+      ],
+      "bounds": [
+        [
+          340,
+          -10
+        ],
+        [
+          490,
+          -10
+        ],
+        [
+          490,
+          185
+        ],
+        [
+          340,
+          185
+        ]
+      ],
+      "protected": [
+        {
+          "kind": "falls",
+          "at": [
+            [
+              382,
+              52
+            ],
+            [
+              444,
+              75
+            ]
+          ],
+          "note": "fall face ~(410,62): level 39 -> 10.6 m between z 55 and 70 (terrain_masks level); pool x 400-415, z 70-130"
+        }
+      ],
+      "refs": [
+        "R02",
+        "R06"
+      ],
+      "families": [
+        "cliff_face",
+        "rock_shelf",
+        "shore_boulder",
+        "rubble_cluster"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [
+        "J_east_falls_basin"
+      ],
+      "views": [
+        "11_east_falls_low",
+        "18_east_falls_gorge"
+      ]
+    },
+    {
+      "id": "south_coast",
+      "name": "Southern coast",
+      "center": [
+        0,
+        400
+      ],
+      "bounds": [
+        [
+          -512,
+          300
+        ],
+        [
+          512,
+          300
+        ],
+        [
+          512,
+          512
+        ],
+        [
+          -512,
+          512
+        ]
+      ],
+      "protected": [
+        {
+          "kind": "horizon",
+          "note": "open sea direction to the south stays open"
+        }
+      ],
+      "refs": [
+        "R06"
+      ],
+      "families": [
+        "shore_boulder",
+        "boulder_large",
+        "boulder_medium",
+        "spruce_edge",
+        "pine_open"
+      ],
+      "routes": [],
+      "view_corridors": [],
+      "recipes": [],
+      "views": [
+        "09_south_coast",
+        "19_south_coast_low"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "asset_id": "boulder_medium_A",
+  "version": 1,
+  "family": "boulder_medium",
+  "group": "rocks",
+  "habitats": [
+    "rocky_slope",
+    "forest_edge",
+    "open_meadow",
+    "sheltered_bank",
+    "trail_border"
+  ],
+  "bbox_min": [
+    -0.702,
+    -0.15,
+    -0.401
+  ],
+  "bbox_max": [
+    0.41,
+    0.695,
+    0.553
+  ],
+  "pivot": "embed_origin",
+  "embed_depth": 0.15,
+  "scale_range": [
+    0.6,
+    1.5
+  ],
+  "max_tilt_deg": 15.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid"
+  ],
+  "tris": 390,
+  "verts": 197,
+  "budget_tris": [
+    150,
+    700
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "none",
+  "collision": {
+    "class": "convex"
+  },
+  "wind": "none",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 5503,
+    "method": "one convex mass on the bedding dip (vertical front/left, 22-33 deg ramps right/back), toe step, split back wall, chip, narrow chamfer, refine, distort",
+    "params": {
+      "tilt": 0.0,
+      "azimuth": 30.0,
+      "yaw": -4.0,
+      "height": 0.7,
+      "embed": 0.15,
+      "front": null,
+      "bevel": 0.025,
+      "edge_len": 0.24,
+      "distort": 0.012,
+      "distort_freq": 1.0,
+      "mass": [
+        [
+          "flat",
+          150,
+          7.0,
+          0,
+          0,
+          0.74
+        ],
+        [
+          "!flat",
+          0,
+          0,
+          0,
+          0,
+          -0.6
+        ],
+        [
+          "wall",
+          -90,
+          1.0,
+          -0.5,
+          0,
+          0
+        ],
+        [
+          "wall",
+          98,
+          27.0,
+          0.56,
+          0.0,
+          0
+        ],
+        [
+          "wall",
+          8,
+          3.0,
+          0,
+          -0.41,
+          0
+        ],
+        [
+          "wall",
+          -52,
+          7.0,
+          -0.38,
+          -0.25,
+          0
+        ],
+        [
+          "wall",
+          172,
+          18.0,
+          0,
+          0.4,
+          0
+        ],
+        [
+          "wall",
+          158,
+          24.0,
+          0.2,
+          0.36,
+          0
+        ]
+      ],
+      "carves": [
+        [
+          [
+            "!flat",
+            150,
+            7.0,
+            0,
+            0,
+            0.3
+          ],
+          [
+            "!wall",
+            -5,
+            3.0,
+            0.3,
+            -0.368,
+            0
+          ],
+          [
+            "wall",
+            120,
+            6.0,
+            0.05,
+            0,
+            0
+          ]
+        ]
+      ],
+      "chips": [
+        [
+          [
+            0.5,
+            -0.5,
+            0.7
+          ],
+          0.12
+        ]
+      ]
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Simplified boulder on the cliff fracture family: long vertical left wall, 27 deg ramp opposite, front bedding step (0.05-0.17 m at 0.3 m, fading out), split back wall, bedding top dipping 7 deg, one chipped corner; origin at the contact centre, 0.15 m buried."
+}

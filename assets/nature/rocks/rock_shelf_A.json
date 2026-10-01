@@ -1,0 +1,329 @@
+{
+  "asset_id": "rock_shelf_A",
+  "version": 1,
+  "family": "rock_shelf",
+  "group": "rocks",
+  "habitats": [
+    "meadow_edge",
+    "rocky_slope",
+    "trail_border"
+  ],
+  "bbox_min": [
+    -3.904,
+    -0.8,
+    -4.036
+  ],
+  "bbox_max": [
+    4.119,
+    1.594,
+    0.395
+  ],
+  "pivot": "embed_origin",
+  "embed_depth": 0.8,
+  "scale_range": [
+    0.8,
+    1.25
+  ],
+  "max_tilt_deg": 6.0,
+  "orientation_constrained": false,
+  "materials": [
+    "M_solid"
+  ],
+  "tris": 1542,
+  "verts": 773,
+  "budget_tris": [
+    800,
+    3000
+  ],
+  "within_budget": true,
+  "non_manifold_edges": 0,
+  "lod": "godot_auto",
+  "collision": {
+    "class": "trimesh"
+  },
+  "wind": "none",
+  "texel_density": "vertex_colour (no texture); UV0 reserved at 256 px/m",
+  "channels": {
+    "COLOR_0.rgb": "base colour linear",
+    "COLOR_0.a": "flex weight",
+    "UV2.x": "cavity",
+    "UV2.y": "part random"
+  },
+  "recipe": {
+    "seed": 2203,
+    "method": "one convex mass from fracture-frame planes, carved by convex cutters (set-backs, bedding steps, lowered tops), corner spalls, narrow chamfer, refine, distort",
+    "params": {
+      "tilt": 9.5,
+      "azimuth": 80.0,
+      "yaw": -4.0,
+      "height": 1.6,
+      "embed": 0.8,
+      "front": 0.7,
+      "bevel": 0.045,
+      "edge_len": 0.6,
+      "distort": 0.05,
+      "distort_freq": 0.32,
+      "mass": [
+        [
+          "flat",
+          0,
+          1.2,
+          0,
+          0,
+          2.0
+        ],
+        [
+          "!flat",
+          0,
+          0,
+          0,
+          0,
+          -2.5
+        ],
+        [
+          "wall",
+          -62,
+          4,
+          -3.7,
+          0,
+          0
+        ],
+        [
+          "wall",
+          100,
+          3,
+          3.8,
+          0,
+          0
+        ],
+        [
+          "wall",
+          125,
+          6,
+          3.0,
+          0.8,
+          0
+        ],
+        [
+          "wall",
+          -10,
+          6,
+          -0.6,
+          -1.5,
+          0
+        ],
+        [
+          "wall",
+          4,
+          8,
+          -0.6,
+          -1.5,
+          0
+        ],
+        [
+          "flat",
+          172,
+          30,
+          -1,
+          0.4,
+          2.0
+        ],
+        [
+          "flat",
+          192,
+          30,
+          -1,
+          0.4,
+          2.0
+        ],
+        [
+          "wall",
+          168,
+          4,
+          -1,
+          2.2,
+          0
+        ],
+        [
+          "wall",
+          194,
+          4,
+          -1,
+          2.2,
+          0
+        ]
+      ],
+      "carves": [
+        [
+          [
+            "wall",
+            112,
+            2,
+            -2.4,
+            -1.4,
+            0
+          ],
+          [
+            "!wall",
+            -18,
+            6,
+            -2.4,
+            -0.85,
+            0
+          ]
+        ],
+        [
+          [
+            "wall",
+            100,
+            1,
+            -2.9,
+            0,
+            0
+          ],
+          [
+            "!flat",
+            0,
+            1.2,
+            0,
+            0,
+            1.65
+          ]
+        ],
+        [
+          [
+            "wall",
+            -105,
+            1,
+            0.9,
+            0,
+            0
+          ],
+          [
+            "!flat",
+            0,
+            1.0,
+            0,
+            0,
+            1.75
+          ]
+        ],
+        [
+          [
+            "wall",
+            -100,
+            1,
+            1.25,
+            0,
+            0
+          ],
+          [
+            "!wall",
+            8,
+            8,
+            1.25,
+            -1.05,
+            0
+          ]
+        ],
+        [
+          [
+            "wall",
+            -108,
+            1,
+            2.9,
+            0,
+            0
+          ],
+          [
+            "!flat",
+            0,
+            1.2,
+            0,
+            0,
+            1.4
+          ]
+        ],
+        [
+          [
+            "wall",
+            -110,
+            1,
+            3.2,
+            0,
+            0
+          ],
+          [
+            "!wall",
+            20,
+            9,
+            3.2,
+            -0.4,
+            0
+          ]
+        ]
+      ],
+      "unions": [
+        {
+          "points": [
+            [
+              -2.8,
+              -0.8
+            ],
+            [
+              -2.35,
+              -1.95
+            ],
+            [
+              -0.7,
+              -2.1
+            ],
+            [
+              0.55,
+              -1.4
+            ],
+            [
+              0.5,
+              -0.8
+            ]
+          ],
+          "z_top": [
+            0.85,
+            -0.09,
+            0.12
+          ],
+          "z_bottom": -2.5
+        }
+      ],
+      "chips": [
+        [
+          [
+            -0.6,
+            -0.5,
+            0.6
+          ],
+          0.25
+        ],
+        [
+          [
+            0.1,
+            -0.9,
+            0.45
+          ],
+          0.2
+        ],
+        [
+          [
+            0.65,
+            -0.45,
+            0.6
+          ],
+          0.18
+        ]
+      ]
+    }
+  },
+  "approval": "candidate",
+  "provenance": "procedural, tools/blender",
+  "notes": "Steep riser 1.1-1.6 m with set-back left wing and two stepped-down right blocks, broken-off toe slab, top dips back ~9 deg into a back ramp (terrain/grass meets it). Origin 0.7 m behind the front, riser toward -Y."
+}

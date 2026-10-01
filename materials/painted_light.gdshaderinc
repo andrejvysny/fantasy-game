@@ -5,8 +5,8 @@ global uniform vec3 player_position;
 global uniform vec2 cloud_offset;
 global uniform float cloud_shadow_strength;
 global uniform vec4 shadow_tint;
-global uniform sampler2D brush_noise;
-global uniform sampler2D cloud_noise;
+global uniform sampler2D brush_noise : filter_linear_mipmap, repeat_enable; // seamless; repeat instead of fract() (fract breaks mip derivatives -> 1 px seams)
+global uniform sampler2D cloud_noise : filter_linear_mipmap, repeat_enable;
 // Sun shadow fade band in view depth (metres): Godot's own fade (fade_start..max_distance)
 // ramps ATTENUATION up gradually; thresholding it would turn that ramp into a moving hard line.
 global uniform vec2 sun_shadow_fade;
@@ -32,9 +32,9 @@ float brush_sample() {
 	vec3 w = pow(abs(world_normal), vec3(4.0));
 	w /= (w.x + w.y + w.z + 1e-5);
 	vec3 p = world_pos * brush_scale;
-	float sx = texture(brush_noise, fract(p.zy * vec2(1.0, 3.0))).r;
-	float sy = texture(brush_noise, fract(p.xz * vec2(1.0, 3.0))).r;
-	float sz = texture(brush_noise, fract(p.xy * vec2(1.0, 3.0))).r;
+	float sx = texture(brush_noise, p.zy * vec2(1.0, 3.0)).r;
+	float sy = texture(brush_noise, p.xz * vec2(1.0, 3.0)).r;
+	float sz = texture(brush_noise, p.xy * vec2(1.0, 3.0)).r;
 	return sx * w.x + sy * w.y + sz * w.z - 0.5;
 }
 
@@ -56,7 +56,7 @@ void light() {
 		float fading = smoothstep(sun_shadow_fade.x, sun_shadow_fade.y, depth);
 		float shadow = mix(smoothstep(0.45, 0.55, ATTENUATION), ATTENUATION, fading);
 		float band = painted_bands(x, band_softness) * shadow;
-		float c = texture(cloud_noise, fract(world_pos.xz * 0.004 + cloud_offset)).r;
+		float c = texture(cloud_noise, world_pos.xz * 0.004 + cloud_offset).r;
 		float cloud = 1.0 - cloud_shadow_strength * smoothstep(0.5, 0.6, c);
 		// Fill takes the sun's brightness but not its hue, so shadows stay cool at dawn/evening.
 		float sun_lum = dot(LIGHT_COLOR, vec3(0.2126, 0.7152, 0.0722));
