@@ -1,0 +1,114 @@
+capture_time: 2026-10-01T20:24:59Z
+git: ce478c479b101ad21fa98bf5bbb5690fdf9997d5 dirty=yes
+godot: 4.7.2.stable.official.ed1daf0bf
+gpu: Chipset Model: Apple M4 Pro
+macos: 26.6.2
+scene: res://scenes/valley.tscn  views: views_valley.tsv
+res: 1152x648  frame: 89  fixed_fps: 30  driver: default
+extra_args: 
+
+view: 00_start_tactical
+  preset: 1
+  args: --pos=-22,-145 --yaw=0
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 00_start_low
+  preset: 1
+  args: --pos=-22,-145 --yaw=0 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 01_spawn_meadow
+  preset: 1
+  args: --pos=-22,-145 --yaw=32
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 02_spawn_horizon
+  preset: 1
+  args: --pos=-22,-145 --yaw=-144 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 03_upper_lake
+  preset: 1
+  args: --pos=-55,-300 --yaw=87
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 04_upper_lake_low
+  preset: 1
+  args: --pos=-55,-300 --yaw=87 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 05_ne_canyon_low
+  preset: 1
+  args: --pos=300,-180 --yaw=-15 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 06_butte_scarp_low
+  preset: 1
+  args: --pos=250,30 --yaw=-49 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 07_west_escarpment_low
+  preset: 1
+  args: --pos=-380,-200 --yaw=124 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 08_west_river
+  preset: 1
+  args: --pos=-230,-10 --yaw=-131
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 09_south_coast
+  preset: 1
+  args: --pos=0,338 --yaw=180
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 10_central_hill_low
+  preset: 1
+  args: --pos=-130,-128 --yaw=-81 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 11_east_falls_low
+  preset: 1
+  args: --pos=366,154 --yaw=-26 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 12_north_ridge_low
+  preset: 1
+  args: --pos=-20,-380 --yaw=27 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 13_forest
+  preset: 1
+  args: --pos=40,-200 --yaw=34
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 14_dawn_meadow
+  preset: 0
+  args: --pos=-22,-145 --yaw=32
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 15_evening_lake
+  preset: 2
+  args: --pos=-55,-300 --yaw=87
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 16_evening_horizon
+  preset: 2
+  args: --pos=-22,-145 --yaw=-144 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 17_upper_lake_bank
+  preset: 1
+  args: --pos=-24,-302 --yaw=93 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 18_east_falls_gorge
+  preset: 1
+  args: --pos=393,113 --yaw=-18 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+view: 19_south_coast_low
+  preset: 1
+  args: --pos=0,338 --yaw=180 --cam=9,57
+  RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+  DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0

@@ -1,0 +1,27 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+fallen_log_A.glb surfaces=["M_solid"] tris=840 color=true alpha=0.00..0.00 uv2=true aabb=(-2.14,-0.10,-0.33)..(2.14,0.60,0.51) node_xf_identity=true
+root_flare_A.glb surfaces=["M_solid"] tris=864 color=true alpha=0.00..0.00 uv2=true aabb=(-1.12,-0.11,-1.00)..(1.16,0.40,1.05) node_xf_identity=true
+flower_pink_A.glb surfaces=["M_foliage"] tris=217 color=true alpha=0.00..1.00 uv2=true aabb=(-0.09,0.00,-0.15)..(0.08,0.51,0.16) node_xf_identity=true
+flower_white_A.glb surfaces=["M_foliage"] tris=195 color=true alpha=0.00..1.00 uv2=true aabb=(-0.11,0.00,-0.09)..(0.06,0.38,0.08) node_xf_identity=true
+grass_short_A.glb surfaces=["M_foliage"] tris=56 color=true alpha=0.00..1.00 uv2=true aabb=(-0.13,0.00,-0.17)..(0.19,0.30,0.13) node_xf_identity=true
+grass_short_B.glb surfaces=["M_foliage"] tris=61 color=true alpha=0.00..1.00 uv2=true aabb=(-0.10,0.00,-0.09)..(0.19,0.30,0.08) node_xf_identity=true
+grass_short_C.glb surfaces=["M_foliage"] tris=74 color=true alpha=0.00..1.00 uv2=true aabb=(-0.20,0.00,-0.18)..(0.17,0.15,0.15) node_xf_identity=true
+grass_tall_A.glb surfaces=["M_foliage"] tris=121 color=true alpha=0.00..1.00 uv2=true aabb=(-0.25,0.00,-0.23)..(0.18,0.59,0.29) node_xf_identity=true
+boulder_large_A.glb surfaces=["M_solid"] tris=934 color=true alpha=0.00..0.00 uv2=true aabb=(-1.38,-0.40,-1.19)..(1.40,1.89,1.22) node_xf_identity=true
+boulder_medium_A.glb surfaces=["M_solid"] tris=390 color=true alpha=0.00..0.00 uv2=true aabb=(-0.70,-0.15,-0.40)..(0.41,0.70,0.55) node_xf_identity=true
+cliff_corner_A.glb surfaces=["M_solid"] tris=1618 color=true alpha=0.00..0.00 uv2=true aabb=(-3.54,-1.50,-3.69)..(3.23,5.84,1.31) node_xf_identity=true
+cliff_face_A.glb surfaces=["M_solid"] tris=2048 color=true alpha=0.00..0.00 uv2=true aabb=(-4.67,-1.50,-4.80)..(4.93,5.98,1.17) node_xf_identity=true
+rock_shelf_A.glb surfaces=["M_solid"] tris=1542 color=true alpha=0.00..0.00 uv2=true aabb=(-3.90,-0.80,-4.04)..(4.12,1.59,0.40) node_xf_identity=true
+rubble_cluster_A.glb surfaces=["M_solid"] tris=574 color=true alpha=0.00..0.00 uv2=true aabb=(-0.76,-0.10,-0.73)..(0.82,0.34,1.73) node_xf_identity=true
+shore_boulder_A.glb surfaces=["M_solid"] tris=812 color=true alpha=0.00..0.00 uv2=true aabb=(-1.01,-0.30,-0.86)..(0.98,0.79,0.80) node_xf_identity=true
+pine_open_A.glb surfaces=["M_solid", "M_foliage"] tris=3804 color=true alpha=0.00..1.00 uv2=true aabb=(-4.02,-0.25,-3.45)..(4.40,14.88,5.38) node_xf_identity=true
+spruce_edge_A.glb surfaces=["M_solid", "M_foliage"] tris=5686 color=true alpha=0.00..1.00 uv2=true aabb=(-2.31,-0.30,-2.01)..(2.37,12.00,2.62) node_xf_identity=true
+spruce_mature_A.glb surfaces=["M_solid", "M_foliage"] tris=6190 color=true alpha=0.00..1.00 uv2=true aabb=(-3.23,-0.30,-2.92)..(3.36,18.00,3.31) node_xf_identity=true
+spruce_mature_B.glb surfaces=["M_solid", "M_foliage"] tris=5934 color=true alpha=0.00..1.00 uv2=true aabb=(-3.12,-0.30,-3.27)..(2.63,20.00,1.69) node_xf_identity=true
+spruce_young_A.glb surfaces=["M_solid", "M_foliage"] tris=1306 color=true alpha=0.00..1.00 uv2=true aabb=(-0.85,-0.12,-0.79)..(1.10,3.60,0.94) node_xf_identity=true
+fern_A.glb surfaces=["M_foliage"] tris=357 color=true alpha=0.00..1.00 uv2=true aabb=(-0.53,-0.03,-0.55)..(0.55,0.50,0.56) node_xf_identity=true
+reed_A.glb surfaces=["M_solid", "M_foliage"] tris=216 color=true alpha=0.00..1.00 uv2=true aabb=(-0.28,-0.04,-0.39)..(0.47,0.93,0.39) node_xf_identity=true
+shrub_A.glb surfaces=["M_solid", "M_foliage"] tris=867 color=true alpha=0.00..0.46 uv2=true aabb=(-0.71,-0.04,-0.51)..(0.71,0.89,0.51) node_xf_identity=true
+shrub_B.glb surfaces=["M_solid", "M_foliage"] tris=957 color=true alpha=0.00..0.47 uv2=true aabb=(-0.89,-0.04,-0.62)..(0.89,0.58,0.62) node_xf_identity=true
+asset_check: 24 assets, 0 failures

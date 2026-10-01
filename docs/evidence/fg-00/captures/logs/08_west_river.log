@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Metal 4.0 - Forward+ - Using Device #0: Apple - Apple M4 Pro (Apple9)
+
+Movie Maker mode enabled, recording movie in 1152×648 @ 30 FPS...
+falls: Fall_Canyon_Low drop 20.2 m, foot (336.3909, 30.56017, -235.5546)
+falls: Fall_East_Scarp drop 21.7 m, foot (418.9445, 20.40227, 65.16666)
+falls: Rapids_West_Branch drop 5.2 m, foot (270.5, 22.29677, -182.0)
+valley placements: tools/terrain/out/heightmap.f32 @ dfb2ce3 + habitats 6be51cf4bf 20600 instances, 35 assets, overrides 0/0/0
+valley forest: 10194 trees in 236 chunks (generated)
+valley props: 10406 instances, 13 assets, 1836 chunks
+groundcover: field ground <- res://world/generated/fields/ground.res
+groundcover: field flowers <- res://world/generated/fields/flowers.res
+groundcover: 7 layers, 222 tiles, 74352 instances
+DEBUG focus=off fog=on vol=on lut=on sat=on clouds=on ssao=off glow=on mist=on back=on occ=on ground_debug=0
+RENDER driver=metal method=forward_plus size=1152x648 scale3d=1.0 scale_mode=0 msaa=2 ssaa=0 taa=false seeds=forest:2024,grass:n/a,mist:99
+--------------------------------------------------------------------------------
+Done recording movie at path: /var/folders/z5/x_0nvl9n33nd463_mpr617p00000gn/T/tmp.rZDOpmbRe8/08_west_river/f.png
+90 frames at 30 FPS (movie length: 00:00:03:00), recorded in 00:00:19 (15% of real-time speed).
+CPU render time: 0.03 seconds (average: 0.39 ms/frame)
+GPU render time: 0.00 seconds (average: 0.00 ms/frame)
+Encoding time: 16.24 seconds (average: 180.40 ms/frame)
+--------------------------------------------------------------------------------
