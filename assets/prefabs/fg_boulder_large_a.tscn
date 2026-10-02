@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/library/1cd1e70725089b624a8e498f00c8c8c8be702ec4e9e4a3e02284d9e51f6cba12/f21d5cedd5415be7cb4ca7415d2f654a2615e15f8a1022ec091617da43d778c1/model.glb" id="1_ext"]
+[ext_resource type="Material" path="res://materials/nature/nature_rock.tres" id="2_ext"]
+
+[node name="fg_boulder_large_a" type="Node3D"]
+metadata/assetstudio_binding = "fg_boulder_large_a"
+metadata/assetstudio_asset_key = "1cd1e70725089b624a8e498f00c8c8c8be702ec4e9e4a3e02284d9e51f6cba12"
+
+[node name="Model" parent="." instance=ExtResource("1_ext")]
+
+[node name="boulder_large_A" parent="Model" index="0"]
+surface_material_override/0 = ExtResource("2_ext")
+
+[editable path="Model"]

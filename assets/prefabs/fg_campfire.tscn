@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/library/3a68e4ef9be9bac74240b127d13ccaae4195a30b7a05df4ae177617ec7d6b56b/e91cafab522f86e9ca7f41aa79188503a3eea62eac5b8ba834e31771a45372fb/model.glb" id="1_ext"]
+[ext_resource type="Texture2D" path="res://assets/library/3a68e4ef9be9bac74240b127d13ccaae4195a30b7a05df4ae177617ec7d6b56b/e91cafab522f86e9ca7f41aa79188503a3eea62eac5b8ba834e31771a45372fb/model_0.png" id="2_ext"]
+[ext_resource type="Texture2D" path="res://assets/library/3a68e4ef9be9bac74240b127d13ccaae4195a30b7a05df4ae177617ec7d6b56b/e91cafab522f86e9ca7f41aa79188503a3eea62eac5b8ba834e31771a45372fb/model_1.png" id="3_ext"]
+
+[sub_resource type="StandardMaterial3D" id="patched_material_0_0"]
+resource_name = "material_0"
+cull_mode = 2
+albedo_texture = ExtResource("2_ext")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("3_ext")
+roughness_texture_channel = 1
+
+[node name="fg_campfire" type="Node3D"]
+metadata/assetstudio_binding = "fg_campfire"
+metadata/assetstudio_asset_key = "3a68e4ef9be9bac74240b127d13ccaae4195a30b7a05df4ae177617ec7d6b56b"
+
+[node name="Model" parent="." instance=ExtResource("1_ext")]
+
+[node name="geometry_0" parent="Model/world" parent_id_path=PackedInt32Array(1036681762, 1389326302) index="0"]
+surface_material_override/0 = SubResource("patched_material_0_0")
+
+[editable path="Model"]

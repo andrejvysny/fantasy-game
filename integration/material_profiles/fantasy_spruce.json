@@ -1,0 +1,1 @@
+{"schema_version":1,"profile_id":"fantasy_spruce","rules":[{"match":{"slot_id":"spruce_vertexcolor"},"material":"res://materials/integration/spruce_legacy.tres"}]}

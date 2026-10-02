@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/integration/asset_roundtrip_test.gd" id="1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
+sky_top_color = Color(0.3, 0.55, 0.86, 1)
+sky_horizon_color = Color(0.72, 0.82, 0.9, 1)
+ground_horizon_color = Color(0.4, 0.44, 0.36, 1)
+ground_bottom_color = Color(0.2, 0.22, 0.18, 1)
+
+[sub_resource type="Sky" id="sky"]
+sky_material = SubResource("sky_mat")
+
+[sub_resource type="Environment" id="env"]
+background_mode = 2
+sky = SubResource("sky")
+ambient_light_source = 3
+ambient_light_color = Color(0.55, 0.62, 0.72, 1)
+ambient_light_sky_contribution = 0.5
+ambient_light_energy = 0.45
+reflected_light_source = 2
+tonemap_mode = 4
+tonemap_exposure = 0.9
+tonemap_agx_contrast = 1.3
+adjustment_enabled = true
+adjustment_saturation = 1.05
+
+[sub_resource type="StandardMaterial3D" id="ground_mat"]
+albedo_color = Color(0.43, 0.545, 0.25, 1)
+roughness = 1.0
+
+[sub_resource type="PlaneMesh" id="ground"]
+material = SubResource("ground_mat")
+size = Vector2(400, 400)
+
+[node name="AssetRoundtripTest" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-48, -35, 0)
+light_color = Color(1, 0.94, 0.84, 1)
+light_energy = 1.8
+shadow_enabled = true
+directional_shadow_mode = 1
+directional_shadow_max_distance = 160.0
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("ground")
+
+[node name="Camera" type="Camera3D" parent="."]
+fov = 40.0
+far = 600.0

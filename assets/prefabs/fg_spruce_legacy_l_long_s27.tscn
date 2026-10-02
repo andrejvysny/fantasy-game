@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/library/4d7512b0fef3d25ad4a298b4dde5be9547ad9447f7e33fe5d3a232cc78117e5c/071594dcea9aa110e5e01248b0b51a1500b005946433fef68b938c025fee0ef5/model.glb" id="1_ext"]
+[ext_resource type="Material" path="res://materials/integration/spruce_legacy.tres" id="2_ext"]
+
+[node name="fg_spruce_legacy_l_long_s27" type="Node3D"]
+metadata/assetstudio_binding = "fg_spruce_legacy_l_long_s27"
+metadata/assetstudio_asset_key = "4d7512b0fef3d25ad4a298b4dde5be9547ad9447f7e33fe5d3a232cc78117e5c"
+
+[node name="Model" parent="." instance=ExtResource("1_ext")]
+
+[node name="Tree" parent="Model" index="0"]
+surface_material_override/0 = ExtResource("2_ext")
+
+[editable path="Model"]

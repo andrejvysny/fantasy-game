@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/library/dd3d9131a90d959360c4cf44f3b8081a2be35fd0c3220225ffa9eb75c0733503/27df67ecf8c2972f959b9d26e2eb112bd37df725990ddf80216c2ed2ae78e6eb/model.glb" id="1_ext"]
+[ext_resource type="Material" path="res://materials/nature/nature_wood.tres" id="2_ext"]
+[ext_resource type="Material" path="res://materials/nature/nature_foliage.tres" id="3_ext"]
+
+[node name="fg_spruce_mature_a" type="Node3D"]
+metadata/assetstudio_binding = "fg_spruce_mature_a"
+metadata/assetstudio_asset_key = "dd3d9131a90d959360c4cf44f3b8081a2be35fd0c3220225ffa9eb75c0733503"
+
+[node name="Model" parent="." instance=ExtResource("1_ext")]
+
+[node name="spruce_mature_A" parent="Model" index="0"]
+surface_material_override/0 = ExtResource("2_ext")
+surface_material_override/1 = ExtResource("3_ext")
+
+[editable path="Model"]

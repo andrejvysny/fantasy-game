@@ -1,0 +1,9 @@
+{"schema_version":1,"bindings":{
+"fg_pine_open_a":{"class":"trunk","radius":0.35,"height":8.0},
+"fg_spruce_mature_a":{"class":"trunk","radius":0.34,"height":7.2},
+"fg_boulder_large_a":{"class":"convex"},
+"fg_spruce_legacy_l_long_s27":{"class":"trunk","radius":0.46,"height":9.22},
+"fg_campfire":{"class":"box"},
+"fg_wooden_lodge":{"class":"box","xz_scale":0.9},
+"fg_grass_tuft":{"class":"none"}
+}}

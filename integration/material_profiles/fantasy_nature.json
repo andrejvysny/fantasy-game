@@ -1,0 +1,1 @@
+{"schema_version":1,"profile_id":"fantasy_nature","rules":[{"match":{"role":"foliage"},"material":"res://materials/nature/nature_foliage.tres"},{"match":{"slot_id":"m_solid"},"material":"res://materials/nature/nature_wood.tres"}]}

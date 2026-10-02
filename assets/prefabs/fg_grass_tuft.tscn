@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/library/4fc2d31661f44001fcb379d474578e5376d031f03b8efbcc6044caa41850a664/166a155d29de40f0947bbeb8a6054a9de48f0cd2353e26ed804c4c41e1165073/model.glb" id="1_ext"]
+
+[node name="fg_grass_tuft" type="Node3D"]
+metadata/assetstudio_binding = "fg_grass_tuft"
+metadata/assetstudio_asset_key = "4fc2d31661f44001fcb379d474578e5376d031f03b8efbcc6044caa41850a664"
+
+[node name="Model" parent="." instance=ExtResource("1_ext")]

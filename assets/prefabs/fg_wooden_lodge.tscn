@@ -1,0 +1,24 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/library/06de46a28e97ab2291d42157fdae0401fadfa3baef3f21e15e3647c78e6b10e5/b75a80373ec26acebf5ac837a1c5c4268e39661e7a996be966b1b4c2ec06303f/model.glb" id="1_ext"]
+[ext_resource type="Texture2D" path="res://assets/library/06de46a28e97ab2291d42157fdae0401fadfa3baef3f21e15e3647c78e6b10e5/b75a80373ec26acebf5ac837a1c5c4268e39661e7a996be966b1b4c2ec06303f/model_0.png" id="2_ext"]
+[ext_resource type="Texture2D" path="res://assets/library/06de46a28e97ab2291d42157fdae0401fadfa3baef3f21e15e3647c78e6b10e5/b75a80373ec26acebf5ac837a1c5c4268e39661e7a996be966b1b4c2ec06303f/model_1.png" id="3_ext"]
+
+[sub_resource type="StandardMaterial3D" id="patched_material_0_0"]
+resource_name = "material_0"
+cull_mode = 2
+albedo_texture = ExtResource("2_ext")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("3_ext")
+roughness_texture_channel = 1
+
+[node name="fg_wooden_lodge" type="Node3D"]
+metadata/assetstudio_binding = "fg_wooden_lodge"
+metadata/assetstudio_asset_key = "06de46a28e97ab2291d42157fdae0401fadfa3baef3f21e15e3647c78e6b10e5"
+
+[node name="Model" parent="." instance=ExtResource("1_ext")]
+
+[node name="geometry_0" parent="Model/world" parent_id_path=PackedInt32Array(929499677, 647874510) index="0"]
+surface_material_override/0 = SubResource("patched_material_0_0")
+
+[editable path="Model"]

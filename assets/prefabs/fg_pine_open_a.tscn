@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/library/5f8c11c8b62dbba856bf8d98120968871e7a98afc37d5b641b73a83240a42c64/143ff32d84eebcf413e5e91098b7874c0902dfb97baf449d2d515f83d382f4b1/model.glb" id="1_ext"]
+[ext_resource type="Material" path="res://materials/nature/nature_wood.tres" id="2_ext"]
+[ext_resource type="Material" path="res://materials/nature/nature_foliage.tres" id="3_ext"]
+
+[node name="fg_pine_open_a" type="Node3D"]
+metadata/assetstudio_binding = "fg_pine_open_a"
+metadata/assetstudio_asset_key = "5f8c11c8b62dbba856bf8d98120968871e7a98afc37d5b641b73a83240a42c64"
+
+[node name="Model" parent="." instance=ExtResource("1_ext")]
+
+[node name="pine_open_A" parent="Model" index="0"]
+surface_material_override/0 = ExtResource("2_ext")
+surface_material_override/1 = ExtResource("3_ext")
+
+[editable path="Model"]
