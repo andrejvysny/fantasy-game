@@ -5,3 +5,7 @@ __pycache__/
 *.blend1
 tools/environment/out/
 world/generated/fields/_stub_*
+
+# AssetStudio managed deliveries: restored from assetstudio.lock.json
+assets/library/
+.assetstudio/
